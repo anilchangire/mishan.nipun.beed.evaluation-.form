@@ -395,7 +395,7 @@
           <div class="form-group">
             <label class="field-title">वाचन</label>
             <select class="student-select" id="readingCompetency">
-              <option value="">-- आधी इयत्ता निवडा --</option>
+              <option value="">-- क्षमता निवडा --</option>
             </select>
           </div>
 
@@ -403,7 +403,7 @@
           <div class="form-group">
             <label class="field-title">लेखन</label>
             <select class="student-select" id="writingCompetency">
-              <option value="">-- आधी इयत्ता निवडा --</option>
+              <option value="">-- क्षमता निवडा --</option>
             </select>
           </div>
 
@@ -411,7 +411,7 @@
           <div class="form-group">
             <label class="field-title">संख्याज्ञान</label>
             <select class="student-select" id="mathNumberCompetency">
-              <option value="">-- आधी इयत्ता निवडा --</option>
+              <option value="">-- क्षमता निवडा --</option>
             </select>
           </div>
 
@@ -419,7 +419,7 @@
           <div class="form-group">
             <label class="field-title">गणितीय क्रिया</label>
             <select class="student-select" id="mathOpCompetency">
-              <option value="">-- आधी इयत्ता निवडा --</option>
+              <option value="">-- क्षमता निवडा --</option>
             </select>
           </div>
         </div>
@@ -449,7 +449,7 @@
       element.classList.add('active');
     }
 
-    // ३. सर्व १४ शाळांच्या शिक्षकांची यादी
+    // ३. शाळा व शिक्षकांची यादी
     const schoolTeachers = {
       "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
       "SCH02": ["श्री ए बी गायकवाड", "श्रीमती आर बी आडगावकर", "श्रीमती सी एम काजळे", "श्रीमती एस व्ही कराड", "श्री डी एम दराडे", "श्रीमती एस.बी.मात्रे", "श्री बी.डी.पुपुलवाड"],
@@ -467,11 +467,9 @@
       "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
     };
 
-    // ४. शाळा बदलल्यावर शिक्षकांची यादी भरणे
     function handleSchoolChange() {
       const selectedSchoolCode = document.getElementById('schoolName').value;
       const teacherSelect = document.getElementById('teacherSelect');
-      
       teacherSelect.innerHTML = '';
 
       if (selectedSchoolCode && schoolTeachers[selectedSchoolCode]) {
@@ -487,7 +485,7 @@
       }
     }
 
-    // --- इयत्ता २ री च्या क्षमतांची रचना ---
+    // --- इयत्ता २ री क्षमता रचना ---
     const readingOptionsClass2 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
@@ -582,7 +580,7 @@
       </optgroup>
     `;
 
-    // --- इयत्ता ३ री साठी क्षमतांची रचना ---
+    // --- इयत्ता ३ री क्षमता रचना ---
     const readingOptionsClass3 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
@@ -705,7 +703,31 @@
       </optgroup>
     `;
 
-    // ५. मूल्यमापन गट बदलल्यावर होणारे बदल
+    // २ री चे पर्याय लोड करणे
+    function loadClass2Options() {
+      document.getElementById('readingCompetency').innerHTML = readingOptionsClass2;
+      document.getElementById('writingCompetency').innerHTML = writingOptionsClass2;
+      document.getElementById('mathNumberCompetency').innerHTML = mathNumberOptionsClass2;
+      document.getElementById('mathOpCompetency').innerHTML = mathOpOptionsClass2;
+    }
+
+    // ३ री चे पर्याय लोड करणे
+    function loadClass3Options() {
+      document.getElementById('readingCompetency').innerHTML = readingOptionsClass3;
+      document.getElementById('writingCompetency').innerHTML = writingOptionsClass3;
+      document.getElementById('mathNumberCompetency').innerHTML = mathNumberOptionsClass3;
+      document.getElementById('mathOpCompetency').innerHTML = mathOpOptionsClass3;
+    }
+
+    // पर्याय रिकामे करणे
+    function clearAllDropdowns(placeholderText) {
+      document.getElementById('readingCompetency').innerHTML = <option value="">${placeholderText}</option>;
+      document.getElementById('writingCompetency').innerHTML = <option value="">${placeholderText}</option>;
+      document.getElementById('mathNumberCompetency').innerHTML = <option value="">${placeholderText}</option>;
+      document.getElementById('mathOpCompetency').innerHTML = <option value="">${placeholderText}</option>;
+    }
+
+    // ४. मूल्यमापन गट बदलल्यास (इयत्ता २ री किंवा ३ री ते ५ वी)
     function handleGroupChange() {
       const groupSelect = document.getElementById('evalGroupSelect').value;
       const classSelect = document.getElementById('studentClassSelect');
@@ -729,52 +751,30 @@
       }
     }
 
-    // ६. विशिष्ट इयत्ता (उदा. तिसरी) निवडल्यावर क्षमता लोड करणे
+    // ५. इयत्ता बदलल्यास (तिसरी, चौथी, पाचवी)
     function handleClassSpecificChange() {
       const selectedClass = document.getElementById('studentClassSelect').value;
-      const readingSelect = document.getElementById('readingCompetency');
-      const writingSelect = document.getElementById('writingCompetency');
-      const mathNumberSelect = document.getElementById('mathNumberCompetency');
-      const mathOpSelect = document.getElementById('mathOpCompetency');
 
       if (selectedClass === 'इयत्ता तिसरी') {
-        readingSelect.innerHTML = readingOptionsClass3;
-        writingSelect.innerHTML = writingOptionsClass3;
-        mathNumberSelect.innerHTML = mathNumberOptionsClass3;
-        mathOpSelect.innerHTML = mathOpOptionsClass3;
-      } else if (selectedClass === 'इयत्ता २ री' || selectedClass === '२ री') {
+        loadClass3Options();
+      } else if (selectedClass === 'इयत्ता २ री') {
         loadClass2Options();
+      } else if (selectedClass === 'इयत्ता चौथी' || selectedClass === 'इयत्ता पाचवी') {
+        clearAllDropdowns('-- या इयत्तेच्या क्षमता लवकरच जोडल्या जातील --');
       } else {
         clearAllDropdowns('-- आधी इयत्ता निवडा --');
       }
     }
 
-    // इयत्ता २ री च्या क्षमता लोड करण्याचे कार्य
-    function loadClass2Options() {
-      document.getElementById('readingCompetency').innerHTML = readingOptionsClass2;
-      document.getElementById('writingCompetency').innerHTML = writingOptionsClass2;
-      document.getElementById('mathNumberCompetency').innerHTML = mathNumberOptionsClass2;
-      document.getElementById('mathOpCompetency').innerHTML = mathOpOptionsClass2;
-    }
-
-    // सिलेक्ट बॉक्सेस रीसेट करण्याचे कार्य
-    function clearAllDropdowns(placeholderText) {
-      document.getElementById('readingCompetency').innerHTML = <option value="">${placeholderText}</option>;
-      document.getElementById('writingCompetency').innerHTML = <option value="">${placeholderText}</option>;
-      document.getElementById('mathNumberCompetency').innerHTML = <option value="">${placeholderText}</option>;
-      document.getElementById('mathOpCompetency').innerHTML = <option value="">${placeholderText}</option>;
-    }
-
-    // ७. विद्यार्थ्यांचे नाव फक्त मराठीतच ठेवणे
+    // ६. मराठी नाव इनपुट व्हॅलिडेशन
     function validateMarathi(inputElement) {
       inputElement.value = inputElement.value.replace(/[^\u0900-\u097F\s.]/g, '');
     }
 
-    // ८. इयत्ता बदलताना इव्हेंट लिसनर जोडणे
-    document.getElementById('studentClassSelect').addEventListener('change', handleClassSpecificChange);
-
-    // सुरुवातीला लोड होताना २ री सक्रिय ठेवणे
-    handleGroupChange();
+    // सुरुवातीला २ री लोड करणे
+    window.onload = function() {
+      handleGroupChange();
+    };
   </script>
 </body>
-</htm
+</html>
