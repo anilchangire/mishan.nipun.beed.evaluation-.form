@@ -12,86 +12,11 @@
       font-family: Arial, sans-serif;
     }
 
-    .header-container {
-      background-color: #1976d2; /* निळा पार्श्वभूमी रंग */
-      color: #ffffff;
-      padding: 16px 20px;
-      width: 100%;
-    }
-
-    .main-title {
-      font-size: 26px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-
-    .sub-title {
-      font-size: 18px;
-      font-weight: 500;
-      opacity: 0.95;
-      margin-bottom: 12px;
-    }
-
-    .status-bar {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      font-size: 15px;
-      font-weight: bold;
-    }
-
-    .status-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      background-color: #00e676; /* हिरवा ठिपका */
-      border-radius: 50%;
-      display: inline-block;
-      box-shadow: 0 0 6px #00e676;
-    }
-  </style>
-</head>
-<body>
-
-  <header class="header-container">
-    <div class="main-title">मिशन निपुण बीड</div>
-    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
-    <div class="status-bar">
-      <div class="status-indicator">
-        <span class="status-dot"></span>
-        <span id="networkStatus">ऑनलाइन</span>
-      </div>
-      <div>प्रलंबित सिंक: <span id="syncCount">0</span></div>
-    </div>
-  </header>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="mr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>मिशन निपुण बीड</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
     body {
       background-color: #f4f6fa;
     }
 
-    /* निळा हेडर */
+    /* निळा हेडर - एकदाच */
     .header-container {
       background-color: #0d62ba;
       color: #ffffff;
@@ -132,176 +57,7 @@
       display: inline-block;
     }
 
-    /* नेव्हिगेशन टॅब बार */
-    .tab-bar {
-      display: flex;
-      background-color: #ffffff;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 14px 10px;
-      text-align: center;
-      font-size: 17px;
-      font-weight: bold;
-      color: #4a5568;
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    /* ॲक्टिव्ह टॅबसाठी निळी अंडरलाईन */
-    .tab-btn.active {
-      color: #0d62ba;
-      border-bottom: 3px solid #0d62ba;
-    }
-
-    /* कन्टेन्ट विभाग */
-    .content-container {
-      padding: 20px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .tab-content {
-      display: none;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- १. मुख्य हेडर -->
-  <header class="header-container">
-    <div class="main-title">मिशन निपुण बीड</div>
-    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
-    <div class="status-bar">
-      <div class="status-indicator">
-        <span class="status-dot"></span>
-        <span id="networkStatus">ऑनलाइन</span>
-      </div>
-      <div>प्रलंबित सिंक: <span id="syncCount">4</span></div>
-    </div>
-  </header>
-
-  <!-- २. टॅब बटणे -->
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('evaluationTab', this)">
-      <span style="font-size: 20px; line-height: 1;">+</span> नवीन मूल्यमापन
-    </button>
-    <button class="tab-btn" onclick="switchTab('dashboardTab', this)">
-      <span>🔒</span> मुख्याध्यापक (डॅशबोर्ड)
-    </button>
-  </div>
-
-  <!-- ३. माहिती विभाग -->
-  <div class="content-container">
-    <!-- नवीन मूल्यमापन सेक्शन -->
-    <div id="evaluationTab" class="tab-content active">
-      <h3>नवीन मूल्यमापन फॉर्म</h3>
-      <p style="margin-top: 10px; color: #666;">येथे विद्यार्थ्यांचे मूल्यमापन भरण्यासाठीचा फॉर्म येईल.</p>
-    </div>
-
-    <!-- मुख्याध्यापक डॅशबोर्ड सेक्शन -->
-    <div id="dashboardTab" class="tab-content">
-      <h3>मुख्याध्यापक डॅशबोर्ड</h3>
-      <p style="margin-top: 10px; color: #666;">येथे शाळेचा एकूण संकलित अहवाल किंवा पासवर्ड टाकून लॉगिन करण्याचा पर्याय ठेवता येईल.</p>
-    </div>
-  </div>
-
-  <!-- ४. टॅब बदलण्यासाठी स्क्रिप्ट -->
-  <script>
-    function switchTab(tabId, element) {
-      // सर्व टॅब कन्टेन्ट लपवा
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      // सर्व बटणांची ॲक्टिव्ह स्टाईल काढा
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-
-      // निवडलेला टॅब आणि बटण ॲक्टिव्ह करा
-      document.getElementById(tabId).classList.add('active');
-      element.classList.add('active');
-    }
-  </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="mr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>मिशन निपुण बीड</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background-color: #f4f6fa;
-    }
-
-    /* निळा हेडर */
-    .header-container {
-      background-color: #0d62ba;
-      color: #ffffff;
-      padding: 16px 20px;
-    }
-
-    .main-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .sub-title {
-      font-size: 16px;
-      margin-bottom: 12px;
-      opacity: 0.95;
-    }
-
-    .status-bar {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 15px;
-      font-weight: bold;
-    }
-
-    .status-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      background-color: #00e676;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    /* टॅब नेव्हिगेशन */
+    /* टॅब बार */
     .tab-bar {
       display: flex;
       background-color: #ffffff;
@@ -403,7 +159,7 @@
 </head>
 <body>
 
-  <!-- हेडर विभाग -->
+  <!-- १. मुख्य हेडर (एकच वेळा) -->
   <header class="header-container">
     <div class="main-title">मिशन निपुण बीड</div>
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
@@ -416,7 +172,7 @@
     </div>
   </header>
 
-  <!-- टॅब विभाग -->
+  <!-- २. टॅब बटणे -->
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('evaluationTab', this)">
       <span style="font-size: 20px; line-height: 1;">+</span> नवीन मूल्यमापन
@@ -427,7 +183,7 @@
   </div>
 
   <div class="content-container">
-    <!-- १. नवीन मूल्यमापन टॅब -->
+    <!-- नवीन मूल्यमापन फॉर्म -->
     <div id="evaluationTab" class="tab-content active">
       <div class="card-container">
         <div class="card-header-title">शाळा व शिक्षकाची माहिती</div>
@@ -454,7 +210,7 @@
           </select>
         </div>
 
-        <!-- वर्गशिक्षक -->
+        <!-- वर्गशिक्षक (शाळा निवडल्यावर नावे दिसतील) -->
         <div class="form-group">
           <label class="form-label" for="teacherSelect">वर्गशिक्षक <span class="required-star">*</span></label>
           <select id="teacherSelect" class="form-control" required>
@@ -488,11 +244,11 @@
       </div>
     </div>
 
-    <!-- २. मुख्याध्यापक डॅशबोर्ड टॅब -->
+    <!-- मुख्याध्यापक डॅशबोर्ड -->
     <div id="dashboardTab" class="tab-content">
       <div class="card-container">
         <div class="card-header-title">मुख्याध्यापक डॅशबोर्ड</div>
-        <p style="color: #64748b;">डॅशबोर्ड पाहण्यासाठी लॉगिन करा किंवा संकलित अहवाल तपासा.</p>
+        <p style="color: #64748b;">येथे शाळेचा संकलित अहवाल उपलब्ध होईल.</p>
       </div>
     </div>
   </div>
@@ -509,13 +265,39 @@
       element.classList.add('active');
     }
 
-    // शाळा निवडल्यावर शिक्षक यादी अपडेट करणे
+    // प्रत्येक शाळेतील शिक्षकांची यादी
+    const schoolTeachers = {
+      "जि.प.कें.प्रा.शाळा कन्या नागापूर": ["श्री. ए. बी. पाटील", "सौ. एस. के. जोशी"],
+      "जि.प.मा.शाळा नागापूर": ["श्री. आर. डी. जाधव", "सौ. पी. व्ही. मोरे"],
+      "जि.प.प्रा.शाळा डाबी": ["श्री. व्ही. आर. पवार", "सौ. के. एम. कुलकर्णी"],
+      "जि.प.प्रा.शाळा डाबी तांडा": ["श्री. टी. एस. राठोड"],
+      "जि.प.प्रा.शाळा वानटाकळी": ["श्री. एन. बी. देशमुख"],
+      "जि.प.प्रा.शाळा वानटाकळी तांडा": ["श्री. जी. एल. चव्हाण"],
+      "जि.प.प्रा.शाळा एकबाली तांडा": ["श्री. पी. एस. पवार"],
+      "जि.प.प्रा.शाळा दौनापुर तांडा": ["श्री. एस. आर. राठोड"],
+      "जि.प.प्रा.शाळा दौनापूर": ["श्री. के. बी. कांबळे"],
+      "जि.प.प्रा.शाळा लिंबूटा तांडा": ["श्री. आर. टी. जाधव"],
+      "जि.प.प्रा.शाळा बहादूरवाडी": ["श्री. एस. एन. गायकवाड"],
+      "संत तुकाराम प्राथमिक विद्यालय नागापूर": ["श्री. बी. एम. सोळंके"],
+      "रमाबाई प्राथमिक शाळा नागापूर": ["सौ. ए. आर. शिंदे"],
+      "बालाघाट विद्यालय दौनापूर": ["श्री. डी. के. मुंडे"]
+    };
+
+    // शाळा निवडल्यावर शिक्षक लोड करण्याचे फंक्शन
     function handleSchoolChange() {
-      const school = document.getElementById('schoolName').value;
+      const selectedSchool = document.getElementById('schoolName').value;
       const teacherSelect = document.getElementById('teacherSelect');
-      
-      if (school) {
-        teacherSelect.innerHTML = '<option value="">-- शिक्षक निवडा --</option>';
+
+      teacherSelect.innerHTML = '';
+
+      if (selectedSchool && schoolTeachers[selectedSchool]) {
+        teacherSelect.innerHTML = '<option value="">-- वर्गशिक्षक निवडा --</option>';
+        schoolTeachers[selectedSchool].forEach(function(teacher) {
+          const option = document.createElement('option');
+          option.value = teacher;
+          option.textContent = teacher;
+          teacherSelect.appendChild(option);
+        });
       } else {
         teacherSelect.innerHTML = '<option value="">-- आधी शाळा निवडा --</option>';
       }
