@@ -221,7 +221,7 @@
         <!-- दिनांक -->
         <div class="form-group">
           <label class="form-label" for="evalDate">दिनांक</label>
-          <input type="date" id="evalDate" class="form-control readonly-input" readonly>
+          <input type="date" id="evalDate" class="form-control">
         </div>
 
         <!-- केंद्र -->
@@ -254,17 +254,8 @@
   </div>
 
   <script>
-   // आजची तारीख आपोआप सेट करून कॅलेंडर लॉक करणे
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const todayFormatted = ${year}-${month}-${day};
-
-    const evalDateInput = document.getElementById('evalDate');
-    evalDateInput.value = todayFormatted;
-    evalDateInput.min = todayFormatted;
-    evalDateInput.max = todayFormatted; 
+    // आजची तारीख आपोआप सेट करणे
+    document.getElementById('evalDate').valueAsDate = new Date();
 
     // टॅब बदलणे
     function switchTab(tabId, element) {
