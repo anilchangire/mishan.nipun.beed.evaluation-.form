@@ -249,6 +249,19 @@
     .student-input:focus, .student-select:focus {
       border-color: #0d62ba;
     }
+
+    optgroup {
+      font-weight: bold;
+      color: #0d62ba;
+      background-color: #f1f5f9;
+    }
+
+    optgroup option {
+      font-weight: normal;
+      color: #1e293b;
+      background-color: #ffffff;
+      padding: 6px;
+    }
   </style>
 </head>
 <body>
@@ -370,7 +383,7 @@
             <input type="text" class="student-input" id="studentNameInput" placeholder="नाव (फक्त मराठीत)" oninput="validateMarathi(this)">
           </div>
 
-          <!-- इयत्ता (गटानुसार डायनॅमिक बदलणारी) -->
+          <!-- इयत्ता -->
           <div class="form-group">
             <label class="field-title">इयत्ता</label>
             <select class="student-select" id="studentClassSelect">
@@ -378,24 +391,18 @@
             </select>
           </div>
 
-          <!-- वाचन -->
+          <!-- वाचन (नवीन कोड क्र. २ नुसार) -->
           <div class="form-group">
             <label class="field-title">वाचन</label>
-            <select class="student-select">
-              <option value="">-- क्षमता निवडा --</option>
-              <option value="प्रारंभिक">प्रारंभिक</option>
-              <option value="अक्षर">अक्षर</option>
-              <option value="शब्द">शब्द</option>
-              <option value="वाक्य">वाक्य</option>
-              <option value="उतारा">उतारा</option>
-              <option value="समजपूर्वक वाचन">समजपूर्वक वाचन</option>
+            <select class="student-select" id="readingCompetency">
+              <option value="">-- आधी इयत्ता निवडा --</option>
             </select>
           </div>
 
           <!-- लेखन -->
           <div class="form-group">
             <label class="field-title">लेखन</label>
-            <select class="student-select">
+            <select class="student-select" id="writingCompetency">
               <option value="">-- क्षमता निवडा --</option>
               <option value="प्रारंभिक">प्रारंभिक</option>
               <option value="अक्षर लेखन">अक्षर लेखन</option>
@@ -407,7 +414,7 @@
           <!-- संख्याज्ञान -->
           <div class="form-group">
             <label class="field-title">संख्याज्ञान</label>
-            <select class="student-select">
+            <select class="student-select" id="mathNumberCompetency">
               <option value="">-- क्षमता निवडा --</option>
               <option value="प्रारंभिक">प्रारंभिक</option>
               <option value="१ ते २० ओळख">१ ते २० ओळख</option>
@@ -419,7 +426,7 @@
           <!-- गणितीय क्रिया -->
           <div class="form-group">
             <label class="field-title">गणितीय क्रिया</label>
-            <select class="student-select">
+            <select class="student-select" id="mathOpCompetency">
               <option value="">-- क्षमता निवडा --</option>
               <option value="प्रारंभिक">प्रारंभिक</option>
               <option value="बेरीज">बेरीज</option>
@@ -444,10 +451,10 @@
   </div>
 
   <script>
-    // १. आजची दिनांक आपोआप सेट करणे
+    // १. आजची दिनांक सेट करणे
     document.getElementById('evalDate').valueAsDate = new Date();
 
-    // २. टॅब स्विचिंग
+    // २. टॅब बदलणे
     function switchTab(tabId, element) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -493,20 +500,45 @@
       }
     }
 
-    // ५. मूल्यमापन गटानुसार इयत्तेचे पर्याय आपोआप बदलणे
+    // ५. नवीन कोड क्र. १ नुसार: इयत्ता २ री साठीच्या वाचन क्षमतांची गटनिहाय रचना
+    const readingOptionsClass2 = `
+      <option value="">-- क्षमता निवडा --</option>
+      <optgroup label="गट A (प्रगत)">
+        <option value="A-11">A - ११. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option>
+        <option value="A-12">A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>
+        <option value="A-13">A - १३. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option>
+        <option value="A-14">A - १४. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option>
+      </optgroup>
+      <optgroup label="गट B (मध्यम)">
+        <option value="B-5">B - ५. मजकुरातील साध्या विरामचिन्हांची दखल घेतो.</option>
+        <option value="B-6">B - ६. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>
+        <option value="B-7">B - ७. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option>
+        <option value="B-8">B - ८. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह वाचतो.</option>
+        <option value="B-9">B - ९. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>
+        <option value="B-10">B - १०. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option>
+      </optgroup>
+      <optgroup label="गट C (आरंभिक)">
+        <option value="C-1">C - १. वर्णमालेतील सर्व अक्षरे व त्याचे ध्वनी (उच्चार) ओळखत नाही.</option>
+        <option value="C-2">C - २. वर्णमालेतील सर्व अक्षरे व त्याचे ध्वनी (उच्चार) ओळखतो.</option>
+        <option value="C-3">C - ३. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे दोन अक्षरी शब्द वाचतो.</option>
+        <option value="C-4">C - ४. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे तीन ते चार अक्षरी शब्द वाचतो.</option>
+      </optgroup>
+    `;
+
+    // गट किंवा इयत्ता बदलल्यावर वाचन क्षमता नियंत्रित करणे
     function handleGroupChange() {
       const groupSelect = document.getElementById('evalGroupSelect').value;
       const classSelect = document.getElementById('studentClassSelect');
       const subjectInfo = document.getElementById('subjectInfoText');
+      const readingSelect = document.getElementById('readingCompetency');
 
       classSelect.innerHTML = '';
 
       if (groupSelect === 'class2') {
-        // इयत्ता २ री गट निवडल्यास थेट २ री सेट होईल
         classSelect.innerHTML = '<option value="२ री" selected>२ री</option>';
         subjectInfo.textContent = 'इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया';
+        readingSelect.innerHTML = readingOptionsClass2;
       } else {
-        // ३ री ते ५ वी गट निवडल्यास फक्त ३ री, ४ थी, ५ वी चे पर्याय दिसतील
         classSelect.innerHTML = `
           <option value="">-निवडा-</option>
           <option value="३ री">३ री</option>
@@ -514,6 +546,7 @@
           <option value="५ वी">५ वी</option>
         `;
         subjectInfo.textContent = 'इयत्ता ३ री ते ५ वी | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया';
+        readingSelect.innerHTML = '<option value="">-- क्षमता निवडा (इयत्ता ३ री ते ५ वी) --</option>';
       }
     }
 
@@ -522,7 +555,7 @@
       inputElement.value = inputElement.value.replace(/[^\u0900-\u097F\s.]/g, '');
     }
 
-    // सुरुवातीला लोड होताना २ री गटानुसार सेट ठेवणे
+    // सुरुवातीला लोड होताना २ री च्या क्षमता सक्रिय करणे
     handleGroupChange();
   </script>
 </body>
