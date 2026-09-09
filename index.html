@@ -391,7 +391,7 @@
             </select>
           </div>
 
-          <!-- वाचन (नवीन कोड क्र. २ नुसार) -->
+          <!-- वाचन -->
           <div class="form-group">
             <label class="field-title">वाचन</label>
             <select class="student-select" id="readingCompetency">
@@ -403,11 +403,7 @@
           <div class="form-group">
             <label class="field-title">लेखन</label>
             <select class="student-select" id="writingCompetency">
-              <option value="">-- क्षमता निवडा --</option>
-              <option value="प्रारंभिक">प्रारंभिक</option>
-              <option value="अक्षर लेखन">अक्षर लेखन</option>
-              <option value="शब्द लेखन">शब्द लेखन</option>
-              <option value="वाक्य लेखन (श्रुतलेखन)">वाक्य लेखन (श्रुतलेखन)</option>
+              <option value="">-- आधी इयत्ता निवडा --</option>
             </select>
           </div>
 
@@ -500,7 +496,7 @@
       }
     }
 
-    // ५. नवीन कोड क्र. १ नुसार: इयत्ता २ री साठीच्या वाचन क्षमतांची गटनिहाय रचना
+    // ५. इयत्ता २ री साठीच्या वाचन क्षमतांची अधिकृत रचना
     const readingOptionsClass2 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
@@ -525,12 +521,40 @@
       </optgroup>
     `;
 
-    // गट किंवा इयत्ता बदलल्यावर वाचन क्षमता नियंत्रित करणे
+    // ६. इयत्ता २ री साठीच्या लेखन क्षमतांची गटनिहाय रचना
+    const writingOptionsClass2 = `
+      <option value="">-- क्षमता निवडा --</option>
+      <optgroup label="गट A (प्रगत)">
+        <option value="A-12">A - १२. २-३ सोप्या शब्दांची दोन ते तीन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>
+        <option value="A-13">A - १३. २-३ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त विरामचिन्हांसह तीन ते चार वाक्ये ऐकून लिहितो.</option>
+        <option value="A-14">A - १४. श्रुतलेखनाकरिता ४-५ शब्दांची एक ते दोन सोपी वाक्ये योग्य गतीने लिहितो.</option>
+        <option value="A-15">A - १५. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त एक वाक्य विरामचिन्हांसह ऐकून लिहितो.</option>
+        <option value="A-16">A - १६. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त २-३ वाक्ये विरामचिन्हांसह योग्य गतीने लिहितो.</option>
+      </optgroup>
+      <optgroup label="गट B (मध्यम)">
+        <option value="B-6">B - ६. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>
+        <option value="B-7">B - ७. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे, स्वरचिन्हेयुक्त व जोडाक्षरयुक्त शब्द लिहितो.</option>
+        <option value="B-8">B - ८. २-३ शब्दांची व सोप्या जोडाक्षरांची एक ते दोन सोपी वाक्ये पाहून लिहितो.</option>
+        <option value="B-9">B - ९. ४-५ सोपे शब्द व सोपी जोडाक्षरे असलेली दोन ते तीन वाक्ये पाहून लिहितो.</option>
+        <option value="B-10">B - १०. २-३ शब्दांची एक ते दोन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>
+        <option value="B-11">B - ११. २-३ शब्द व जोडाक्षरयुक्त एक ते दोन वाक्ये ऐकून विरामचिन्हांसह योग्य गतीने लिहितो.</option>
+      </optgroup>
+      <optgroup label="गट C (आरंभिक)">
+        <option value="C-1">C - १. वर्णमालेतील अक्षरे पाहून लिहू शकत नाही.</option>
+        <option value="C-2">C - २. वर्णमालेतील अक्षरे पाहून लिहितो.</option>
+        <option value="C-3">C - ३. सोपे शब्द पाहून लिहितो.</option>
+        <option value="C-4">C - ४. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरांच्या ध्वनीला ऐकून अक्षरे लिहितो.</option>
+        <option value="C-5">C - ५. श्रुतलेखन करताना वर्णमालेतील काही अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>
+      </optgroup>
+    `;
+
+    // ७. गट किंवा इयत्ता बदलल्यावर वाचन व लेखन क्षमता नियंत्रित करणे
     function handleGroupChange() {
       const groupSelect = document.getElementById('evalGroupSelect').value;
       const classSelect = document.getElementById('studentClassSelect');
       const subjectInfo = document.getElementById('subjectInfoText');
       const readingSelect = document.getElementById('readingCompetency');
+      const writingSelect = document.getElementById('writingCompetency');
 
       classSelect.innerHTML = '';
 
@@ -538,6 +562,7 @@
         classSelect.innerHTML = '<option value="२ री" selected>२ री</option>';
         subjectInfo.textContent = 'इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया';
         readingSelect.innerHTML = readingOptionsClass2;
+        writingSelect.innerHTML = writingOptionsClass2;
       } else {
         classSelect.innerHTML = `
           <option value="">-निवडा-</option>
@@ -547,10 +572,11 @@
         `;
         subjectInfo.textContent = 'इयत्ता ३ री ते ५ वी | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया';
         readingSelect.innerHTML = '<option value="">-- क्षमता निवडा (इयत्ता ३ री ते ५ वी) --</option>';
+        writingSelect.innerHTML = '<option value="">-- क्षमता निवडा (इयत्ता ३ री ते ५ वी) --</option>';
       }
     }
 
-    // ६. विद्यार्थ्यांचे नाव फक्त मराठीतच ठेवणे
+    // ८. विद्यार्थ्यांचे नाव फक्त मराठीतच ठेवणे
     function validateMarathi(inputElement) {
       inputElement.value = inputElement.value.replace(/[^\u0900-\u097F\s.]/g, '');
     }
