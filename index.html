@@ -666,7 +666,6 @@
       </optgroup>
     `;
 
-    // इयत्ता ३ री साठी गणितीय क्रियांची संपूर्ण रचना (नवीन)
     const mathOpOptionsClass3 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
@@ -743,7 +742,7 @@
         writingSelect.innerHTML = writingOptionsClass3;
         mathNumberSelect.innerHTML = mathNumberOptionsClass3;
         mathOpSelect.innerHTML = mathOpOptionsClass3;
-      } else if (selectedClass === 'इयत्ता २ री') {
+      } else if (selectedClass === 'इयत्ता २ री' || selectedClass === '२ री') {
         loadClass2Options();
       } else {
         clearAllDropdowns('-- आधी इयत्ता निवडा --');
@@ -771,8 +770,11 @@
       inputElement.value = inputElement.value.replace(/[^\u0900-\u097F\s.]/g, '');
     }
 
+    // ८. इयत्ता बदलताना इव्हेंट लिसनर जोडणे
+    document.getElementById('studentClassSelect').addEventListener('change', handleClassSpecificChange);
+
     // सुरुवातीला लोड होताना २ री सक्रिय ठेवणे
     handleGroupChange();
   </script>
 </body>
-</html>
+</htm
