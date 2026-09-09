@@ -242,3 +242,285 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>मिशन निपुण बीड</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6fa;
+    }
+
+    /* निळा हेडर */
+    .header-container {
+      background-color: #0d62ba;
+      color: #ffffff;
+      padding: 16px 20px;
+    }
+
+    .main-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .sub-title {
+      font-size: 16px;
+      margin-bottom: 12px;
+      opacity: 0.95;
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #00e676;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* टॅब नेव्हिगेशन */
+    .tab-bar {
+      display: flex;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 14px 10px;
+      text-align: center;
+      font-size: 17px;
+      font-weight: bold;
+      color: #4a5568;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .tab-btn.active {
+      color: #0d62ba;
+      border-bottom: 3px solid #0d62ba;
+    }
+
+    /* फॉर्म कार्ड कंटेनर */
+    .content-container {
+      padding: 16px;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .card-container {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #dce3ed;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-header-title {
+      color: #0d62ba;
+      font-size: 20px;
+      font-weight: bold;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #0d62ba;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: #333333;
+      margin-bottom: 8px;
+    }
+
+    .required-star {
+      color: #e53e3e;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+      color: #1e293b;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .form-control:focus {
+      border-color: #0d62ba;
+    }
+
+    .readonly-input {
+      background-color: #f8fafc;
+      color: #334155;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- हेडर विभाग -->
+  <header class="header-container">
+    <div class="main-title">मिशन निपुण बीड</div>
+    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
+    <div class="status-bar">
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span id="networkStatus">ऑनलाइन</span>
+      </div>
+      <div>प्रलंबित सिंक: <span id="syncCount">0</span></div>
+    </div>
+  </header>
+
+  <!-- टॅब विभाग -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('evaluationTab', this)">
+      <span style="font-size: 20px; line-height: 1;">+</span> नवीन मूल्यमापन
+    </button>
+    <button class="tab-btn" onclick="switchTab('dashboardTab', this)">
+      <span>🔒</span> मुख्याध्यापक (डॅशबोर्ड)
+    </button>
+  </div>
+
+  <div class="content-container">
+    <!-- १. नवीन मूल्यमापन टॅब -->
+    <div id="evaluationTab" class="tab-content active">
+      <div class="card-container">
+        <div class="card-header-title">शाळा व शिक्षकाची माहिती</div>
+
+        <!-- शाळा निवडा -->
+        <div class="form-group">
+          <label class="form-label" for="schoolName">शाळा निवडा <span class="required-star">*</span></label>
+          <select name="शाळेचे_नाव" id="schoolName" class="form-control" required onchange="handleSchoolChange()">
+            <option value="">-- शाळा निवडा --</option>
+            <option value="जि.प.कें.प्रा.शाळा कन्या नागापूर">जि.प.कें.प्रा.शाळा कन्या नागापूर</option>
+            <option value="जि.प.मा.शाळा नागापूर">जि.प.मा.शाळा नागापूर</option>
+            <option value="जि.प.प्रा.शाळा डाबी">जि.प.प्रा.शाळा डाबी</option>
+            <option value="जि.प.प्रा.शाळा डाबी तांडा">जि.प.प्रा.शाळा डाबी तांडा</option>
+            <option value="जि.प.प्रा.शाळा वानटाकळी">जि.प.प्रा.शाळा वानटाकळी</option>
+            <option value="जि.प.प्रा.शाळा वानटाकळी तांडा">जि.प.प्रा.शाळा वानटाकळी तांडा</option>
+            <option value="जि.प.प्रा.शाळा एकबाली तांडा">जि.प.प्रा.शाळा एकबाली तांडा</option>
+            <option value="जि.प.प्रा.शाळा दौनापुर तांडा">जि.प.प्रा.शाळा दौनापूर तांडा</option>
+            <option value="जि.प.प्रा.शाळा दौनापूर">जि.प.प्रा.शाळा दौनापूर</option>
+            <option value="जि.प.प्रा.शाळा लिंबूटा तांडा">जि.प.प्रा.शाळा लिंबूटा तांडा</option>
+            <option value="जि.प.प्रा.शाळा बहादूरवाडी">जि.प.प्रा.शाळा बहादूरवाडी</option>
+            <option value="संत तुकाराम प्राथमिक विद्यालय नागापूर">संत तुकाराम प्राथमिक विद्यालय नागापूर</option>
+            <option value="रमाबाई प्राथमिक शाळा नागापूर">रमाबाई प्राथमिक शाळा नागापूर</option>
+            <option value="बालाघाट विद्यालय दौनापूर">बालाघाट विद्यालय दौनापूर</option>
+          </select>
+        </div>
+
+        <!-- वर्गशिक्षक -->
+        <div class="form-group">
+          <label class="form-label" for="teacherSelect">वर्गशिक्षक <span class="required-star">*</span></label>
+          <select id="teacherSelect" class="form-control" required>
+            <option value="">-- आधी शाळा निवडा --</option>
+          </select>
+        </div>
+
+        <!-- दिनांक -->
+        <div class="form-group">
+          <label class="form-label" for="evalDate">दिनांक</label>
+          <input type="date" id="evalDate" class="form-control">
+        </div>
+
+        <!-- केंद्र -->
+        <div class="form-group">
+          <label class="form-label" for="centerName">केंद्र</label>
+          <input type="text" id="centerName" class="form-control" value="नागापूर" placeholder="उदा. नागापूर">
+        </div>
+
+        <!-- तालुका -->
+        <div class="form-group">
+          <label class="form-label" for="taluka">तालुका</label>
+          <input type="text" id="taluka" class="form-control readonly-input" value="अंबाजोगाई" readonly>
+        </div>
+
+        <!-- जिल्हा -->
+        <div class="form-group">
+          <label class="form-label" for="district">जिल्हा</label>
+          <input type="text" id="district" class="form-control readonly-input" value="बीड" readonly>
+        </div>
+      </div>
+    </div>
+
+    <!-- २. मुख्याध्यापक डॅशबोर्ड टॅब -->
+    <div id="dashboardTab" class="tab-content">
+      <div class="card-container">
+        <div class="card-header-title">मुख्याध्यापक डॅशबोर्ड</div>
+        <p style="color: #64748b;">डॅशबोर्ड पाहण्यासाठी लॉगिन करा किंवा संकलित अहवाल तपासा.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // आजची तारीख आपोआप सेट करणे
+    document.getElementById('evalDate').valueAsDate = new Date();
+
+    // टॅब बदलणे
+    function switchTab(tabId, element) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      element.classList.add('active');
+    }
+
+    // शाळा निवडल्यावर शिक्षक यादी अपडेट करणे
+    function handleSchoolChange() {
+      const school = document.getElementById('schoolName').value;
+      const teacherSelect = document.getElementById('teacherSelect');
+      
+      if (school) {
+        teacherSelect.innerHTML = '<option value="">-- शिक्षक निवडा --</option>';
+      } else {
+        teacherSelect.innerHTML = '<option value="">-- आधी शाळा निवडा --</option>';
+      }
+    }
+  </script>
+
+</body>
+</html>
