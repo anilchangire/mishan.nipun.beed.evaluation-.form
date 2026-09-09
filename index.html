@@ -73,3 +73,172 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>मिशन निपुण बीड</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6fa;
+    }
+
+    /* निळा हेडर */
+    .header-container {
+      background-color: #0d62ba;
+      color: #ffffff;
+      padding: 16px 20px;
+    }
+
+    .main-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .sub-title {
+      font-size: 16px;
+      margin-bottom: 12px;
+      opacity: 0.95;
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #00e676;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* नेव्हिगेशन टॅब बार */
+    .tab-bar {
+      display: flex;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 14px 10px;
+      text-align: center;
+      font-size: 17px;
+      font-weight: bold;
+      color: #4a5568;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* ॲक्टिव्ह टॅबसाठी निळी अंडरलाईन */
+    .tab-btn.active {
+      color: #0d62ba;
+      border-bottom: 3px solid #0d62ba;
+    }
+
+    /* कन्टेन्ट विभाग */
+    .content-container {
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tab-content {
+      display: none;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- १. मुख्य हेडर -->
+  <header class="header-container">
+    <div class="main-title">मिशन निपुण बीड</div>
+    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
+    <div class="status-bar">
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span id="networkStatus">ऑनलाइन</span>
+      </div>
+      <div>प्रलंबित सिंक: <span id="syncCount">4</span></div>
+    </div>
+  </header>
+
+  <!-- २. टॅब बटणे -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('evaluationTab', this)">
+      <span style="font-size: 20px; line-height: 1;">+</span> नवीन मूल्यमापन
+    </button>
+    <button class="tab-btn" onclick="switchTab('dashboardTab', this)">
+      <span>🔒</span> मुख्याध्यापक (डॅशबोर्ड)
+    </button>
+  </div>
+
+  <!-- ३. माहिती विभाग -->
+  <div class="content-container">
+    <!-- नवीन मूल्यमापन सेक्शन -->
+    <div id="evaluationTab" class="tab-content active">
+      <h3>नवीन मूल्यमापन फॉर्म</h3>
+      <p style="margin-top: 10px; color: #666;">येथे विद्यार्थ्यांचे मूल्यमापन भरण्यासाठीचा फॉर्म येईल.</p>
+    </div>
+
+    <!-- मुख्याध्यापक डॅशबोर्ड सेक्शन -->
+    <div id="dashboardTab" class="tab-content">
+      <h3>मुख्याध्यापक डॅशबोर्ड</h3>
+      <p style="margin-top: 10px; color: #666;">येथे शाळेचा एकूण संकलित अहवाल किंवा पासवर्ड टाकून लॉगिन करण्याचा पर्याय ठेवता येईल.</p>
+    </div>
+  </div>
+
+  <!-- ४. टॅब बदलण्यासाठी स्क्रिप्ट -->
+  <script>
+    function switchTab(tabId, element) {
+      // सर्व टॅब कन्टेन्ट लपवा
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      // सर्व बटणांची ॲक्टिव्ह स्टाईल काढा
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // निवडलेला टॅब आणि बटण ॲक्टिव्ह करा
+      document.getElementById(tabId).classList.add('active');
+      element.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
