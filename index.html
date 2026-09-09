@@ -183,7 +183,7 @@
   </div>
 
   <div class="content-container">
-    <!-- नवीन मूल्यमापन -->
+    <!-- नवीन मूल्यमापन टॅब -->
     <div id="evaluationTab" class="tab-content active">
       <div class="card-container">
         <div class="card-header-title">शाळा व शिक्षकाची माहिती</div>
@@ -244,7 +244,7 @@
       </div>
     </div>
 
-    <!-- मुख्याध्यापक डॅशबोर्ड -->
+    <!-- मुख्याध्यापक डॅशबोर्ड टॅब -->
     <div id="dashboardTab" class="tab-content">
       <div class="card-container">
         <div class="card-header-title">मुख्याध्यापक डॅशबोर्ड</div>
@@ -254,7 +254,7 @@
   </div>
 
   <script>
-    // आजची तारीख सेट करणे
+    // आजची तारीख आपोआप सेट करणे
     document.getElementById('evalDate').valueAsDate = new Date();
 
     // टॅब बदलणे
@@ -265,7 +265,7 @@
       element.classList.add('active');
     }
 
-    // सर्व शाळा आणि त्यांच्या शिक्षकांची अचूक यादी
+    // दुरुस्त केलेली सर्व शाळा व शिक्षकांची यादी
     const schoolTeachers = {
       "जि.प.कें.प्रा.शाळा कन्या नागापूर": [
         "श्री.एस.एम.गंगणे", 
@@ -277,13 +277,13 @@
         "श्रीमती सी एम काजळे", 
         "श्रीमती एस व्ही कराड", 
         "श्री डी एम दराडे",
-        "श्रीमती एस.बी.मात्रे ",
+        "श्रीमती एस.बी.मात्रे",
         "श्री बी.डी.पुपुलवाड"
       ],
       "जि.प.प्रा.शाळा डाबी": [
         "श्री.एन.एस.जातकर", 
         "श्री.ए.आर.नेहरकर", 
-        "श्री.पी.पी.आंधळे ", 
+        "श्री.पी.पी.आंधळे", 
         "श्री.जी.एम.दहिवाडे", 
         "श्री.एम.आर.फड", 
         "श्रीमती एस.आर.गुरले"
@@ -330,8 +330,8 @@
         "श्रीमती एम.एस.माले"
       ],
       "संत तुकाराम प्राथमिक विद्यालय नागापूर": [
-        "श्री. ए.यु.पांचाळ ",
-        "डी.एम.गडदे "
+        "श्री. ए.यु.पांचाळ",
+        "डी.एम.गडदे"
       ],
       "रमाबाई प्राथमिक शाळा नागापूर": [
         "श्री वाय पी तोंडारे", 
@@ -339,8 +339,8 @@
         "श्री के टी भुसे", 
         "श्री एन.जी. कानडे", 
         "श्रीमती एस.एस.बचुटे",
-        " श्री एस.जी.बनसोडे ",
-        " टी.ए.कांबळे"
+        "श्री एस.जी.बनसोडे",
+        "टी.ए.कांबळे"
       ],
       "बालाघाट विद्यालय दौनापूर": [
         "श्रीमती पी टी कपाळे", 
@@ -350,9 +350,9 @@
       ]
     };
 
-    // शाळा निवडल्यावर शिक्षक यादी भरण्याचे कार्य
+    // शाळा निवडल्यावर शिक्षकांची यादी भरण्याचे फंक्शन
     function handleSchoolChange() {
-      const selectedSchool = document.getElementById('schoolName').value;
+      const selectedSchool = document.getElementById('schoolName').value.trim();
       const teacherSelect = document.getElementById('teacherSelect');
       
       teacherSelect.innerHTML = '';
@@ -361,8 +361,8 @@
         teacherSelect.innerHTML = '<option value="">-- वर्गशिक्षक निवडा --</option>';
         schoolTeachers[selectedSchool].forEach(function(teacher) {
           const option = document.createElement('option');
-          option.value = teacher;
-          option.textContent = teacher;
+          option.value = teacher.trim();
+          option.textContent = teacher.trim();
           teacherSelect.appendChild(option);
         });
       } else {
