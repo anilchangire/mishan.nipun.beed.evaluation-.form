@@ -155,10 +155,9 @@
       background-color: #f8fafc;
       color: #334155;
       font-weight: 500;
-      cursor: not-allowed;
     }
 
-    /* विद्यार्थी क्षमता नोंदणी स्टाईल */
+    /* विद्यार्थी क्षमता नोंदणी कार्ड स्टाईल */
     .eval-group-box {
       background-color: #f0f4ff;
       border-radius: 10px;
@@ -204,6 +203,60 @@
       color: #475569;
       margin-top: 10px;
       line-height: 1.5;
+    }
+
+    /* विद्यार्थी १ कार्ड डिझाईन */
+    .student-card {
+      background: #ffffff;
+      border: 2px solid #0d62ba;
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(13, 98, 186, 0.08);
+    }
+
+    .student-sr-container {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .student-sr-label {
+      font-size: 15px;
+      color: #0d62ba;
+      font-weight: bold;
+      display: block;
+    }
+
+    .student-sr-no {
+      font-size: 24px;
+      font-weight: bold;
+      color: #1e293b;
+      line-height: 1.2;
+    }
+
+    .field-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #0d62ba;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .student-input, .student-select {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      background-color: #ffffff;
+      color: #1e293b;
+      box-sizing: border-box;
+      margin-bottom: 16px;
+    }
+
+    .student-input:focus, .student-select:focus {
+      border-color: #0d62ba;
     }
   </style>
 </head>
@@ -270,7 +323,7 @@
           </select>
         </div>
 
-        <!-- दिनांक (सुरुवातीप्रमाणे कॅलेंडर उघडेल व तारीख निवडता येईल) -->
+        <!-- दिनांक -->
         <div class="form-group">
           <label class="form-label" for="evalDate">दिनांक</label>
           <input type="date" id="evalDate" class="form-control">
@@ -308,7 +361,7 @@
           </select>
         </div>
 
-        <!-- ३ री ते ५ वी निवडल्यावर दिसणारा स्वतंत्र वर्ग निवड पर्याय -->
+        <!-- ३ री ते ५ वी निवडल्यावर दिसणारा स्वतंत्र वर्ग पर्याय -->
         <div id="subClassContainer" class="sub-class-container">
           <label class="form-label" for="specificClass">इयत्ता निवडा <span class="required-star">*</span></label>
           <select id="specificClass" class="form-control">
@@ -323,6 +376,84 @@
         <div id="subjectInfoText" class="subject-info-text">
           इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया
         </div>
+
+        <!-- विद्यार्थी १ तपशील कार्ड -->
+        <div class="student-card">
+          <div class="student-sr-container">
+            <span class="student-sr-label">क्र.</span>
+            <span class="student-sr-no">1</span>
+          </div>
+
+          <!-- विद्यार्थ्याचे नाव -->
+          <div class="form-group">
+            <label class="field-title">विद्यार्थ्याचे नाव</label>
+            <input type="text" class="student-input" placeholder="नाव">
+          </div>
+
+          <!-- इयत्ता -->
+          <div class="form-group">
+            <label class="field-title">इयत्ता</label>
+            <select class="student-select">
+              <option value="">-निवडा-</option>
+              <option value="२ री">२ री</option>
+              <option value="३ री">३ री</option>
+              <option value="४ थी">४ थी</option>
+              <option value="५ वी">५ वी</option>
+            </select>
+          </div>
+
+          <!-- वाचन -->
+          <div class="form-group">
+            <label class="field-title">वाचन</label>
+            <select class="student-select">
+              <option value="">-- क्षमता निवडा --</option>
+              <option value="प्रारंभिक">प्रारंभिक</option>
+              <option value="अक्षर">अक्षर</option>
+              <option value="शब्द">शब्द</option>
+              <option value="वाक्य">वाक्य</option>
+              <option value="उतारा">उतारा</option>
+              <option value="समजपूर्वक वाचन">समजपूर्वक वाचन</option>
+            </select>
+          </div>
+
+          <!-- लेखन -->
+          <div class="form-group">
+            <label class="field-title">लेखन</label>
+            <select class="student-select">
+              <option value="">-- क्षमता निवडा --</option>
+              <option value="प्रारंभिक">प्रारंभिक</option>
+              <option value="अक्षर लेखन">अक्षर लेखन</option>
+              <option value="शब्द लेखन">शब्द लेखन</option>
+              <option value="वाक्य लेखन (श्रुतलेखन)">वाक्य लेखन (श्रुतलेखन)</option>
+            </select>
+          </div>
+
+          <!-- संख्याज्ञान -->
+          <div class="form-group">
+            <label class="field-title">संख्याज्ञान</label>
+            <select class="student-select">
+              <option value="">-- क्षमता निवडा --</option>
+              <option value="प्रारंभिक">प्रारंभिक</option>
+              <option value="१ ते २० ओळख">१ ते २० ओळख</option>
+              <option value="१ ते १०० ओळख">१ ते १०० ओळख</option>
+              <option value="स्थानिक किंमत">स्थानिक किंमत</option>
+            </select>
+          </div>
+
+          <!-- गणितीय क्रिया -->
+          <div class="form-group">
+            <label class="field-title">गणितीय क्रिया</label>
+            <select class="student-select">
+              <option value="">-- क्षमता निवडा --</option>
+              <option value="प्रारंभिक">प्रारंभिक</option>
+              <option value="बेरीज">बेरीज</option>
+              <option value="वजाबाकी">वजाबाकी</option>
+              <option value="गुणाकार">गुणाकार</option>
+              <option value="भागाकार">भागाकार</option>
+            </select>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -337,10 +468,10 @@
   </div>
 
   <script>
-    // १. आजची दिनांक आपोआप सेट करणे (पण कॅलेंडर ओपन राहील)
+    // १. आजची तारीख सेट करणे
     document.getElementById('evalDate').valueAsDate = new Date();
 
-    // २. टॅब स्विचिंग
+    // २. टॅब बदलणे
     function switchTab(tabId, element) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -348,92 +479,25 @@
       element.classList.add('active');
     }
 
-    // ३. सर्व १४ शाळांच्या शिक्षकांची अचूक यादी
+    // ३. सर्व १४ शाळांच्या शिक्षकांची यादी
     const schoolTeachers = {
-      "SCH01": [ // जि.प.कें.प्रा.शाळा कन्या नागापूर
-        "श्री.एस.एम.गंगणे", 
-        "श्री.बी.डी.राठोड"
-      ],
-      "SCH02": [ // जि.प.मा.शाळा नागापूर
-        "श्री ए बी गायकवाड", 
-        "श्रीमती आर बी आडगावकर", 
-        "श्रीमती सी एम काजळे", 
-        "श्रीमती एस व्ही कराड", 
-        "श्री डी एम दराडे",
-        "श्रीमती एस.बी.मात्रे",
-        "श्री बी.डी.पुपुलवाड"
-      ],
-      "SCH03": [ // जि.प.प्रा.शाळा डाबी
-        "श्री.एन.एस.जातकर", 
-        "श्री.ए.आर.नेहरकर", 
-        "श्री.पी.पी.आंधळे", 
-        "श्री.जी.एम.दहिवाडे", 
-        "श्री.एम.आर.फड", 
-        "श्रीमती एस.आर.गुरले"
-      ],
-      "SCH04": [ // जि.प.प्रा.शाळा डाबी तांडा
-        "श्री.एस.जी.फड", 
-        "श्रीमती बी.बी.रापतवार"
-      ],
-      "SCH05": [ // जि.प.प्रा.शाळा वानटाकळी
-        "श्री.आर.बी.जोशी", 
-        "श्री एस.आय.गड्डापोड", 
-        "श्री.एस.जे.मुकडे", 
-        "श्री एस.एम.गित्ते", 
-        "श्री बी.एम.जाधव", 
-        "श्रीमती एस.एन.कल्याणे"
-      ],
-      "SCH06": [ // जि.प.प्रा.शाळा वानटाकळी तांडा
-        "श्री.एम.एन.जाधव", 
-        "श्री व्ही.एम.गायकवाड"
-      ],
-      "SCH07": [ // जि.प.प्रा.शाळा एकबाली तांडा
-        "श्री.के.बी.माडजे", 
-        "श्रीमती एस.यु.चाटे"
-      ],
-      "SCH08": [ // जि.प.प्रा.शाळा दौनापुर तांडा
-        "श्रीमती एस.के.लाड"
-      ],
-      "SCH09": [ // जि.प.प्रा.शाळा दौनापूर
-        "श्री.आर.टी.मंत्रे", 
-        "श्री एम.डी.कळसकर", 
-        "श्री सी.टी.मुंडे", 
-        "श्री डी.एम.गाडेकर", 
-        "श्री.पी.के.रेवलकर", 
-        "श्री एम.ए.आंधळे", 
-        "श्रीमती आर.डी.आलझेंडे", 
-        "श्रीमती आर.एन.जाधव"
-      ],
-      "SCH10": [ // जि.प.प्रा.शाळा लिंबूटा तांडा
-        "श्री.एम.बी.बडगिरे", 
-        "श्री.पी.व्ही.काळेवाड"
-      ],
-      "SCH11": [ // जि.प.प्रा.शाळा बहादूरवाडी
-        "श्रीमती चिद्दरवार ए.डी", 
-        "श्रीमती एम.एस.माले"
-      ],
-      "SCH12": [ // संत तुकाराम प्राथमिक विद्यालय नागापूर
-        "श्री. ए.यु.पांचाळ",
-        "डी.एम.गडदे"
-      ],
-      "SCH13": [ // रमाबाई प्राथमिक शाळा नागापूर
-        "श्री वाय पी तोंडारे", 
-        "श्रीमती एस एस बनसोडे", 
-        "श्री के टी भुसे", 
-        "श्री एन.जी. कानडे", 
-        "श्रीमती एस.एस.बचुटे",
-        "श्री एस.जी.बनसोडे",
-        "टी.ए.कांबळे"
-      ],
-      "SCH14": [ // बालाघाट विद्यालय दौनापूर
-        "श्रीमती पी टी कपाळे", 
-        "श्री आर एस नागरगोजे", 
-        "श्री पी.एस उघडे", 
-        "श्री बी.डी.दासूद"
-      ]
+      "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
+      "SCH02": ["श्री ए बी गायकवाड", "श्रीमती आर बी आडगावकर", "श्रीमती सी एम काजळे", "श्रीमती एस व्ही कराड", "श्री डी एम दराडे", "श्रीमती एस.बी.मात्रे", "श्री बी.डी.पुपुलवाड"],
+      "SCH03": ["श्री.एन.एस.जातकर", "श्री.ए.आर.नेहरकर", "श्री.पी.पी.आंधळे", "श्री.जी.एम.दहिवाडे", "श्री.एम.आर.फड", "श्रीमती एस.आर.गुरले"],
+      "SCH04": ["श्री.एस.जी.फड", "श्रीमती बी.बी.रापतवार"],
+      "SCH05": ["श्री.आर.बी.जोशी", "श्री एस.आय.गड्डापोड", "श्री.एस.जे.मुकडे", "श्री एस.एम.गित्ते", "श्री बी.एम.जाधव", "श्रीमती एस.एन.कल्याणे"],
+      "SCH06": ["श्री.एम.एन.जाधव", "श्री व्ही.एम.गायकवाड"],
+      "SCH07": ["श्री.के.बी.माडजे", "श्रीमती एस.यु.चाटे"],
+      "SCH08": ["श्रीमती एस.के.लाड"],
+      "SCH09": ["श्री.आर.टी.मंत्रे", "श्री एम.डी.कळसकर", "श्री सी.टी.मुंडे", "श्री डी.एम.गाडेकर", "श्री.पी.के.रेवलकर", "श्री एम.ए.आंधळे", "श्रीमती आर.डी.आलझेंडे", "श्रीमती आर.एन.जाधव"],
+      "SCH10": ["श्री.एम.बी.बडगिरे", "श्री.पी.व्ही.काळेवाड"],
+      "SCH11": ["श्रीमती चिद्दरवार ए.डी", "श्रीमती एम.एस.माले"],
+      "SCH12": ["श्री. ए.यु.पांचाळ", "डी.एम.गडदे"],
+      "SCH13": ["श्री वाय पी तोंडारे", "श्रीमती एस एस बनसोडे", "श्री के टी भुसे", "श्री एन.जी. कानडे", "श्रीमती एस.एस.बचुटे", "श्री एस.जी.बनसोडे", "टी.ए.कांबळे"],
+      "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
     };
 
-    // ४. शाळा बदलल्यावर शिक्षकांची यादी भरणे
+    // ४. शाळा निवडल्यावर शिक्षक लोड करणे
     function handleSchoolChange() {
       const selectedSchoolCode = document.getElementById('schoolName').value;
       const teacherSelect = document.getElementById('teacherSelect');
@@ -453,7 +517,7 @@
       }
     }
 
-    // ५. गट बदलल्यावर स्वतंत्र वर्ग पर्याय दाखवणे/लपवणे
+    // ५. मूल्यमापन गट निवडल्यावर वर्ग पर्याय नियंत्रित करणे
     function handleGroupChange() {
       const groupSelect = document.getElementById('evalGroupSelect').value;
       const subClassDiv = document.getElementById('subClassContainer');
@@ -470,4 +534,4 @@
     }
   </script>
 </body>
-</html>
+</html
