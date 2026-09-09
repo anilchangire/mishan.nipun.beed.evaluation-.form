@@ -16,7 +16,7 @@
       background-color: #f4f6fa;
     }
 
-    /* निळा हेडर - एकदाच */
+    /* निळा हेडर */
     .header-container {
       background-color: #0d62ba;
       color: #ffffff;
@@ -86,7 +86,7 @@
       border-bottom: 3px solid #0d62ba;
     }
 
-    /* फॉर्म कार्ड कंटेनर */
+    /* फॉर्म कंटेनर */
     .content-container {
       padding: 16px;
       max-width: 550px;
@@ -159,7 +159,7 @@
 </head>
 <body>
 
-  <!-- १. मुख्य हेडर (एकच वेळा) -->
+  <!-- मुख्य हेडर -->
   <header class="header-container">
     <div class="main-title">मिशन निपुण बीड</div>
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
@@ -172,7 +172,7 @@
     </div>
   </header>
 
-  <!-- २. टॅब बटणे -->
+  <!-- टॅब पर्याय -->
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('evaluationTab', this)">
       <span style="font-size: 20px; line-height: 1;">+</span> नवीन मूल्यमापन
@@ -183,12 +183,12 @@
   </div>
 
   <div class="content-container">
-    <!-- नवीन मूल्यमापन फॉर्म -->
+    <!-- १. नवीन मूल्यमापन -->
     <div id="evaluationTab" class="tab-content active">
       <div class="card-container">
         <div class="card-header-title">शाळा व शिक्षकाची माहिती</div>
 
-        <!-- शाळा निवडा -->
+        <!-- शाळा -->
         <div class="form-group">
           <label class="form-label" for="schoolName">शाळा निवडा <span class="required-star">*</span></label>
           <select name="शाळेचे_नाव" id="schoolName" class="form-control" required onchange="handleSchoolChange()">
@@ -210,7 +210,7 @@
           </select>
         </div>
 
-        <!-- वर्गशिक्षक (शाळा निवडल्यावर नावे दिसतील) -->
+        <!-- वर्गशिक्षक -->
         <div class="form-group">
           <label class="form-label" for="teacherSelect">वर्गशिक्षक <span class="required-star">*</span></label>
           <select id="teacherSelect" class="form-control" required>
@@ -224,16 +224,16 @@
           <input type="date" id="evalDate" class="form-control">
         </div>
 
-        <!-- केंद्र -->
+        <!-- केंद्र (बदल केला आहे) -->
         <div class="form-group">
           <label class="form-label" for="centerName">केंद्र</label>
-          <input type="text" id="centerName" class="form-control" value="कन्या नागापूर" placeholder="उदा. कन्या नागापूर">
+          <input type="text" id="centerName" class="form-control" value="कन्या नागापूर" placeholder="कन्या नागापूर">
         </div>
 
-        <!-- तालुका -->
+        <!-- तालुका (बदल केला आहे) -->
         <div class="form-group">
           <label class="form-label" for="taluka">तालुका</label>
-          <input type="text" id="taluka" class="form-control readonly-input" value=" परळी वै." readonly>
+          <input type="text" id="taluka" class="form-control readonly-input" value="परळी वै." readonly>
         </div>
 
         <!-- जिल्हा -->
@@ -244,7 +244,7 @@
       </div>
     </div>
 
-    <!-- मुख्याध्यापक डॅशबोर्ड -->
+    <!-- २. मुख्याध्यापक डॅशबोर्ड -->
     <div id="dashboardTab" class="tab-content">
       <div class="card-container">
         <div class="card-header-title">मुख्याध्यापक डॅशबोर्ड</div>
@@ -254,10 +254,10 @@
   </div>
 
   <script>
-    // आजची तारीख आपोआप सेट करणे
+    // आजची दिनांक आपोआप घेणे
     document.getElementById('evalDate').valueAsDate = new Date();
 
-    // टॅब बदलणे
+    // टॅब स्विचिंग
     function switchTab(tabId, element) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -265,7 +265,7 @@
       element.classList.add('active');
     }
 
-    // प्रत्येक शाळेतील शिक्षकांची यादी
+    // शिक्षकांची यादी
     const schoolTeachers = {
       "जि.प.कें.प्रा.शाळा कन्या नागापूर": ["श्री. ए. बी. पाटील", "सौ. एस. के. जोशी"],
       "जि.प.मा.शाळा नागापूर": ["श्री. आर. डी. जाधव", "सौ. पी. व्ही. मोरे"],
@@ -283,11 +283,9 @@
       "बालाघाट विद्यालय दौनापूर": ["श्री. डी. के. मुंडे"]
     };
 
-    // शाळा निवडल्यावर शिक्षक लोड करण्याचे फंक्शन
     function handleSchoolChange() {
       const selectedSchool = document.getElementById('schoolName').value;
       const teacherSelect = document.getElementById('teacherSelect');
-
       teacherSelect.innerHTML = '';
 
       if (selectedSchool && schoolTeachers[selectedSchool]) {
@@ -303,6 +301,5 @@
       }
     }
   </script>
-
 </body>
 </html>
