@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>मिशन निपुण बीड</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
+    .header-container {
+      background-color: #1976d2; /* निळा पार्श्वभूमी रंग */
+      color: #ffffff;
+      padding: 16px 20px;
+      width: 100%;
+    }
+
+    .main-title {
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .sub-title {
+      font-size: 18px;
+      font-weight: 500;
+      opacity: 0.95;
+      margin-bottom: 12px;
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #00e676; /* हिरवा ठिपका */
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 6px #00e676;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-container">
+    <div class="main-title">मिशन निपुण बीड</div>
+    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
+    <div class="status-bar">
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span id="networkStatus">ऑनलाइन</span>
+      </div>
+      <div>प्रलंबित सिंक: <span id="syncCount">0</span></div>
+    </div>
+  </header>
+
+</body>
+</html>
