@@ -197,8 +197,14 @@
   </div>
 
   <script>
-    // दिनांक सेट करणे
-    document.getElementById('evalDate').valueAsDate = new Date();
+    // १. सुरक्षित दिनांक सेट करणे
+    try {
+      const today = new Date();
+      const yr = today.getFullYear();
+      const mo = String(today.getMonth() + 1).padStart(2, '0');
+      const da = String(today.getDate()).padStart(2, '0');
+      document.getElementById('evalDate').value = ${yr}-${mo}-${da};
+    } catch(e) {}
 
     function switchTab(tabId, element) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -207,7 +213,6 @@
       element.classList.add('active');
     }
 
-    // शिक्षकांची अचूक यादी
     const schoolTeachers = {
       "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
       "SCH02": ["श्री ए बी गायकवाड", "श्रीमती आर बी आडगावकर", "श्रीमती सी एम काजळे", "श्रीमती एस व्ही कराड", "श्री डी एम दराडे", "श्रीमती एस.बी.मात्रे", "श्री बी.डी.पुपुलवाड"],
@@ -225,12 +230,9 @@
       "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
     };
 
-    // शाळा बदलल्यावर शिक्षक लोड करणे
     function handleSchoolChange() {
-      const schoolSelect = document.getElementById('schoolName');
+      const code = document.getElementById('schoolName').value;
       const teacherSelect = document.getElementById('teacherSelect');
-      const code = schoolSelect.value;
-      
       teacherSelect.innerHTML = '';
 
       if (code && schoolTeachers[code]) {
@@ -244,7 +246,7 @@
       }
     }
 
-    // --- इयत्ता २ री डेटा ---
+    // --- २ री डेटा ---
     const R_CLASS_2 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
@@ -339,7 +341,7 @@
       </optgroup>
     `;
 
-    // --- इयत्ता ३ री डेटा ---
+    // --- ३ री डेटा ---
     const R_CLASS_3 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
@@ -514,11 +516,9 @@
       inputElement.value = inputElement.value.replace(/[^\u0900-\u097F\s.]/g, '');
     }
 
-    // सुरुवातीला पेज लोड होताच
-    window.addEventListener('DOMContentLoaded', () => {
-      runGroupChange();
-      handleSchoolChange();
-    });
+    // ३. थेट लोड करणे
+    runGroupChange();
+    handleSchoolChange();
   </script>
 </body>
 </html>
