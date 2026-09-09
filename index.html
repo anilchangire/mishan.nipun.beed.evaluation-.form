@@ -5,268 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>मिशन निपुण बीड</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background-color: #f4f6fa;
-    }
-
-    /* निळा हेडर */
-    .header-container {
-      background-color: #0d62ba;
-      color: #ffffff;
-      padding: 16px 20px;
-    }
-
-    .main-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .sub-title {
-      font-size: 16px;
-      margin-bottom: 12px;
-      opacity: 0.95;
-    }
-
-    .status-bar {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 15px;
-      font-weight: bold;
-    }
-
-    .status-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      background-color: #00e676;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    /* टॅब बार */
-    .tab-bar {
-      display: flex;
-      background-color: #ffffff;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 14px 10px;
-      text-align: center;
-      font-size: 17px;
-      font-weight: bold;
-      color: #4a5568;
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .tab-btn.active {
-      color: #0d62ba;
-      border-bottom: 3px solid #0d62ba;
-    }
-
-    /* कंटेनर */
-    .content-container {
-      padding: 16px;
-      max-width: 550px;
-      margin: 0 auto;
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .card-container {
-      background: #ffffff;
-      border-radius: 12px;
-      border: 1px solid #dce3ed;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    }
-
-    .card-header-title {
-      color: #0d62ba;
-      font-size: 20px;
-      font-weight: bold;
-      padding-bottom: 12px;
-      border-bottom: 2px solid #0d62ba;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 15px;
-      font-weight: 600;
-      color: #333333;
-      margin-bottom: 8px;
-    }
-
-    .required-star {
-      color: #e53e3e;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 12px 14px;
-      font-size: 15px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      background-color: #ffffff;
-      color: #1e293b;
-      outline: none;
-      box-sizing: border-box;
-    }
-
-    .form-control:focus {
-      border-color: #0d62ba;
-    }
-
-    .readonly-input {
-      background-color: #f8fafc;
-      color: #334155;
-      font-weight: 500;
-      cursor: not-allowed;
-    }
-
-    /* विद्यार्थी क्षमता नोंदणी स्टाईल */
-    .eval-group-box {
-      background-color: #f0f4ff;
-      border-radius: 10px;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 12px;
-    }
-
-    .eval-group-label {
-      font-size: 16px;
-      font-weight: bold;
-      color: #0d62ba;
-      white-space: nowrap;
-    }
-
-    .eval-group-select {
-      flex: 1;
-      padding: 10px 14px;
-      font-size: 16px;
-      font-weight: bold;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      background-color: #ffffff;
-      color: #1e293b;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .subject-info-text {
-      font-size: 14px;
-      color: #475569;
-      margin-top: 10px;
-      line-height: 1.5;
-    }
-
-    /* विद्यार्थी १ कार्ड डिझाईन */
-    .student-card {
-      background: #ffffff;
-      border: 2px solid #0d62ba;
-      border-radius: 14px;
-      padding: 20px;
-      margin-top: 20px;
-      box-shadow: 0 4px 10px rgba(13, 98, 186, 0.08);
-    }
-
-    .student-sr-container {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .student-sr-label {
-      font-size: 15px;
-      color: #0d62ba;
-      font-weight: bold;
-      display: block;
-    }
-
-    .student-sr-no {
-      font-size: 24px;
-      font-weight: bold;
-      color: #1e293b;
-      line-height: 1.2;
-    }
-
-    .field-title {
-      font-size: 15px;
-      font-weight: bold;
-      color: #0d62ba;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .student-input, .student-select {
-      width: 100%;
-      padding: 12px 14px;
-      font-size: 15px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      outline: none;
-      background-color: #ffffff;
-      color: #1e293b;
-      box-sizing: border-box;
-      margin-bottom: 16px;
-    }
-
-    .student-input:focus, .student-select:focus {
-      border-color: #0d62ba;
-    }
-
-    optgroup {
-      font-weight: bold;
-      color: #0d62ba;
-      background-color: #f1f5f9;
-    }
-
-    optgroup option {
-      font-weight: normal;
-      color: #1e293b;
-      background-color: #ffffff;
-      padding: 6px;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    body { background-color: #f4f6fa; }
+    .header-container { background-color: #0d62ba; color: #ffffff; padding: 16px 20px; }
+    .main-title { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+    .sub-title { font-size: 16px; margin-bottom: 12px; opacity: 0.95; }
+    .status-bar { display: flex; align-items: center; gap: 20px; font-size: 15px; font-weight: bold; }
+    .status-indicator { display: inline-flex; align-items: center; gap: 6px; }
+    .status-dot { width: 10px; height: 10px; background-color: #00e676; border-radius: 50%; display: inline-block; }
+    .tab-bar { display: flex; background-color: #ffffff; border-bottom: 1px solid #e0e0e0; }
+    .tab-btn { flex: 1; padding: 14px 10px; text-align: center; font-size: 17px; font-weight: bold; color: #4a5568; background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .tab-btn.active { color: #0d62ba; border-bottom: 3px solid #0d62ba; }
+    .content-container { padding: 16px; max-width: 550px; margin: 0 auto; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .card-container { background: #ffffff; border-radius: 12px; border: 1px solid #dce3ed; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); }
+    .card-header-title { color: #0d62ba; font-size: 20px; font-weight: bold; padding-bottom: 12px; border-bottom: 2px solid #0d62ba; margin-bottom: 20px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 15px; font-weight: 600; color: #333333; margin-bottom: 8px; }
+    .required-star { color: #e53e3e; }
+    .form-control { width: 100%; padding: 12px 14px; font-size: 15px; border: 1px solid #cbd5e1; border-radius: 8px; background-color: #ffffff; color: #1e293b; outline: none; }
+    .form-control:focus { border-color: #0d62ba; }
+    .readonly-input { background-color: #f8fafc; color: #334155; font-weight: 500; cursor: not-allowed; }
+    .eval-group-box { background-color: #f0f4ff; border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+    .eval-group-label { font-size: 16px; font-weight: bold; color: #0d62ba; white-space: nowrap; }
+    .eval-group-select { flex: 1; padding: 10px 14px; font-size: 16px; font-weight: bold; border: 1px solid #cbd5e1; border-radius: 8px; background-color: #ffffff; color: #1e293b; outline: none; cursor: pointer; }
+    .subject-info-text { font-size: 14px; color: #475569; margin-top: 10px; line-height: 1.5; }
+    .student-card { background: #ffffff; border: 2px solid #0d62ba; border-radius: 14px; padding: 20px; margin-top: 20px; box-shadow: 0 4px 10px rgba(13, 98, 186, 0.08); }
+    .student-sr-container { text-align: center; margin-bottom: 15px; }
+    .student-sr-label { font-size: 15px; color: #0d62ba; font-weight: bold; display: block; }
+    .student-sr-no { font-size: 24px; font-weight: bold; color: #1e293b; line-height: 1.2; }
+    .field-title { font-size: 15px; font-weight: bold; color: #0d62ba; margin-bottom: 8px; display: block; }
+    .student-input, .student-select { width: 100%; padding: 12px 14px; font-size: 15px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; background-color: #ffffff; color: #1e293b; margin-bottom: 16px; }
+    .student-input:focus, .student-select:focus { border-color: #0d62ba; }
+    optgroup { font-weight: bold; color: #0d62ba; background-color: #f1f5f9; }
+    optgroup option { font-weight: normal; color: #1e293b; background-color: #ffffff; padding: 6px; }
   </style>
 </head>
 <body>
 
-  <!-- १. मुख्य हेडर -->
   <header class="header-container">
     <div class="main-title">मिशन निपुण बीड</div>
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
@@ -279,7 +56,6 @@
     </div>
   </header>
 
-  <!-- २. टॅब बार -->
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('evaluationTab', this)">
       <span style="font-size: 20px; line-height: 1;">+</span> नवीन मूल्यमापन
@@ -290,17 +66,15 @@
   </div>
 
   <div class="content-container">
-    <!-- नवीन मूल्यमापन टॅब -->
     <div id="evaluationTab" class="tab-content active">
       
-      <!-- कार्ड १: शाळा व शिक्षकाची माहिती -->
+      <!-- शाळा व शिक्षकाची माहिती -->
       <div class="card-container">
         <div class="card-header-title">शाळा व शिक्षकाची माहिती</div>
 
-        <!-- शाळा निवडा -->
         <div class="form-group">
           <label class="form-label" for="schoolName">शाळा निवडा <span class="required-star">*</span></label>
-          <select name="शाळेचे_नाव" id="schoolName" class="form-control" required onchange="handleSchoolChange()">
+          <select id="schoolName" class="form-control" required onchange="handleSchoolChange()">
             <option value="">-- शाळा निवडा --</option>
             <option value="SCH01">जि.प.कें.प्रा.शाळा कन्या नागापूर</option>
             <option value="SCH02">जि.प.मा.शाळा नागापूर</option>
@@ -319,7 +93,6 @@
           </select>
         </div>
 
-        <!-- वर्गशिक्षक -->
         <div class="form-group">
           <label class="form-label" for="teacherSelect">वर्गशिक्षक <span class="required-star">*</span></label>
           <select id="teacherSelect" class="form-control" required>
@@ -327,71 +100,61 @@
           </select>
         </div>
 
-        <!-- दिनांक -->
         <div class="form-group">
           <label class="form-label" for="evalDate">दिनांक</label>
           <input type="date" id="evalDate" class="form-control">
         </div>
 
-        <!-- केंद्र -->
         <div class="form-group">
           <label class="form-label" for="centerName">केंद्र</label>
-          <input type="text" id="centerName" class="form-control" value="कन्या नागापूर" placeholder="कन्या नागापूर">
+          <input type="text" id="centerName" class="form-control" value="कन्या नागापूर">
         </div>
 
-        <!-- तालुका -->
         <div class="form-group">
           <label class="form-label" for="taluka">तालुका</label>
           <input type="text" id="taluka" class="form-control readonly-input" value="परळी वै." readonly>
         </div>
 
-        <!-- जिल्हा -->
         <div class="form-group">
           <label class="form-label" for="district">जिल्हा</label>
           <input type="text" id="district" class="form-control readonly-input" value="बीड" readonly>
         </div>
       </div>
 
-      <!-- कार्ड २: विद्यार्थी क्षमता नोंदणी -->
+      <!-- विद्यार्थी क्षमता नोंदणी -->
       <div class="card-container">
         <div class="card-header-title">विद्यार्थी क्षमता नोंदणी</div>
 
-        <!-- मूल्यमापन गट निवडा -->
         <div class="eval-group-box">
           <label class="eval-group-label" for="evalGroupSelect">मूल्यमापन गट:</label>
-          <select id="evalGroupSelect" class="eval-group-select" onchange="handleGroupChange()">
+          <select id="evalGroupSelect" class="eval-group-select" onchange="runGroupChange()">
             <option value="class2">इयत्ता २ री</option>
             <option value="class3to5">इयत्ता ३ री ते ५ वी</option>
           </select>
         </div>
 
-        <!-- विषय क्षेत्र माहिती -->
         <div id="subjectInfoText" class="subject-info-text">
           इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया
         </div>
 
-        <!-- विद्यार्थी १ तपशील कार्ड -->
         <div class="student-card">
           <div class="student-sr-container">
             <span class="student-sr-label">क्र.</span>
             <span class="student-sr-no">1</span>
           </div>
 
-          <!-- विद्यार्थ्याचे नाव -->
           <div class="form-group">
             <label class="field-title">विद्यार्थ्याचे नाव</label>
             <input type="text" class="student-input" id="studentNameInput" placeholder="नाव (फक्त मराठीत)" oninput="validateMarathi(this)">
           </div>
 
-          <!-- इयत्ता -->
           <div class="form-group">
             <label class="field-title">इयत्ता</label>
-            <select class="student-select" id="studentClassSelect" onchange="handleClassSpecificChange()">
-              <option value="इयत्ता २ री">इयत्ता २ री</option>
+            <select class="student-select" id="studentClassSelect" onchange="runClassChange()">
+              <option value="२">इयत्ता २ री</option>
             </select>
           </div>
 
-          <!-- वाचन -->
           <div class="form-group">
             <label class="field-title">वाचन</label>
             <select class="student-select" id="readingCompetency">
@@ -399,7 +162,6 @@
             </select>
           </div>
 
-          <!-- लेखन -->
           <div class="form-group">
             <label class="field-title">लेखन</label>
             <select class="student-select" id="writingCompetency">
@@ -407,7 +169,6 @@
             </select>
           </div>
 
-          <!-- संख्याज्ञान -->
           <div class="form-group">
             <label class="field-title">संख्याज्ञान</label>
             <select class="student-select" id="mathNumberCompetency">
@@ -415,7 +176,6 @@
             </select>
           </div>
 
-          <!-- गणितीय क्रिया -->
           <div class="form-group">
             <label class="field-title">गणितीय क्रिया</label>
             <select class="student-select" id="mathOpCompetency">
@@ -428,7 +188,6 @@
 
     </div>
 
-    <!-- मुख्याध्यापक डॅशबोर्ड टॅब -->
     <div id="dashboardTab" class="tab-content">
       <div class="card-container">
         <div class="card-header-title">मुख्याध्यापक डॅशबोर्ड</div>
@@ -438,10 +197,9 @@
   </div>
 
   <script>
-    // १. आजची दिनांक सेट करणे
+    // दिनांक सेट करणे
     document.getElementById('evalDate').valueAsDate = new Date();
 
-    // २. टॅब बदलणे
     function switchTab(tabId, element) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -449,7 +207,7 @@
       element.classList.add('active');
     }
 
-    // ३. शाळा व शिक्षकांची यादी
+    // शिक्षकांची अचूक यादी
     const schoolTeachers = {
       "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
       "SCH02": ["श्री ए बी गायकवाड", "श्रीमती आर बी आडगावकर", "श्रीमती सी एम काजळे", "श्रीमती एस व्ही कराड", "श्री डी एम दराडे", "श्रीमती एस.बी.मात्रे", "श्री बी.डी.पुपुलवाड"],
@@ -467,26 +225,27 @@
       "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
     };
 
+    // शाळा बदलल्यावर शिक्षक लोड करणे
     function handleSchoolChange() {
-      const selectedSchoolCode = document.getElementById('schoolName').value;
+      const schoolSelect = document.getElementById('schoolName');
       const teacherSelect = document.getElementById('teacherSelect');
+      const code = schoolSelect.value;
+      
       teacherSelect.innerHTML = '';
 
-      if (selectedSchoolCode && schoolTeachers[selectedSchoolCode]) {
-        teacherSelect.innerHTML = '<option value="">-- वर्गशिक्षक निवडा --</option>';
-        schoolTeachers[selectedSchoolCode].forEach(function(teacher) {
-          const option = document.createElement('option');
-          option.value = teacher.trim();
-          option.textContent = teacher.trim();
-          teacherSelect.appendChild(option);
+      if (code && schoolTeachers[code]) {
+        let opts = '<option value="">-- वर्गशिक्षक निवडा --</option>';
+        schoolTeachers[code].forEach(function(t) {
+          opts += <option value="${t}">${t}</option>;
         });
+        teacherSelect.innerHTML = opts;
       } else {
         teacherSelect.innerHTML = '<option value="">-- आधी शाळा निवडा --</option>';
       }
     }
 
-    // --- इयत्ता २ री क्षमता रचना ---
-    const readingOptionsClass2 = `
+    // --- इयत्ता २ री डेटा ---
+    const R_CLASS_2 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
         <option value="A-11">A - ११. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option>
@@ -510,7 +269,7 @@
       </optgroup>
     `;
 
-    const writingOptionsClass2 = `
+    const W_CLASS_2 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
         <option value="A-12">A - १२. २-३ सोप्या शब्दांची दोन ते तीन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>
@@ -536,7 +295,7 @@
       </optgroup>
     `;
 
-    const mathNumberOptionsClass2 = `
+    const N_CLASS_2 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
         <option value="A-9">A - ९. २० पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>
@@ -557,7 +316,7 @@
       </optgroup>
     `;
 
-    const mathOpOptionsClass2 = `
+    const O_CLASS_2 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
         <option value="A-11">A - ११. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकी करतो.</option>
@@ -580,8 +339,8 @@
       </optgroup>
     `;
 
-    // --- इयत्ता ३ री क्षमता रचना ---
-    const readingOptionsClass3 = `
+    // --- इयत्ता ३ री डेटा ---
+    const R_CLASS_3 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
         <option value="A-12">A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी व जोडाक्षरासह तयार झालेली लहान वाक्ये वाचतो.</option>
@@ -606,7 +365,7 @@
       </optgroup>
     `;
 
-    const writingOptionsClass3 = `
+    const W_CLASS_3 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
         <option value="A-14">A - १४. श्रुतलेखनाकरिता ४-५ शब्दांची एक ते दोन सोपी वाक्ये योग्य गतीने लिहितो.</option>
@@ -634,7 +393,7 @@
       </optgroup>
     `;
 
-    const mathNumberOptionsClass3 = `
+    const N_CLASS_3 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
         <option value="A-18">A - १८. ० ते ९ संख्यानामे लिहितो. (अक्षरी)</option>
@@ -664,7 +423,7 @@
       </optgroup>
     `;
 
-    const mathOpOptionsClass3 = `
+    const O_CLASS_3 = `
       <option value="">-- क्षमता निवडा --</option>
       <optgroup label="गट A (प्रगत)">
         <option value="A-24">A - २४. स्थानिक किंमत संकल्पना वापरून ० ते ९९ पर्यंतच्या संख्यांची बेरीज करतो. (बिनहातच्याची)</option>
@@ -703,78 +462,63 @@
       </optgroup>
     `;
 
-    // २ री चे पर्याय लोड करणे
-    function loadClass2Options() {
-      document.getElementById('readingCompetency').innerHTML = readingOptionsClass2;
-      document.getElementById('writingCompetency').innerHTML = writingOptionsClass2;
-      document.getElementById('mathNumberCompetency').innerHTML = mathNumberOptionsClass2;
-      document.getElementById('mathOpCompetency').innerHTML = mathOpOptionsClass2;
+    function setDropdownOptions(r, w, n, o) {
+      document.getElementById('readingCompetency').innerHTML = r;
+      document.getElementById('writingCompetency').innerHTML = w;
+      document.getElementById('mathNumberCompetency').innerHTML = n;
+      document.getElementById('mathOpCompetency').innerHTML = o;
     }
 
-    // ३ री चे पर्याय लोड करणे
-    function loadClass3Options() {
-      document.getElementById('readingCompetency').innerHTML = readingOptionsClass3;
-      document.getElementById('writingCompetency').innerHTML = writingOptionsClass3;
-      document.getElementById('mathNumberCompetency').innerHTML = mathNumberOptionsClass3;
-      document.getElementById('mathOpCompetency').innerHTML = mathOpOptionsClass3;
+    function setPlaceholder(text) {
+      const opt = <option value="">${text}</option>;
+      setDropdownOptions(opt, opt, opt, opt);
     }
 
-    // पर्याय रिकामे करणे
-    function clearAllDropdowns(placeholderText) {
-      document.getElementById('readingCompetency').innerHTML = <option value="">${placeholderText}</option>;
-      document.getElementById('writingCompetency').innerHTML = <option value="">${placeholderText}</option>;
-      document.getElementById('mathNumberCompetency').innerHTML = <option value="">${placeholderText}</option>;
-      document.getElementById('mathOpCompetency').innerHTML = <option value="">${placeholderText}</option>;
-    }
+    // १. मूल्यमापन गट बदलल्यावर
+    function runGroupChange() {
+      const g = document.getElementById('evalGroupSelect').value;
+      const c = document.getElementById('studentClassSelect');
+      const info = document.getElementById('subjectInfoText');
 
-    // ४. मूल्यमापन गट बदलल्यास (इयत्ता २ री किंवा ३ री ते ५ वी)
-    function handleGroupChange() {
-      const groupSelect = document.getElementById('evalGroupSelect').value;
-      const classSelect = document.getElementById('studentClassSelect');
-      const subjectInfo = document.getElementById('subjectInfoText');
-
-      classSelect.innerHTML = '';
-
-      if (groupSelect === 'class2') {
-        classSelect.innerHTML = '<option value="इयत्ता २ री" selected>इयत्ता २ री</option>';
-        subjectInfo.textContent = 'इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया';
-        loadClass2Options();
+      if (g === 'class2') {
+        c.innerHTML = '<option value="२">इयत्ता २ री</option>';
+        info.textContent = 'इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया';
+        setDropdownOptions(R_CLASS_2, W_CLASS_2, N_CLASS_2, O_CLASS_2);
       } else {
-        classSelect.innerHTML = `
-          <option value="">-निवडा-</option>
-          <option value="इयत्ता तिसरी">इयत्ता तिसरी</option>
-          <option value="इयत्ता चौथी">इयत्ता चौथी</option>
-          <option value="इयत्ता पाचवी">इयत्ता पाचवी</option>
+        c.innerHTML = `
+          <option value="">-- इयत्ता निवडा --</option>
+          <option value="३">इयत्ता तिसरी</option>
+          <option value="४">इयत्ता चौथी</option>
+          <option value="५">इयत्ता पाचवी</option>
         `;
-        subjectInfo.textContent = 'इयत्ता ३ री ते ५ वी | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया';
-        clearAllDropdowns('-- आधी इयत्ता निवडा --');
+        info.textContent = 'इयत्ता ३ री ते ५ वी | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया';
+        setPlaceholder('-- आधी इयत्ता निवडा --');
       }
     }
 
-    // ५. इयत्ता बदलल्यास (तिसरी, चौथी, पाचवी)
-    function handleClassSpecificChange() {
-      const selectedClass = document.getElementById('studentClassSelect').value;
-
-      if (selectedClass === 'इयत्ता तिसरी') {
-        loadClass3Options();
-      } else if (selectedClass === 'इयत्ता २ री') {
-        loadClass2Options();
-      } else if (selectedClass === 'इयत्ता चौथी' || selectedClass === 'इयत्ता पाचवी') {
-        clearAllDropdowns('-- या इयत्तेच्या क्षमता लवकरच जोडल्या जातील --');
+    // २. इयत्ता बदलल्यावर
+    function runClassChange() {
+      const val = document.getElementById('studentClassSelect').value;
+      if (val === '२') {
+        setDropdownOptions(R_CLASS_2, W_CLASS_2, N_CLASS_2, O_CLASS_2);
+      } else if (val === '३') {
+        setDropdownOptions(R_CLASS_3, W_CLASS_3, N_CLASS_3, O_CLASS_3);
+      } else if (val === '४' || val === '५') {
+        setPlaceholder('-- या इयत्तेच्या क्षमता लवकरच जोडल्या जातील --');
       } else {
-        clearAllDropdowns('-- आधी इयत्ता निवडा --');
+        setPlaceholder('-- आधी इयत्ता निवडा --');
       }
     }
 
-    // ६. मराठी नाव इनपुट व्हॅलिडेशन
     function validateMarathi(inputElement) {
       inputElement.value = inputElement.value.replace(/[^\u0900-\u097F\s.]/g, '');
     }
 
-    // सुरुवातीला २ री लोड करणे
-    window.onload = function() {
-      handleGroupChange();
-    };
+    // सुरुवातीला पेज लोड होताच
+    window.addEventListener('DOMContentLoaded', () => {
+      runGroupChange();
+      handleSchoolChange();
+    });
   </script>
 </body>
 </html>
