@@ -21,7 +21,6 @@
   </style>
 </head>
 <body>
-
   <div class="header-container">
     <div class="main-title">मिशन निपुण बीड</div>
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
@@ -61,7 +60,6 @@
 
   <div class="card">
     <div class="card-title">२. विद्यार्थी क्षमता नोंदणी</div>
-
     <div class="form-group">
       <label>मूल्यमापन गट:</label>
       <select id="evalGroupSelect">
@@ -69,19 +67,16 @@
         <option value="class3to5">इयत्ता ३ री ते ५ वी</option>
       </select>
     </div>
-
     <div class="form-group">
       <label>इयत्ता:</label>
       <select id="studentClassSelect">
         <option value="२">इयत्ता २ री</option>
       </select>
     </div>
-
     <div class="form-group">
       <label>वाचन</label>
       <select id="readingCompetency"><option value="">-- क्षमता निवडा --</option></select>
     </div>
-
     <div class="form-group">
       <label>लेखन</label>
       <select id="writingCompetency"><option value="">-- क्षमता निवडा --</option></select>
@@ -97,10 +92,8 @@
       <select id="mathOpCompetency"><option value="">-- क्षमता निवडा --</option></select>
     </div>
   </div>
-
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      
       var teachersData = {
         "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
         "SCH02": ["श्री ए बी गायकवाड", "श्रीमती आर बी आडगावकर", "श्रीमती सी एम काजळे", "श्रीमती एस व्ही कराड", "श्री डी एम दराडे", "श्रीमती एस.बी.मात्रे", "श्री बी.डी.पुपुलवाड"],
@@ -117,8 +110,7 @@
         "SCH13": ["श्री वाय पी तोंडारे", "श्रीमती एस एस बनसोडे", "श्री के टी भुसे", "श्री एन.जी. कानडे", "श्रीमती एस.एस.बचुटे", "श्री एस.जी.बनसोडे", "टी.ए.कांबळे"],
         "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
       };
-
-      var r2 = '<option value="">-- क्षमता निवडा --</option>' +
+   var r2 = '<option value="">-- क्षमता निवडा --</option>' +
         '<optgroup label="गट A (प्रगत)">' +
         '<option value="A-11">A - ११. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option>' +
         '<option value="A-12">A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
@@ -252,7 +244,6 @@
         '<option value="C-6">C - ६. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>' +
         '<option value="C-7">C - ७. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे, स्वरचिन्हेयुक्त व जोडाक्षरयुक्त शब्द लिहितो.</option>' +
         '</optgroup>';
-
       var n3 = '<option value="">-- क्षमता निवडा --</option>' +
         '<optgroup label="गट A (प्रगत)">' +
         '<option value="A-18">A - १८. ० ते ९ संख्यानामे लिहितो. (अक्षरी)</option>' +
@@ -280,7 +271,6 @@
         '<option value="C-8">C - ८. १० ते २० पर्यंतच्या वस्तू मोजतो.</option>' +
         '<option value="C-9">C - ९. २० पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>' +
         '</optgroup>';
-
       var o3 = '<option value="">-- क्षमता निवडा --</option>' +
         '<optgroup label="गट A (प्रगत)">' +
         '<option value="A-24">A - २४. स्थानिक किंमत संकल्पना वापरून ० ते ९९ पर्यंतच्या संख्यांची बेरीज करतो. (बिनहातच्याची)</option>' +
