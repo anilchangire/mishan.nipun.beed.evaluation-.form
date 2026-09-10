@@ -162,16 +162,17 @@
 
   <script>
     function validateMarathiInput(input) {
-      var marathiError = document.getElementById("marathiError");
-      var nonMarathiPattern = /[^\u0900-\u097F\s]/g;
+  var marathiError = document.getElementById("marathiError");
+  // शुद्ध मराठी (देवनागरी) अक्षरांसाठी अचूक नियम
+  var nonMarathiPattern = /[^\u0900-\u097F\s]/g;
 
-      if (nonMarathiPattern.test(input.value)) {
-        marathiError.style.display = "block";
-        input.value = input.value.replace(nonMarathiPattern, '');
-      } else {
-        marathiError.style.display = "none";
-      }
-    }
+  if (nonMarathiPattern.test(input.value)) {
+    marathiError.style.display = "block";
+    input.value = input.value.replace(nonMarathiPattern, '');
+  } else {
+    marathiError.style.display = "none";
+  }
+}
 
     document.addEventListener("DOMContentLoaded", function() {
       var teachersData = {
