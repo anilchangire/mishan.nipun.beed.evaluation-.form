@@ -124,12 +124,16 @@
         <div class="student-no-val">1</div>
       </div>
 
-      input 
-  type="text" 
-  id="studentName" 
-  placeholder="नाव (फक्त मराठीत)" 
-  autocomplete="off" 
-  onkeyup="validateMarathiInput(this)">
+      <div class="form-group">
+        <label class="blue-label">विद्यार्थ्याचे नाव</label>
+        <input 
+          type="text" 
+          id="studentName" 
+          placeholder="नाव (फक्त मराठीत)" 
+          autocomplete="off" 
+          onkeyup="validateMarathiInput(this)">
+        <div id="marathiError" class="error-msg">कृपया विद्यार्थ्याचे नाव फक्त मराठीतच प्रविष्ट करा.</div>
+      </div>
 
       <div class="form-group">
         <label class="blue-label">इयत्ता</label>
@@ -162,17 +166,17 @@
 
   <script>
     function validateMarathiInput(input) {
-  var marathiError = document.getElementById("marathiError");
-  // शुद्ध मराठी (देवनागरी) अक्षरांसाठी अचूक नियम
-  var nonMarathiPattern = /[^\u0900-\u097F\s]/g;
+      var marathiError = document.getElementById("marathiError");
+      // शुद्ध मराठी (देवनागरी) अक्षरांसाठी अचूक नियम
+      var nonMarathiPattern = /[^\u0900-\u097F\s]/g;
 
-  if (nonMarathiPattern.test(input.value)) {
-    marathiError.style.display = "block";
-    input.value = input.value.replace(nonMarathiPattern, '');
-  } else {
-    marathiError.style.display = "none";
-  }
-}
+      if (nonMarathiPattern.test(input.value)) {
+        marathiError.style.display = "block";
+        input.value = input.value.replace(nonMarathiPattern, '');
+      } else {
+        marathiError.style.display = "none";
+      }
+    }
 
     document.addEventListener("DOMContentLoaded", function() {
       var teachersData = {
