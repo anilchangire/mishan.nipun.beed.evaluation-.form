@@ -100,13 +100,11 @@
         <div class="student-no-title">क्र.</div>
         <div class="student-no-val">1</div>
       </div>
-
-      <div class="form-group">
+<div class="form-group">
     <label class="blue-label">विद्यार्थ्याचे नाव</label>
-    <input type="text" id="studentName" placeholder="नाव" pattern="[\u0900-\u097F\s]+" title="कृपया नाव फक्त मराठीत (देवनागरी लिपीत) टाका." required>
+    <input type="text" id="studentName" placeholder="नाव" oninput="this.value = this.value.replace(/[^\u0900-\u097F\s]/g, '');">
 </div>
-
-      <div class="form-group">
+            <div class="form-group">
         <label class="blue-label">इयत्ता</label>
         <select id="studentClassSelect">
           <option value="२">इयत्ता २ री</option>
