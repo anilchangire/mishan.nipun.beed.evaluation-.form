@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>मिशन निपुण बीड</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial', 'Noto Sans Marathi', sans-serif; }
     body { background-color: #f4f6fa; padding: 15px; }
     
     /* Header Styling */
@@ -19,22 +19,34 @@
     
     .form-group { margin-bottom: 14px; }
     label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #1e293b; }
-    select, input { width: 100%; padding: 10px; font-size: 15px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; background: #fff; }
+    
+    /* Input & Select Styling - नाव स्पष्ट दिसण्यासाठी color: #000000 जोडला आहे */
+    select, input { 
+      width: 100%; 
+      padding: 10px; 
+      font-size: 15px; 
+      border: 1px solid #cbd5e1; 
+      border-radius: 6px; 
+      outline: none; 
+      background-color: #ffffff !important; 
+      color: #000000 !important; 
+    }
     select:focus, input:focus { border-color: #0d62ba; }
     
     optgroup { font-weight: bold; color: #0d62ba; background-color: #f1f5f9; }
     optgroup option { font-weight: normal; color: #1e293b; background-color: #ffffff; padding: 6px; }
 
-    /* dynamic info text */
+    /* Dynamic info text */
     .subject-info-text { font-size: 13px; color: #64748b; margin-top: 6px; margin-bottom: 15px; font-weight: 500; }
 
-    /* Student Outer Box (Blue Border like screenshot) */
+    /* Student Outer Box (Blue Border) */
     .student-box { border: 2px solid #0d62ba; border-radius: 8px; padding: 15px; background-color: #ffffff; margin-top: 10px; }
     .student-no-header { text-align: center; margin-bottom: 15px; }
     .student-no-title { font-size: 13px; font-weight: bold; color: #0d62ba; }
     .student-no-val { font-size: 18px; font-weight: bold; color: #1e293b; margin-top: 2px; }
 
     .blue-label { color: #0d62ba; font-weight: bold; }
+    .error-msg { color: #dc2626; font-size: 12px; margin-top: 4px; display: none; }
   </style>
 </head>
 <body>
@@ -89,22 +101,26 @@
       </select>
     </div>
 
-    <!-- डायनॅमिक मजकूर (मूल्यमापन गटामध्ये बदल केल्यास ऑटो-बदलेल) -->
+    <!-- डायनॅमिक मजकूर -->
     <div class="subject-info-text" id="subjectInfoText">
       इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया
     </div>
 
-    <!-- निळ्या बॉर्डरचा बॉक्स (विद्यार्थ्याची माहिती व क्षमता) -->
+    <!-- निळ्या बॉर्डरचा बॉक्स -->
     <div class="student-box">
       <div class="student-no-header">
         <div class="student-no-title">क्र.</div>
         <div class="student-no-val">1</div>
       </div>
-<div class="form-group">
-    <label class="blue-label">विद्यार्थ्याचे नाव</label>
-    <input type="text" id="studentName" placeholder="नाव" oninput="this.value = this.value.replace(/[^\u0900-\u097F\s]/g, '');">
-</div>
-            <div class="form-group">
+
+      <div class="form-group">
+        <label class="blue-label">विद्यार्थ्याचे नाव</label>
+        <!-- फक्त मराठी अक्षरे स्वीकारण्यासाठीचा Input Box -->
+        <input type="text" id="studentName" placeholder="नाव (फक्त मराठीत)" oninput="validateMarathiInput(this)">
+        <div id="marathiError" class="error-msg">कृपया विद्यार्थ्याचे नाव फक्त मराठीतच प्रविष्ट करा.</div>
+      </div>
+
+      <div class="form-group">
         <label class="blue-label">इयत्ता</label>
         <select id="studentClassSelect">
           <option value="२">इयत्ता २ री</option>
@@ -134,6 +150,20 @@
   </div>
 
   <script>
+    // १. विद्यार्थ्यांचे नाव फक्त मराठीत फिल्टर करणारे फंक्शन
+    function validateMarathiInput(input) {
+      var marathiError = document.getElementById("marathiError");
+      // गैर-मराठी अक्षरे शोधण्यासाठीचा Regex Pattern
+      var nonMarathiPattern = /[^\u0900-\u097F\s]/g;
+
+      if (nonMarathiPattern.test(input.value)) {
+        marathiError.style.display = "block";
+        input.value = input.value.replace(nonMarathiPattern, '');
+      } else {
+        marathiError.style.display = "none";
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
       var teachersData = {
         "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
@@ -359,7 +389,7 @@
         document.getElementById('mathOpCompetency').innerHTML = o;
       }
 
-      // १. शाळा निवडल्यास शिक्षक अपडेट करा
+      // शाळा निवडल्यास शिक्षकांची नावे दाखवणे
       document.getElementById('schoolName').addEventListener('change', function() {
         var code = this.value;
         var tSelect = document.getElementById('teacherSelect');
@@ -375,7 +405,7 @@
         }
       });
 
-      // २. मूल्यमापन गट बदलल्यास (टेक्स्ट आणि ड्रॉपडाऊन अपडेट करा)
+      // मूल्यमापन गट निवडल्यानुसार पर्याय बदलणे
       document.getElementById('evalGroupSelect').addEventListener('change', function() {
         var grp = this.value;
         var cSelect = document.getElementById('studentClassSelect');
@@ -395,7 +425,7 @@
         }
       });
 
-      // ३. इयत्ता बदलल्यास क्षमता अपडेट करा
+      // इयत्ता बदलल्यास क्षमता दाखवणे
       document.getElementById('studentClassSelect').addEventListener('change', function() {
         var cls = this.value;
         if (cls === '२') {
@@ -407,7 +437,7 @@
         }
       });
 
-      // सुरुवातीला २ री साठी सेट ठेवणे
+      // सुरुवातीला २ री चे पर्याय लोड ठेवणे
       fillOptions(r2, w2, n2, o2);
     });
   </script>
