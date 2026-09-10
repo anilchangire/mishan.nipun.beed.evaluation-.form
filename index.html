@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="mr">
 <head>
   <meta charset="UTF-8">
@@ -7,29 +7,48 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
     body { background-color: #f4f6fa; padding: 15px; }
+    
+    /* Header Styling */
     .header-container { background-color: #0d62ba; color: #ffffff; padding: 16px 20px; border-radius: 8px; margin-bottom: 15px; }
     .main-title { font-size: 22px; font-weight: bold; }
-    .sub-title { font-size: 15px; opacity: 0.95; }
+    .sub-title { font-size: 14px; opacity: 0.95; margin-top: 4px; }
+    
+    /* Card Styling */
     .card { background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1; padding: 16px; margin-bottom: 15px; }
-    .card-title { color: #0d62ba; font-size: 18px; font-weight: bold; margin-bottom: 12px; border-bottom: 2px solid #0d62ba; padding-bottom: 5px; }
+    .card-title { color: #0d62ba; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+    
     .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #333; }
+    label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #1e293b; }
     select, input { width: 100%; padding: 10px; font-size: 15px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; background: #fff; }
     select:focus, input:focus { border-color: #0d62ba; }
+    
     optgroup { font-weight: bold; color: #0d62ba; background-color: #f1f5f9; }
     optgroup option { font-weight: normal; color: #1e293b; background-color: #ffffff; padding: 6px; }
+
+    /* dynamic info text */
+    .subject-info-text { font-size: 13px; color: #64748b; margin-top: 6px; margin-bottom: 15px; font-weight: 500; }
+
+    /* Student Outer Box (Blue Border like screenshot) */
+    .student-box { border: 2px solid #0d62ba; border-radius: 8px; padding: 15px; background-color: #ffffff; margin-top: 10px; }
+    .student-no-header { text-align: center; margin-bottom: 15px; }
+    .student-no-title { font-size: 13px; font-weight: bold; color: #0d62ba; }
+    .student-no-val { font-size: 18px; font-weight: bold; color: #1e293b; margin-top: 2px; }
+
+    .blue-label { color: #0d62ba; font-weight: bold; }
   </style>
 </head>
 <body>
+
   <div class="header-container">
     <div class="main-title">मिशन निपुण बीड</div>
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
   </div>
 
+  <!-- १. शाळा व शिक्षकाची माहिती -->
   <div class="card">
-    <div class="card-title">१. शाळा व शिक्षकाची माहिती</div>
+    <div class="card-title" style="border-bottom: 2px solid #0d62ba; padding-bottom: 5px;">१. शाळा व शिक्षकाची माहिती</div>
 
-    <div class="form-group">
+    <div class="form-group" style="margin-top: 12px;">
       <label>शाळा निवडा *</label>
       <select id="schoolName">
         <option value="">-- शाळा निवडा --</option>
@@ -58,38 +77,61 @@
     </div>
   </div>
 
+  <!-- २. विद्यार्थी क्षमता नोंदणी -->
   <div class="card">
-    <div class="card-title">२. विद्यार्थी क्षमता नोंदणी</div>
-    <div class="form-group">
-      <label>मूल्यमापन गट:</label>
-      <select id="evalGroupSelect">
+    <div class="card-title">विद्यार्थी क्षमता नोंदणी</div>
+    
+    <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+      <label style="margin-bottom:0; white-space: nowrap; color: #0d62ba;">मूल्यमापन गट:</label>
+      <select id="evalGroupSelect" style="font-weight: bold;">
         <option value="class2">इयत्ता २ री</option>
         <option value="class3to5">इयत्ता ३ री ते ५ वी</option>
       </select>
     </div>
-    <div class="form-group">
-      <label>इयत्ता:</label>
-      <select id="studentClassSelect">
-        <option value="२">इयत्ता २ री</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>वाचन</label>
-      <select id="readingCompetency"><option value="">-- क्षमता निवडा --</option></select>
-    </div>
-    <div class="form-group">
-      <label>लेखन</label>
-      <select id="writingCompetency"><option value="">-- क्षमता निवडा --</option></select>
+
+    <!-- डायनॅमिक मजकूर (मूल्यमापन गटामध्ये बदल केल्यास ऑटो-बदलेल) -->
+    <div class="subject-info-text" id="subjectInfoText">
+      इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया
     </div>
 
-    <div class="form-group">
-      <label>संख्याज्ञान</label>
-      <select id="mathNumberCompetency"><option value="">-- क्षमता निवडा --</option></select>
-    </div>
+    <!-- निळ्या बॉर्डरचा बॉक्स (विद्यार्थ्याची माहिती व क्षमता) -->
+    <div class="student-box">
+      <div class="student-no-header">
+        <div class="student-no-title">क्र.</div>
+        <div class="student-no-val">1</div>
+      </div>
 
-    <div class="form-group">
-      <label>गणितीय क्रिया</label>
-      <select id="mathOpCompetency"><option value="">-- क्षमता निवडा --</option></select>
+      <div class="form-group">
+        <label class="blue-label">विद्यार्थ्याचे नाव</label>
+        <input type="text" id="studentName" placeholder="नाव">
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">इयत्ता</label>
+        <select id="studentClassSelect">
+          <option value="२">इयत्ता २ री</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">वाचन</label>
+        <select id="readingCompetency"><option value="">-- क्षमता निवडा --</option></select>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">लेखन</label>
+        <select id="writingCompetency"><option value="">-- क्षमता निवडा --</option></select>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">संख्याज्ञान</label>
+        <select id="mathNumberCompetency"><option value="">-- क्षमता निवडा --</option></select>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">गणितीय क्रिया</label>
+        <select id="mathOpCompetency"><option value="">-- क्षमता निवडा --</option></select>
+      </div>
     </div>
   </div>
 
@@ -323,7 +365,6 @@
       document.getElementById('schoolName').addEventListener('change', function() {
         var code = this.value;
         var tSelect = document.getElementById('teacherSelect');
-        tSelect.innerHTML = '';
 
         if (code && teachersData[code]) {
           var opts = '<option value="">-- वर्गशिक्षक निवडा --</option>';
@@ -336,16 +377,19 @@
         }
       });
 
-      // २. मूल्यमापन गट बदलल्यास
+      // २. मूल्यमापन गट बदलल्यास (टेक्स्ट आणि ड्रॉपडाऊन अपडेट करा)
       document.getElementById('evalGroupSelect').addEventListener('change', function() {
         var grp = this.value;
         var cSelect = document.getElementById('studentClassSelect');
+        var infoText = document.getElementById('subjectInfoText');
 
         if (grp === 'class2') {
+          infoText.innerText = "इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया";
           cSelect.innerHTML = '<option value="२">इयत्ता २ री</option>';
           fillOptions(r2, w2, n2, o2);
         } else {
-          cSelect.innerHTML = '<option value="">-- इयत्ता निवडा --</option>' +
+          infoText.innerText = "इयत्ता ३ री ते ५ वी | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया";
+          cSelect.innerHTML = '<option value="">-निवडा-</option>' +
                               '<option value="३">इयत्ता तिसरी</option>' +
                               '<option value="४">इयत्ता चौथी</option>' +
                               '<option value="५">इयत्ता पाचवी</option>';
@@ -359,14 +403,13 @@
         if (cls === '२') {
           fillOptions(r2, w2, n2, o2);
         } else if (cls === '३' || cls === '४' || cls === '५') {
-          // ३ री ते ५ वी साठी समान क्षमता सेट
           fillOptions(r3, w3, n3, o3);
         } else {
-          fillOptions('<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>');
+          fillOptions('<option value="">-- क्षमता निवडा --</option>', '<option value="">-- क्षमता निवडा --</option>', '<option value="">-- क्षमता निवडा --</option>', '<option value="">-- क्षमता निवडा --</option>');
         }
       });
 
-      // सुरुवातीला इयत्ता २ री च्या क्षमता लोड ठेवणे
+      // सुरुवातीला २ री साठी सेट ठेवणे
       fillOptions(r2, w2, n2, o2);
     });
   </script>
