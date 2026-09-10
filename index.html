@@ -573,15 +573,7 @@ var r4 = '<option value="">-- क्षमता निवडा --</option>' +
           fillOptions('<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>');
         }
       });
-
-      // इयत्ता बदलल्यास क्षमता अपडेट करा
-      document.getElementById('studentClassSelect').addEventListener('change', function() {
-        var cls = this.value;
-        if (cls === '२') {
-          fillOptions(r2, w2, n2, o2);
-        } else if (cls === '३') {
-          fillOptions(r3, w3, n3, o3);
-        } // इयत्ता बदलल्यास क्षमता अपडेट करा
+             } // इयत्ता बदलल्यास क्षमता अपडेट करा
 document.getElementById('studentClassSelect').addEventListener('change', function() {
   var cls = this.value;
   if (cls === '२') {
@@ -596,11 +588,7 @@ document.getElementById('studentClassSelect').addEventListener('change', functio
     fillOptions('<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>');
   }
 }); {
-          fillOptions('<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>');
-        }
-      });
-
-      // सुरुवातीला २ री चे पर्याय भरणे
+         // सुरुवातीला २ री चे पर्याय भरणे
       fillOptions(r2, w2, n2, o2);
 
     });
