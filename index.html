@@ -589,6 +589,32 @@
       function updateSummary() {
        function updateSummary() {
         var counts = { r: {A:0,B:0,C:0}, w: {A:0,B:0,C:0}, n: {A:0,B:0,C:0}, o: {A:0,B:0,C:0} };
+         function updateSummary() {
+        var counts = { r: {A:0,B:0,C:0}, w: {A:0,B:0,C:0}, n: {A:0,B:0,C:0}, o: {A:0,B:0,C:0} };
+
+        studentsList.forEach(function(s) {
+          if (s.r.startsWith("A")) counts.r.A++; else if (s.r.startsWith("B")) counts.r.B++; else if (s.r.startsWith("C")) counts.r.C++;
+          if (s.w.startsWith("A")) counts.w.A++; else if (s.w.startsWith("B")) counts.w.B++; else if (s.w.startsWith("C")) counts.w.C++;
+          if (s.n.startsWith("A")) counts.n.A++; else if (s.n.startsWith("B")) counts.n.B++; else if (s.n.startsWith("C")) counts.n.C++;
+          if (s.o.startsWith("A")) counts.o.A++; else if (s.o.startsWith("B")) counts.o.B++; else if (s.o.startsWith("C")) counts.o.C++;
+        });
+
+        document.getElementById('r_A').innerText = counts.r.A; document.getElementById('r_B').innerText = counts.r.B; document.getElementById('r_C').innerText = counts.r.C; document.getElementById('r_Total').innerText = counts.r.A + counts.r.B + counts.r.C;
+        document.getElementById('w_A').innerText = counts.w.A; document.getElementById('w_B').innerText = counts.w.B; document.getElementById('w_C').innerText = counts.w.C; document.getElementById('w_Total').innerText = counts.w.A + counts.w.B + counts.w.C;
+        document.getElementById('n_A').innerText = counts.n.A; document.getElementById('n_B').innerText = counts.n.B; document.getElementById('n_C').innerText = counts.n.C; document.getElementById('n_Total').innerText = counts.n.A + counts.n.B + counts.n.C;
+        document.getElementById('o_A').innerText = counts.o.A; document.getElementById('o_B').innerText = counts.o.B; document.getElementById('o_C').innerText = counts.o.C; document.getElementById('o_Total').innerText = counts.o.A + counts.o.B + counts.o.C;
+
+        // सर्व गटांची एकूण बेरीज जोडणे
+        var totA = counts.r.A + counts.w.A + counts.n.A + counts.o.A;
+        var totB = counts.r.B + counts.w.B + counts.n.B + counts.o.B;
+        var totC = counts.r.C + counts.w.C + counts.n.C + counts.o.C;
+        var grandTotal = totA + totB + totC;
+
+        document.getElementById('tot_A').innerText = totA;
+        document.getElementById('tot_B').innerText = totB;
+        document.getElementById('tot_C').innerText = totC;
+        document.getElementById('grand_Total').innerText = grandTotal;
+      }
 
         studentsList.forEach(function(s) {
           if (s.r.startsWith("A")) counts.r.A++; else if (s.r.startsWith("B")) counts.r.B++; else if (s.r.startsWith("C")) counts.r.C++;
