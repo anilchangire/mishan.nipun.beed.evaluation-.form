@@ -453,3 +453,147 @@
   </script>
 </body>
 </html>
+<button type="button" class="btn-add" id="addStudentBtn">+ जतन करा आणि आणखी विद्यार्थी जोडा</button>
+    </div>
+  </div>
+
+  <!-- ३. वर्गनिहाय समारोप (Live Summary Report) -->
+  <div class="card" id="summaryCard" style="display: none;">
+    <div class="card-title">वर्गनिहाय गोषवारा (Summary Report)</div>
+    <div class="table-container">
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>विषय</th>
+            <th>गट A</th>
+            <th>गट B</th>
+            <th>गट C</th>
+            <th>एकूण</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>वाचन</b></td>
+            <td id="r_A">0</td><td id="r_B">0</td><td id="r_C">0</td><td id="r_Total" style="font-weight: bold;">0</td>
+          </tr>
+          <tr>
+            <td><b>लेखन</b></td>
+            <td id="w_A">0</td><td id="w_B">0</td><td id="w_C">0</td><td id="w_Total" style="font-weight: bold;">0</td>
+          </tr>
+          <tr>
+            <td><b>संख्याज्ञान</b></td>
+            <td id="n_A">0</td><td id="n_B">0</td><td id="n_C">0</td><td id="n_Total" style="font-weight: bold;">0</td>
+          </tr>
+          <tr>
+            <td><b>गणितीय क्रिया</b></td>
+            <td id="o_A">0</td><td id="o_B">0</td><td id="o_C">0</td><td id="o_Total" style="font-weight: bold;">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ४. नोंदवलेल्या विद्यार्थ्यांची माहिती -->
+  <div class="card" id="savedDataCard" style="display: none;">
+    <div class="card-title">विद्यार्थ्यांची नावे व प्राप्त क्षमता यादी</div>
+    <div class="table-container">
+      <table class="saved-data-table">
+        <thead>
+          <tr>
+            <th>क्र.</th>
+            <th>नाव</th>
+            <th>इयत्ता</th>
+            <th>वाचन</th>
+            <th>लेखन</th>
+            <th>संख्याज्ञान</th>
+            <th>गणितीय क्रिया</th>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- PDF/प्रिंट काढा बटण -->
+    <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ सर्व माहिती PDF / प्रिंट काढा</button>
+  </div>
+
+  <script>
+    var currentStudentIndex = 1;
+    var studentsList = [];
+
+    function validateMarathiInput(input) {
+      var marathiError = document.getElementById("marathiError");
+      var nonMarathiPattern = /[^\u0900-\u097F\s]/g;
+      if (nonMarathiPattern.test(input.value)) {
+        marathiError.style.display = "block";
+        input.value = input.value.replace(nonMarathiPattern, '');
+      } else {
+        marathiError.style.display = "none";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var r2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A-11">A-11. सोपी वाक्ये वाचतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B-5">B-5. विरामचिन्हे ओळखतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C-1">C-1. अक्षरे ओळखत नाही</option></optgroup>';
+      var w2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A-12">A-12. वाक्ये लिहितो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B-6">B-6. शब्द लिहितो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C-1">C-1. अक्षरे लिहितो</option></optgroup>';
+      var n2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A-9">A-9. वस्तू मोजतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B-5">B-5. संख्या ओळखतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C-1">C-1. अंक ओळखत नाही</option></optgroup>';
+      var o2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A-11">A-11. वजाबाकी करतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B-5">B-5. बेरीज करतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C-1">C-1. क्रिया करत नाही</option></optgroup>';
+
+      function fillOptions(r, w, n, o) {
+        document.getElementById('readingCompetency').innerHTML = r;
+        document.getElementById('writingCompetency').innerHTML = w;
+        document.getElementById('mathNumberCompetency').innerHTML = n;
+        document.getElementById('mathOpCompetency').innerHTML = o;
+      }
+
+      function updateSummary() {
+        var counts = { r: {A:0,B:0,C:0}, w: {A:0,B:0,C:0}, n: {A:0,B:0,C:0}, o: {A:0,B:0,C:0} };
+
+        studentsList.forEach(function(s) {
+          if (s.r.startsWith("A")) counts.r.A++; else if (s.r.startsWith("B")) counts.r.B++; else if (s.r.startsWith("C")) counts.r.C++;
+          if (s.w.startsWith("A")) counts.w.A++; else if (s.w.startsWith("B")) counts.w.B++; else if (s.w.startsWith("C")) counts.w.C++;
+          if (s.n.startsWith("A")) counts.n.A++; else if (s.n.startsWith("B")) counts.n.B++; else if (s.n.startsWith("C")) counts.n.C++;
+          if (s.o.startsWith("A")) counts.o.A++; else if (s.o.startsWith("B")) counts.o.B++; else if (s.o.startsWith("C")) counts.o.C++;
+        });
+
+        document.getElementById('r_A').innerText = counts.r.A; document.getElementById('r_B').innerText = counts.r.B; document.getElementById('r_C').innerText = counts.r.C; document.getElementById('r_Total').innerText = counts.r.A + counts.r.B + counts.r.C;
+        document.getElementById('w_A').innerText = counts.w.A; document.getElementById('w_B').innerText = counts.w.B; document.getElementById('w_C').innerText = counts.w.C; document.getElementById('w_Total').innerText = counts.w.A + counts.w.B + counts.w.C;
+        document.getElementById('n_A').innerText = counts.n.A; document.getElementById('n_B').innerText = counts.n.B; document.getElementById('n_C').innerText = counts.n.C; document.getElementById('n_Total').innerText = counts.n.A + counts.n.B + counts.n.C;
+        document.getElementById('o_A').innerText = counts.o.A; document.getElementById('o_B').innerText = counts.o.B; document.getElementById('o_C').innerText = counts.o.C; document.getElementById('o_Total').innerText = counts.o.A + counts.o.B + counts.o.C;
+      }
+
+      document.getElementById('addStudentBtn').addEventListener('click', function() {
+        var name = document.getElementById('studentName').value.trim();
+        var cls = document.getElementById('studentClassSelect').value;
+        var r = document.getElementById('readingCompetency').value;
+        var w = document.getElementById('writingCompetency').value;
+        var n = document.getElementById('mathNumberCompetency').value;
+        var o = document.getElementById('mathOpCompetency').value;
+
+        if (!name) { alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा."); return; }
+
+        studentsList.push({ name: name, cls: cls, r: r, w: w, n: n, o: o });
+
+        var tbody = document.getElementById('studentTableBody');
+        tbody.innerHTML += '<tr><td>' + currentStudentIndex + '</td><td>' + name + '</td><td>' + cls + '</td><td>' + (r||"-") + '</td><td>' + (w||"-") + '</td><td>' + (n||"-") + '</td><td>' + (o||"-") + '</td></tr>';
+
+        document.getElementById('summaryCard').style.display = 'block';
+        document.getElementById('savedDataCard').style.display = 'block';
+
+        updateSummary();
+
+        document.getElementById('studentName').value = '';
+        document.getElementById('readingCompetency').selectedIndex = 0;
+        document.getElementById('writingCompetency').selectedIndex = 0;
+        document.getElementById('mathNumberCompetency').selectedIndex = 0;
+        document.getElementById('mathOpCompetency').selectedIndex = 0;
+
+        currentStudentIndex++;
+        document.getElementById('studentNo').innerText = currentStudentIndex;
+      });
+
+      fillOptions(r2, w2, n2, o2);
+    });
+  </script>
+</body>
+</html>
+
