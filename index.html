@@ -83,9 +83,7 @@
       box-shadow: 0 6px 14px rgba(22, 163, 74, 0.4);
       transform: translateY(-1px);
     }
-    .btn-add:active {
-      transform: translateY(1px);
-    }
+    .btn-add:active { transform: translateY(1px); }
 
     /* Print Button */
     .btn-print {
@@ -200,26 +198,26 @@
       </div>
 
       <div class="form-group">
-        <label class="blue-label">वाचन क्षमता</label>
+        <label class="blue-label">वाचन</label>
         <select id="readingCompetency"><option value="">-- क्षमता निवडा --</option></select>
       </div>
 
       <div class="form-group">
-        <label class="blue-label">लेखन क्षमता</label>
+        <label class="blue-label">लेखन</label>
         <select id="writingCompetency"><option value="">-- क्षमता निवडा --</option></select>
       </div>
 
       <div class="form-group">
-        <label class="blue-label">संख्याज्ञान क्षमता</label>
+        <label class="blue-label">संख्याज्ञान</label>
         <select id="mathNumberCompetency"><option value="">-- क्षमता निवडा --</option></select>
       </div>
 
       <div class="form-group">
-        <label class="blue-label">गणितीय क्रिया क्षमता</label>
+        <label class="blue-label">गणितीय क्रिया</label>
         <select id="mathOpCompetency"><option value="">-- क्षमता निवडा --</option></select>
       </div>
 
-      <!-- आकर्षित जतन करा बटण -->
+      <!-- आकर्षक जतन करा बटण -->
       <button type="button" class="btn-add" id="addStudentBtn">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
         जतन करा आणि आणखी विद्यार्थी जोडा
@@ -295,7 +293,7 @@
       </table>
     </div>
 
-    <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ सर्व माहिती PDF / प्रिंट काढा</button>
+    <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ सर्व माहिती पीडीएफ / प्रिंट काढा</button>
   </div>
 
   <script>
@@ -331,12 +329,207 @@
         "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
       };
 
-      var r2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A-11">A - ११. लहान वाक्ये वाचतो</option><option value="A-12">A - १२. अपरिचित वाक्ये वाचतो</option><option value="A-13">A - १३. जोडाक्षरयुक्त वाक्ये वाचतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B-5">B - ५. विरामचिन्हे ओळखतो</option><option value="B-6">B - ६. २-३ शब्दांची वाक्ये वाचतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C-1">C - १. अक्षरे ओळखत नाही</option><option value="C-2">C - २. अक्षरे ओळखतो</option></optgroup>';
-      var w2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A-12">A - १२. वाक्ये ऐकून लिहितो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B-6">B - ६. शब्द लिहितो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C-1">C - १. अक्षरे लिहित नाही</option></optgroup>';
-      var n2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A-9">A - ९. वस्तू मोजतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B-5">B - ५. ० ते ९ संख्या ओळखतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C-1">C - १. अंक ओळखत नाही</option></optgroup>';
-      var o2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A-11">A - ११. वजाबाकी करतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B-5">B - ५. बेरीज करतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C-1">C - १. बेरीज करत नाही</option></optgroup>';
+      // इयत्ता २ री चे सर्व पर्याय
+      var r2 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A-11">A - ११. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option>' +
+        '<option value="A-12">A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
+        '<option value="A-13">A - १३. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option>' +
+        '<option value="A-14">A - १४. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B-5">B - ५. मजकुरातील साध्या विरामचिन्हांची दखल घेतो.</option>' +
+        '<option value="B-6">B - ६. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
+        '<option value="B-7">B - ७. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option>' +
+        '<option value="B-8">B - ८. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह वाचतो.</option>' +
+        '<option value="B-9">B - ९. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
+        '<option value="B-10">B - १०. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C-1">C - १. वर्णमालेतील सर्व अक्षरे व त्याचे ध्वनी (उच्चार) ओळखत नाही.</option>' +
+        '<option value="C-2">C - २. वर्णमालेतील सर्व अक्षरे व त्याचे ध्वनी (उच्चार) ओळखतो.</option>' +
+        '<option value="C-3">C - ३. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे दोन अक्षरी शब्द वाचतो.</option>' +
+        '<option value="C-4">C - ४. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे तीन ते चार अक्षरी शब्द वाचतो.</option>' +
+        '</optgroup>';
 
-      var r3 = r2, w3 = w2, n3 = n2, o3 = o2; // आवश्यकतेनुसार अधिक पर्याय जोडू शकता
+      var w2 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A-12">A - १२. २-३ सोप्या शब्दांची दोन ते तीन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>' +
+        '<option value="A-13">A - १३. २-३ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त विरामचिन्हांसह तीन ते चार वाक्ये ऐकून लिहितो.</option>' +
+        '<option value="A-14">A - १४. श्रुतलेखनाकरिता ४-५ शब्दांची एक ते दोन सोपी वाक्ये योग्य गतीने लिहितो.</option>' +
+        '<option value="A-15">A - १५. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त एक वाक्य विरामचिन्हांसह ऐकून लिहितो.</option>' +
+        '<option value="A-16">A - १६. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त २-३ वाक्ये विरामचिन्हांसह योग्य गतीने लिहितो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B-6">B - ६. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>' +
+        '<option value="B-7">B - ७. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे, स्वरचिन्हेयुक्त व जोडाक्षरयुक्त शब्द लिहितो.</option>' +
+        '<option value="B-8">B - ८. २-३ शब्दांची व सोप्या जोडाक्षरांची एक ते दोन सोपी वाक्ये पाहून लिहितो.</option>' +
+        '<option value="B-9">B - ९. ४-५ सोपे शब्द व सोपी जोडाक्षरे असलेली दोन ते तीन वाक्ये पाहून लिहितो.</option>' +
+        '<option value="B-10">B - १०. २-३ शब्दांची एक ते दोन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>' +
+        '<option value="B-11">B - ११. २-३ शब्द व जोडाक्षरयुक्त एक ते दोन वाक्य ऐकून विरामचिन्हांसह योग्य गतीने लिहितो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C-1">C - १. वर्णमालेतील अक्षरे पाहून लिहू शकत नाही.</option>' +
+        '<option value="C-2">C - २. वर्णमालेतील अक्षरे पाहून लिहितो.</option>' +
+        '<option value="C-3">C - ३. सोपे शब्द पाहून लिहितो.</option>' +
+        '<option value="C-4">C - ४. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरांच्या ध्वनीला ऐकून अक्षरे लिहितो.</option>' +
+        '<option value="C-5">C - ५. श्रुतलेखन करताना वर्णमालेतील काही अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>' +
+        '</optgroup>';
+
+      var n2 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A-9">A - ९. २० पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>' +
+        '<option value="A-10">A - १०. १० ते २० पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
+        '<option value="A-11">A - ११. १० ते २० पर्यंत संख्या लिहितो. (अंकी)</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B-5">B - ५. ० ते ९ पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
+        '<option value="B-6">B - ६. ० ते ९ पर्यंत संख्या लिहितो. (अंकी)</option>' +
+        '<option value="B-7">B - ७. १० ते २० संख्यानामे क्रमाने म्हणतो.</option>' +
+        '<option value="B-8">B - ८. १० ते २० पर्यंतच्या वस्तू मोजतो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C-1">C - १. ० ते ९ संख्यानामे क्रमाने म्हणता येत नाहीत.</option>' +
+        '<option value="C-2">C - २. ० ते ९ संख्यानामे क्रमाने म्हणतो.</option>' +
+        '<option value="C-3">C - ३. ० ते ९ पर्यंतच्या वस्तू मोजतो.</option>' +
+        '<option value="C-4">C - ४. ९ पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>' +
+        '</optgroup>';
+
+      var o2 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A-11">A - ११. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकी करतो.</option>' +
+        '<option value="A-12">A - १२. ० ते ९ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
+        '<option value="A-13">A - १३. ० ते ९ पर्यंतच्या संख्यांचा वापर दैनंदिन परिस्थितीमध्ये करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B-5">B - ५. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरजेची उदाहरणे सोडवितो.</option>' +
+        '<option value="B-6">B - ६. ० ते ९ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
+        '<option value="B-7">B - ७. ० ते ९ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '<option value="B-8">B - ८. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकीची उदाहरणे सोडवितो.</option>' +
+        '<option value="B-9">B - ९. ० ते ४ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
+        '<option value="B-10">B - १०. ० ते ४ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C-1">C - १. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करता येत नाही.</option>' +
+        '<option value="C-2">C - २. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करतो.</option>' +
+        '<option value="C-3">C - ३. ० ते ४ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
+        '<option value="C-4">C - ४. ० ते ४ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '</optgroup>';
+
+      // इयत्ता ३ री ते ५ वी चे सर्व पर्याय
+      var r3 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A-12">A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी व जोडाक्षरासह तयार झालेली लहान वाक्ये वाचतो.</option>' +
+        '<option value="A-13">A - १३. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह आकलनासह वाचतो.</option>' +
+        '<option value="A-14">A - १४. अपरिचित मजकुरातील ६-८ सोप्या शब्दांनी व जोडाक्षरासह तयार झालेली लहान वाक्ये वाचतो.</option>' +
+        '<option value="A-15">A - १५. अपरिचित मजकुरातील ६-८ सोप्या शब्दांनी व जोडाक्षरासह तयार झालेली लहान वाक्ये अचूकपणे, आकलनासह वाचतो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B-6">B - ६. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
+        '<option value="B-7">B - ७. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली व जोडाक्षरासह लहान वाक्ये वाचतो.</option>' +
+        '<option value="B-8">B - ८. परिचित मजकुरातील २-३ सोप्या शब्दांनी व जोडाक्षरासह लहान वाक्ये अचूकपणे, आकलनासह वाचतो.</option>' +
+        '<option value="B-9">B - ९. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
+        '<option value="B-10">B - १०. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली जोडाक्षर युक्त लहान वाक्ये वाचतो.</option>' +
+        '<option value="B-11">B - ११. परिचित मजकुरातील ३-५ सोप्या शब्दांनी व जोडाक्षरासह लहान वाक्ये अचूकपणे, आकलनासह वाचतो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C-1">C - १. वर्णमालेतील काही अक्षरे व संबंधित ध्वनी ओळखत नाही.</option>' +
+        '<option value="C-2">C - २. वर्णमालेतील सर्व अक्षरे व त्याचे ध्वनी ओळखतो.</option>' +
+        '<option value="C-3">C - ३. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे दोन अक्षरी शब्द वाचतो.</option>' +
+        '<option value="C-4">C - ४. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे तीन ते चार अक्षरी शब्द वाचतो.</option>' +
+        '<option value="C-5">C - ५. मजकुरातील साध्या विरामचिन्हांची दखल घेतो.</option>' +
+        '</optgroup>';
+
+      var w3 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A-14">A - १४. श्रुतलेखनाकरिता ४-५ शब्दांची एक ते दोन सोपी वाक्ये योग्य गतीने लिहितो.</option>' +
+        '<option value="A-15">A - १५. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त एक वाक्य विरामचिन्हांसह व आकलनासह ऐकून लिहितो.</option>' +
+        '<option value="A-16">A - १६. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त दोन ते तीन वाक्ये विरामचिन्हांसह ऐकून लिहितो.</option>' +
+        '<option value="A-17">A - १७. ६-८ शब्दांची चार ते पाच सोपी वाक्ये ऐकून लिहितो.</option>' +
+        '<option value="A-18">A - १८. श्रुतलेखनाकरिता ६-८ शब्द व जोडाक्षरे यांनी युक्त ४-५ वाक्ये विरामचिन्हांसह व आकलनासह लिहितो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B-8">B - ८. २-३ शब्दांची व सोप्या जोडाक्षरांची एक ते दोन सोपी वाक्ये पाहून लिहितो.</option>' +
+        '<option value="B-9">B - ९. ४-५ सोपे शब्द व सोपी जोडाक्षरे असलेली दोन ते तीन वाक्ये आकलनासह पाहून लिहितो.</option>' +
+        '<option value="B-10">B - १०. २-३ शब्दांची एक ते दोन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>' +
+        '<option value="B-11">B - ११. २-३ शब्द व जोडाक्षरयुक्त एक ते दोन वाक्य विरामचिन्हांसह व आकलनासह ऐकून लिहितो.</option>' +
+        '<option value="B-12">B - १२. २-३ सोप्या शब्दांची दोन ते तीन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>' +
+        '<option value="B-13">B - १३. २-३ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त विरामचिन्हांसह व आकलनासह ३-४ वाक्ये ऐकून लिहितो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C-1">C - १. वर्णमालेतील अक्षरे पाहून लिहू शकत नाही.</option>' +
+        '<option value="C-2">C - २. वर्णमालेतील अक्षरे पाहून लिहितो.</option>' +
+        '<option value="C-3">C - ३. सोपे शब्द पाहून लिहितो.</option>' +
+        '<option value="C-4">C - ४. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरांच्या ध्वनीला ऐकून अक्षरे लिहितो.</option>' +
+        '<option value="C-5">C - ५. श्रुतलेखन करताना वर्णमालेतील काही अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>' +
+        '<option value="C-6">C - ६. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>' +
+        '<option value="C-7">C - ७. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे, स्वरचिन्हेयुक्त व जोडाक्षरयुक्त शब्द लिहितो.</option>' +
+        '</optgroup>';
+
+      var n3 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A-18">A - १८. ० ते ९ संख्यानामे लिहितो. (अक्षरी)</option>' +
+        '<option value="A-19">A - १९. ० ते २० संख्यानामे लिहितो. (अक्षरी)</option>' +
+        '<option value="A-20">A - २०. ० ते ५० संख्यानामे लिहितो. (अक्षरी)</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B-10">B - १०. १० ते २० पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
+        '<option value="B-11">B - ११. १० ते २० पर्यंत संख्या लिहितो. (अंकी)</option>' +
+        '<option value="B-12">B - १२. २१ ते ५० पर्यंतची संख्यानामे क्रमाने म्हणतो.</option>' +
+        '<option value="B-13">B - १३. स्थानिक किंमत संकल्पना वापरून २१ ते ५० पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
+        '<option value="B-14">B - १४. २१ ते ५० पर्यंतच्या संख्या लिहितो. (अंकी)</option>' +
+        '<option value="B-15">B - १५. ५१ ते ९९ पर्यंतची संख्यानामे क्रमाने म्हणतो.</option>' +
+        '<option value="B-16">B - १६. स्थानिक किंमत संकल्पना वापरून ५१ ते ९९ पर्यंतच्या संख्या ओळखतो.</option>' +
+        '<option value="B-17">B - १७. ५१ ते ९९ पर्यंतच्या संख्या लिहितो. (अंकी)</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C-1">C - १. ० ते ९ संख्यानामे क्रमाने म्हणता येत नाहीत.</option>' +
+        '<option value="C-2">C - २. ० ते ९ संख्यानामे क्रमाने म्हणतो.</option>' +
+        '<option value="C-3">C - ३. ० ते ९ पर्यंतच्या वस्तू मोजतो.</option>' +
+        '<option value="C-4">C - ४. ९ पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>' +
+        '<option value="C-5">C - ५. ० ते ९ पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
+        '<option value="C-6">C - ६. ० ते ९ पर्यंत संख्या लिहितो. (अंकी)</option>' +
+        '<option value="C-7">C - ७. १० ते २० संख्यानामे क्रमाने म्हणतो.</option>' +
+        '<option value="C-8">C - ८. १० ते २० पर्यंतच्या वस्तू मोजतो.</option>' +
+        '<option value="C-9">C - ९. २० पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>' +
+        '</optgroup>';
+
+      var o3 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A-24">A - २४. स्थानिक किंमत संकल्पना वापरून ० ते ९९ पर्यंतच्या संख्यांची बेरीज करतो. (बिनहातच्याची)</option>' +
+        '<option value="A-25">A - २५. स्थानिक किंमत संकल्पना वापरून ९९ पर्यंतच्या संख्यांची बेरीज करतो. (हातच्याची)</option>' +
+        '<option value="A-26">A - २६. ० ते ९९ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '<option value="A-27">A - २७. स्थानिक किंमत संकल्पना वापरून ९९ पर्यंतच्या संख्यांची वजाबाकी करतो. (बिनहातच्याची)</option>' +
+        '<option value="A-28">A - २८. स्थानिक किंमत संकल्पना वापरून ९९ पर्यंतच्या संख्यांची वजाबाकी करतो. (हातच्याची)</option>' +
+        '<option value="A-29">A - २९. ९९ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B-14">B - १४. ० ते २० पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करतो.</option>' +
+        '<option value="B-15">B - १५. ० ते २० पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
+        '<option value="B-16">B - १६. ० ते २० पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '<option value="B-17">B - १७. ० ते २० पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकी करतो.</option>' +
+        '<option value="B-18">B - १८. ० ते २० पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
+        '<option value="B-19">B - १९. ० ते २० पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '<option value="B-20">B - २०. ० ते ५० पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
+        '<option value="B-21">B - २१. ० ते ५० पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '<option value="B-22">B - २२. ० ते ५० पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
+        '<option value="B-23">B - २३. ० ते ५० पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '</optgroup>' +
+        '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C-1">C - १. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करता येत नाही.</option>' +
+        '<option value="C-2">C - २. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करतो.</option>' +
+        '<option value="C-3">C - ३. ० ते ४ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
+        '<option value="C-4">C - ४. ० ते ४ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '<option value="C-5">C - ५. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकी करतो.</option>' +
+        '<option value="C-6">C - ६. ० ते ४ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
+        '<option value="C-7">C - ७. ० ते ४ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '<option value="C-8">C - ८. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरजेची उदाहरणे सोडवितो.</option>' +
+        '<option value="C-9">C - ९. ० ते ९ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
+        '<option value="C-10">C - १०. ० ते ९ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '<option value="C-11">C - ११. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकी करतो.</option>' +
+        '<option value="C-12">C - १२. ० ते ९ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
+        '<option value="C-13">C - १३. ० ते ९ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
+        '</optgroup>';
 
       function fillOptions(r, w, n, o) {
         document.getElementById('readingCompetency').innerHTML = r;
@@ -345,12 +538,13 @@
         document.getElementById('mathOpCompetency').innerHTML = o;
       }
 
-      function getGroupPrefix(val) {
+      function getGroupBadge(val) {
         if (!val) return "-";
-        if (val.startsWith("A")) return '<span class="badge-a">' + val.split('.')[0] + '</span>';
-        if (val.startsWith("B")) return '<span class="badge-b">' + val.split('.')[0] + '</span>';
-        if (val.startsWith("C")) return '<span class="badge-c">' + val.split('.')[0] + '</span>';
-        return val;
+        var prefix = val.split('.')[0].trim();
+        if (prefix.startsWith("A")) return '<span class="badge-a">' + prefix + '</span>';
+        if (prefix.startsWith("B")) return '<span class="badge-b">' + prefix + '</span>';
+        if (prefix.startsWith("C")) return '<span class="badge-c">' + prefix + '</span>';
+        return prefix;
       }
 
       function updateSummary() {
@@ -399,6 +593,15 @@
         }
       });
 
+      document.getElementById('studentClassSelect').addEventListener('change', function() {
+        var cls = this.value;
+        if (cls === '२') {
+          fillOptions(r2, w2, n2, o2);
+        } else if (cls === '३' || cls === '४' || cls === '५') {
+          fillOptions(r3, w3, n3, o3);
+        }
+      });
+
       document.getElementById('addStudentBtn').addEventListener('click', function() {
         var name = document.getElementById('studentName').value.trim();
         var cls = document.getElementById('studentClassSelect').value;
@@ -420,10 +623,10 @@
           '<td>' + currentStudentIndex + '</td>' +
           '<td style="text-align: left; font-weight: 600;">' + name + '</td>' +
           '<td>इ. ' + cls + '</td>' +
-          '<td>' + getGroupPrefix(r) + '</td>' +
-          '<td>' + getGroupPrefix(w) + '</td>' +
-          '<td>' + getGroupPrefix(n) + '</td>' +
-          '<td>' + getGroupPrefix(o) + '</td>' +
+          '<td>' + getGroupBadge(r) + '</td>' +
+          '<td>' + getGroupBadge(w) + '</td>' +
+          '<td>' + getGroupBadge(n) + '</td>' +
+          '<td>' + getGroupBadge(o) + '</td>' +
           '</tr>';
         
         tbody.innerHTML += newRow;
@@ -449,4 +652,4 @@
     });
   </script>
 </body>
-</html>
+</htm
