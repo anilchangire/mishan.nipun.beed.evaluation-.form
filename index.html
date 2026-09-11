@@ -224,9 +224,9 @@
       </button>
     </div>
   </div>
-  <!--३. विद्यार्थ्यांची माहिती -->
+ <!-- ३. नोंदवलेल्या विद्यार्थ्यांची माहिती -->
   <div class="card" id="savedDataCard" style="display: none;">
-    <div class="card-title"> ३. विद्यार्थ्यांची यादी व प्राप्त क्षमता गट</div>
+    <div class="card-title">३. नोंदवलेल्या विद्यार्थ्यांची यादी व प्राप्त गट</div>
     <div class="table-container">
       <table class="saved-data-table">
         <thead>
@@ -239,20 +239,17 @@
             <th>संख्याज्ञान</th>
             <th>गणितीय क्रिया</th>
           </tr>
-          <tr>
-            <td><b>गणितीय क्रिया</b></td>
-            <td><span class="badge-a" id="o_A">0</span></td>
-            <td><span class="badge-b" id="o_B">0</span></td>
-            <td><span class="badge-c" id="o_C">0</span></td>
-            <td id="o_Total" style="font-weight: bold;">0</td>
-          </tr>
         </thead>
         <tbody id="studentTableBody"></tbody>
       </table>
     </div>
-<!--४. वर्गनिहाय गोषवारा (Summary Report) -->
+
+    <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ सर्व माहिती पीडीएफ / प्रिंट काढा</button>
+  </div>
+
+  <!-- ४. वर्गनिहाय गोषवारा (Summary Report) -->
   <div class="card" id="summaryCard" style="display: none;">
-    <div class="card-title"> ४. वर्गाचा क्षमतानिहाय गोषवारा (Summary Report)</div>
+    <div class="card-title">४. क्षमतानिहाय वर्ग गोषवारा (Summary Report)</div>
     <div class="table-container">
       <table class="summary-table">
         <thead>
@@ -264,6 +261,47 @@
             <th>एकूण विद्यार्थी</th>
           </tr>
         </thead>
+        <tbody>
+          <tr>
+            <td><b>वाचन</b></td>
+            <td><span class="badge-a" id="r_A">0</span></td>
+            <td><span class="badge-b" id="r_B">0</span></td>
+            <td><span class="badge-c" id="r_C">0</span></td>
+            <td id="r_Total" style="font-weight: bold;">0</td>
+          </tr>
+          <tr>
+            <td><b>लेखन</b></td>
+            <td><span class="badge-a" id="w_A">0</span></td>
+            <td><span class="badge-b" id="w_B">0</span></td>
+            <td><span class="badge-c" id="w_C">0</span></td>
+            <td id="w_Total" style="font-weight: bold;">0</td>
+          </tr>
+          <tr>
+            <td><b>संख्याज्ञान</b></td>
+            <td><span class="badge-a" id="n_A">0</span></td>
+            <td><span class="badge-b" id="n_B">0</span></td>
+            <td><span class="badge-c" id="n_C">0</span></td>
+            <td id="n_Total" style="font-weight: bold;">0</td>
+          </tr>
+          <tr>
+            <td><b>गणितीय क्रिया</b></td>
+            <td><span class="badge-a" id="o_A">0</span></td>
+            <td><span class="badge-b" id="o_B">0</span></td>
+            <td><span class="badge-c" id="o_C">0</span></td>
+            <td id="o_Total" style="font-weight: bold;">0</td>
+          </tr>
+          <!-- एकूणची नवीन रो (फक्त गोषवारा टेबलमध्ये) -->
+          <tr style="background-color: #e2e8f0; font-weight: bold;">
+            <td><b>एकूण</b></td>
+            <td><span class="badge-a" id="tot_A">0</span></td>
+            <td><span class="badge-b" id="tot_B">0</span></td>
+            <td><span class="badge-c" id="tot_C">0</span></td>
+            <td id="grand_Total" style="font-weight: bold; color: #0d62ba;">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
         <tbody>
           <tr>
             <td><b>वाचन</b></td>
