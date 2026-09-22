@@ -40,7 +40,6 @@
     .blue-label { color: #0d62ba; font-weight: bold; }
     .error-msg { color: #dc2626; font-size: 12px; margin-top: 4px; display: none; }
 
-    /* पटसंख्या भरेपर्यंत विभाग लॉक ठेवण्यासाठी क्लास */
     .locked-section {
       opacity: 0.55;
       pointer-events: none;
@@ -66,10 +65,16 @@
     .btn-save:disabled { background: #94a3b8; cursor: not-allowed; }
     .btn-add-new { flex: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; font-size: 15px; font-weight: bold; padding: 12px 16px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     
-    .btn-submit-all { background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-size: 16px; font-weight: bold; padding: 14px 20px; border: none; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    /* दोनों बटनों को एक साथ नीचे एक पंक्ति में दिखाने के लिए स्टाइल */
+    .action-btn-row {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .btn-submit-all { flex: 1; background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-size: 15px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
     .btn-submit-all:disabled { background: #94a3b8; cursor: not-allowed; }
 
-    .btn-print { background: linear-gradient(135deg, #0d62ba, #084382); color: white; font-size: 15px; font-weight: bold; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; margin-top: 15px; }
+    .btn-print { flex: 1; background: linear-gradient(135deg, #0d62ba, #084382); color: white; font-size: 15px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
 
     .table-container { overflow-x: auto; margin-top: 10px; }
     table { width: 100%; border-collapse: collapse; text-align: center; font-size: 13px; }
@@ -82,7 +87,6 @@
     .badge-c { background-color: #fee2e2; color: #991b1b; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }
     .badge-absent { background-color: #e2e8f0; color: #475569; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }
 
-    /* क्षमतेचा संपूर्ण मजकूर व्यवस्थित दाखवण्यासाठी क्लास */
     .competency-full-cell {
       text-align: left !important;
       font-size: 11.5px;
@@ -110,11 +114,12 @@
     @media (max-width: 768px) {
       .form-row { flex-direction: column; gap: 10px; }
       .btn-group { flex-direction: column; }
+      .action-btn-row { flex-direction: column; }
     }
 
     @media print {
       @page { size: A4 landscape; margin: 8mm; }
-      .no-print, .btn-group, .btn-print, .btn-submit-all, .warning-banner { display: none !important; }
+      .no-print, .btn-group, .action-btn-row, .warning-banner { display: none !important; }
       body { background-color: white !important; padding: 0 !important; font-size: 9.5pt; }
       .pdf-header-box { display: block !important; border: 1px solid #000; }
       .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin-bottom: 10px !important; }
@@ -294,33 +299,32 @@
         </div>
 
         <div class="btn-group">
-          <button type="button" class="btn-save" id="saveStudentBtn">💾 विद्यार्थी माहिती जतन करा</button>
+          <button type="button" class="btn-save" id="saveStudentBtn">💾 विद्यार्थी जतन करा</button>
           <button type="button" class="btn-add-new" id="addNewStudentBtn">➕ पुढील विद्यार्थी जोडा</button>
         </div>
       </div>
     </div>
 
-    <!-- ३. नोंदवलेल्या विद्यार्थ्यांची माहिती -->
+    <!-- ३. नोंदवलेल्या विद्यार्थ्यांची माहिती (इयत्ता व उपस्थिती कॉलम वगळले आहेत) -->
     <div class="card" id="savedDataCard" style="display: none;">
-      <div class="card-title">३. नोंदवलेल्या विद्यार्थ्यांची यादी व प्राप्त क्षमता गट</div>
+      <div class="card-title">३. नोंदवलेल्या विद्यार्थ्यांची यादी व प्राप्त गट</div>
       <div class="table-container">
         <table class="saved-data-table">
           <thead>
             <tr>
-              <th style="width: 4%;">अ.क्र.</th>
-              <th style="width: 16%;">विद्यार्थ्याचे नाव</th>
-              <th style="width: 7%;">इयत्ता</th>
-              <th style="width: 7%;">उपस्थिती</th>
-              <th style="width: 16.5%;">वाचन क्षमता</th>
-              <th style="width: 16.5%;">लेखन क्षमता</th>
-              <th style="width: 16.5%;">संख्याज्ञान क्षमता</th>
-              <th style="width: 16.5%;">गणितीय क्रिया क्षमता</th>
+              <th style="width: 5%;">अ.क्र.</th>
+              <th style="width: 23%;">विद्यार्थ्याचे नाव</th>
+              <th style="width: 18%;">वाचन क्षमता</th>
+              <th style="width: 18%;">लेखन क्षमता</th>
+              <th style="width: 18%;">संख्याज्ञान क्षमता</th>
+              <th style="width: 18%;">गणितीय क्रिया क्षमता</th>
             </tr>
           </thead>
           <tbody id="studentTableBody"></tbody>
         </table>
       </div>
-
+    </div>
+      
     <!-- ४. वर्गनिहाय गोषवारा (Summary Report) -->
     <div class="card" id="summaryCard" style="display: none;">
       <div class="card-title">४. क्षमतानिहाय वर्ग गोषवारा (Summary Report)</div>
@@ -378,7 +382,11 @@
         <div class="sig-box">मुख्याध्यापकांची स्वाक्षरी व शिक्का</div>
       </div>
 
-      <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ PDF डाउनलोड / प्रिंट काढा</button>
+      <!-- दोन्ही बटन्स एका ओळीत (Action Button Row) -->
+      <div class="action-btn-row no-print">
+        <button type="button" class="btn-submit-all" id="submitAllBtn" onclick="submitAllData()">📤 संपूर्ण वर्गाचा डेटा सबमिट करा (Submit All)</button>
+        <button type="button" class="btn-print" onclick="window.print()">🖨️ PDF डाउनलोड / प्रिंट काढा</button>
+      </div>
     </div>
   </div>
 
@@ -745,7 +753,6 @@
       isCurrentSaved = false;
     });
 
-    /* पूर्ण क्षमतेचे विधान आणि कोड तक्त्यात दाखवण्यासाठी फंक्शन */
     function renderCompetencyCell(val) {
       if (!val) {
         return '<span style="color:#94a3b8;">- नोंद नाही -</span>';
@@ -764,6 +771,7 @@
              '</div>';
     }
 
+    /* इयत्ता व उपस्थितीचे स्तंभ वगळून तक्ता तयार करणे */
     function renderStudentTable() {
       var tbody = document.getElementById('studentTableBody');
       tbody.innerHTML = '';
@@ -771,9 +779,7 @@
       studentsList.forEach(function(s) {
         var row = '<tr>' +
           '<td>' + s.idx + '</td>' +
-          '<td style="text-align:left;"><b>' + s.name + '</b></td>' +
-          '<td>इ. ' + s.classVal + ' री</td>' +
-          '<td>' + (s.attendance === 'Present' ? '<span style="color:#166534; font-weight:bold;">हजर</span>' : '<span style="color:#dc2626; font-weight:bold;">गैरहजर</span>') + '</td>' +
+          '<td style="text-align:left;"><b>' + s.name + '</b>' + (s.attendance === 'Absent' ? ' <span class="badge-absent" style="font-size:10px;">गैरहजर</span>' : '') + '</td>' +
           '<td>' + renderCompetencyCell(s.reading) + '</td>' +
           '<td>' + renderCompetencyCell(s.writing) + '</td>' +
           '<td>' + renderCompetencyCell(s.mathNum) + '</td>' +
@@ -817,7 +823,7 @@
 
     document.getElementById('classSelect').addEventListener('change', function() {
       var classVal = this.value;
-      document.getElementById('p_className').innerText = classVal ? "इयत्ता " + classVal + "री" : "-";
+      document.getElementById('p_className').innerText = classVal ? "इयत्ता " + classVal + " ली" : "-";
       if (classVal === "१" || classVal === "२") {
         document.getElementById('evalGroupSelect').value = "class2";
         changeEvalGroup("class2");
