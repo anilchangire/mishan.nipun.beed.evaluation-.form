@@ -762,7 +762,9 @@
 
         var tbody = document.getElementById('studentTableBody');
         var attBadge = att === 'Present' ? '<span class="badge-a">हजर</span>' : '<span class="badge-absent">गैरहजर</span>';
-        var newRow = '<tr><td>' + currentStudentIndex + '</td><td style="text-align: left; font-weight: 600;">' + name + '</td><td>इ. ' + cls + '</td><td>' + attBadge + '</td><td>' + getGroupBadge(r, att) + '</td><td>' + getGroupBadge(w, att) + '</td><td>' + getGetGroupBadge(n, att) + '</td><td>' + getGroupBadge(o, att) + '</td></tr>';
+        
+        /* दुरुस्त केलेली ओळ (getGetGroupBadge ऐवजी getGroupBadge केले आहे): */
+        var newRow = '<tr><td>' + currentStudentIndex + '</td><td style="text-align: left; font-weight: 600;">' + name + '</td><td>इ. ' + cls + '</td><td>' + attBadge + '</td><td>' + getGroupBadge(r, att) + '</td><td>' + getGroupBadge(w, att) + '</td><td>' + getGroupBadge(n, att) + '</td><td>' + getGroupBadge(o, att) + '</td></tr>';
         tbody.innerHTML += newRow;
 
         document.getElementById('summaryCard').style.display = 'block';
