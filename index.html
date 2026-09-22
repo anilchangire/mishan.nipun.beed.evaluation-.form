@@ -294,7 +294,7 @@
         </div>
 
         <div class="btn-group">
-          <button type="button" class="btn-save" id="saveStudentBtn">💾 विद्यार्थी जतन करा</button>
+          <button type="button" class="btn-save" id="saveStudentBtn">💾 विद्यार्थी माहिती जतन करा</button>
           <button type="button" class="btn-add-new" id="addNewStudentBtn">➕ पुढील विद्यार्थी जोडा</button>
         </div>
       </div>
@@ -302,7 +302,7 @@
 
     <!-- ३. नोंदवलेल्या विद्यार्थ्यांची माहिती -->
     <div class="card" id="savedDataCard" style="display: none;">
-      <div class="card-title">३. नोंदवलेल्या विद्यार्थ्यांची यादी व प्राप्त गट</div>
+      <div class="card-title">३. नोंदवलेल्या विद्यार्थ्यांची यादी व प्राप्त क्षमता गट</div>
       <div class="table-container">
         <table class="saved-data-table">
           <thead>
@@ -321,9 +321,6 @@
         </table>
       </div>
 
-      <button type="button" class="btn-submit-all no-print" id="submitAllBtn" onclick="submitAllData()">📤 संपूर्ण वर्गाचा डेटा सबमिट करा (Submit All)</button>
-    </div>
-      
     <!-- ४. वर्गनिहाय गोषवारा (Summary Report) -->
     <div class="card" id="summaryCard" style="display: none;">
       <div class="card-title">४. क्षमतानिहाय वर्ग गोषवारा (Summary Report)</div>
@@ -775,7 +772,7 @@
         var row = '<tr>' +
           '<td>' + s.idx + '</td>' +
           '<td style="text-align:left;"><b>' + s.name + '</b></td>' +
-          '<td>इ. ' + s.classVal + ' ली</td>' +
+          '<td>इ. ' + s.classVal + ' री</td>' +
           '<td>' + (s.attendance === 'Present' ? '<span style="color:#166534; font-weight:bold;">हजर</span>' : '<span style="color:#dc2626; font-weight:bold;">गैरहजर</span>') + '</td>' +
           '<td>' + renderCompetencyCell(s.reading) + '</td>' +
           '<td>' + renderCompetencyCell(s.writing) + '</td>' +
@@ -820,7 +817,7 @@
 
     document.getElementById('classSelect').addEventListener('change', function() {
       var classVal = this.value;
-      document.getElementById('p_className').innerText = classVal ? "इयत्ता " + classVal + " ली" : "-";
+      document.getElementById('p_className').innerText = classVal ? "इयत्ता " + classVal + "री" : "-";
       if (classVal === "१" || classVal === "२") {
         document.getElementById('evalGroupSelect').value = "class2";
         changeEvalGroup("class2");
