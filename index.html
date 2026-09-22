@@ -59,31 +59,56 @@
     .blue-label { color: #0d62ba; font-weight: bold; }
     .error-msg { color: #dc2626; font-size: 12px; margin-top: 4px; display: none; }
 
-    /* Attractive Save Button */
-    .btn-add {
-      width: 100%;
+    /* Button Group Styling */
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .btn-save {
+      flex: 1;
       background: linear-gradient(135deg, #16a34a, #15803d);
       color: white;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
-      padding: 12px 20px;
+      padding: 12px 16px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 15px;
-      box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3);
+      box-shadow: 0 4px 10px rgba(22, 163, 74, 0.25);
       transition: all 0.2s ease-in-out;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
     }
-    .btn-add:hover {
+    .btn-save:hover {
       background: linear-gradient(135deg, #15803d, #166534);
-      box-shadow: 0 6px 14px rgba(22, 163, 74, 0.4);
       transform: translateY(-1px);
     }
-    .btn-add:active { transform: translateY(1px); }
+
+    .btn-add-new {
+      flex: 1;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-add-new:hover {
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      transform: translateY(-1px);
+    }
 
     /* Print Button */
     .btn-print {
@@ -110,8 +135,12 @@
     .badge-b { background-color: #fef9c3; color: #854d0e; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; text-align: left; }
     .badge-c { background-color: #fee2e2; color: #991b1b; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; text-align: left; }
 
+    @media (max-width: 480px) {
+      .btn-group { flex-direction: column; }
+    }
+
     @media print {
-      .no-print, .btn-add, .btn-print { display: none !important; }
+      .no-print, .btn-group, .btn-print { display: none !important; }
       body { background-color: white; padding: 0; }
       .card { border: none; box-shadow: none; padding: 0; }
     }
@@ -217,11 +246,15 @@
         <select id="mathOpCompetency"><option value="">-- क्षमता निवडा --</option></select>
       </div>
 
-      <!-- जतन करा बटण -->
-      <button type="button" class="btn-add" id="addStudentBtn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-        जतन करा आणि आणखी विद्यार्थी जोडा
-      </button>
+      <!-- स्वतंत्र दोन बटणे -->
+      <div class="btn-group">
+        <button type="button" class="btn-save" id="saveStudentBtn">
+          💾 जतन करा
+        </button>
+        <button type="button" class="btn-add-new" id="addNewStudentBtn">
+          ➕ आणखी विद्यार्थी जोडा
+        </button>
+      </div>
     </div>
   </div>
 
@@ -244,6 +277,7 @@
         <tbody id="studentTableBody"></tbody>
       </table>
     </div>
+  </div>
     
   <!-- ४. वर्गनिहाय गोषवारा (Summary Report) -->
   <div class="card" id="summaryCard" style="display: none;">
@@ -298,12 +332,13 @@
         </tbody>
       </table>
     </div>
-  <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ सर्व माहिती पीडीएफ / प्रिंट काढा</button>
+    <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ सर्व माहिती पीडीएफ / प्रिंट काढा</button>
   </div>
     
   <script>
     var currentStudentIndex = 1;
     var studentsList = [];
+    var isCurrentSaved = false;
 
     function validateMarathiInput(input) {
       var marathiError = document.getElementById("marathiError");
@@ -581,7 +616,6 @@
         document.getElementById('o_C').innerText = counts.o.C; 
         document.getElementById('o_Total').innerText = counts.o.A + counts.o.B + counts.o.C;
 
-        // एकूण बेरीज
         var totA = counts.r.A + counts.w.A + counts.n.A + counts.o.A;
         var totB = counts.r.B + counts.w.B + counts.n.B + counts.o.B;
         var totC = counts.r.C + counts.w.C + counts.n.C + counts.o.C;
@@ -632,7 +666,8 @@
         }
       });
 
-      document.getElementById('addStudentBtn').addEventListener('click', function() {
+      // १. जतन करा (Save Button)
+      document.getElementById('saveStudentBtn').addEventListener('click', function() {
         var name = document.getElementById('studentName').value.trim();
         var cls = document.getElementById('studentClassSelect').value;
         var r = document.getElementById('readingCompetency').value;
@@ -644,6 +679,11 @@
           alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा."); 
           document.getElementById('studentName').focus();
           return; 
+        }
+
+        if (isCurrentSaved) {
+          alert("या विद्यार्थ्याची माहिती आधीच जतन झाली आहे. पुढील विद्यार्थी जोडण्यासाठी 'आणखी विद्यार्थी जोडा' बटणावर क्लिक करा.");
+          return;
         }
 
         studentsList.push({ name: name, cls: cls, r: r, w: w, n: n, o: o });
@@ -665,6 +705,19 @@
         document.getElementById('savedDataCard').style.display = 'block';
 
         updateSummary();
+        isCurrentSaved = true;
+        alert("माहिती यशस्वीरीत्या जतन झाली आहे!");
+      });
+
+      // २. आणखी विद्यार्थी जोडा (Add New Student Button)
+      document.getElementById('addNewStudentBtn').addEventListener('click', function() {
+        var name = document.getElementById('studentName').value.trim();
+
+        // जर फॉर्म भरलेला असेल पण जतन केला नसेल तर इशारा द्या
+        if (name && !isCurrentSaved) {
+          var confirmDiscard = confirm("आपण भरलेली माहिती जतन केलेली नाही. नवीन विद्यार्थी जोडायचा आहे का?");
+          if (!confirmDiscard) return;
+        }
 
         // फॉर्म रिसेट
         document.getElementById('studentName').value = '';
@@ -673,8 +726,12 @@
         document.getElementById('mathNumberCompetency').selectedIndex = 0;
         document.getElementById('mathOpCompetency').selectedIndex = 0;
 
-        currentStudentIndex++;
+        if (isCurrentSaved) {
+          currentStudentIndex++;
+        }
+        
         document.getElementById('studentNoVal').innerText = currentStudentIndex;
+        isCurrentSaved = false;
         document.getElementById('studentName').focus();
       });
 
