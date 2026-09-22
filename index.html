@@ -91,7 +91,7 @@
     .signature-section { display: none; margin-top: 40px; justify-content: space-between; padding: 0 20px; }
     .sig-box { text-align: center; width: 40%; font-weight: bold; font-size: 14px; border-top: 1px dashed #000; padding-top: 8px; }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .form-row { flex-direction: column; gap: 10px; }
       .btn-group, .dash-metrics { flex-direction: column; }
     }
@@ -179,8 +179,9 @@
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
+      <!-- वर्ग निवडा, वर्गशिक्षक, मुले संख्या, मुली संख्या व वर्गातील एकूण पट एकाच ओळीत -->
+      <div class="form-row" style="background: #f1f5f9; padding: 12px; border-radius: 6px; border: 1px solid #cbd5e1;">
+        <div class="form-group" style="flex: 1.2;">
           <label>वर्ग निवडा *</label>
           <select id="classSelect">
             <option value="">-- वर्ग निवडा --</option>
@@ -192,26 +193,25 @@
           </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="flex: 1.8;">
           <label>वर्गशिक्षक *</label>
           <select id="teacherSelect">
             <option value="">-- आधी शाळा निवडा --</option>
           </select>
         </div>
-      </div>
 
-      <!-- पटसंख्या कॅल्क्युलेशन -->
-      <div class="form-row" style="background: #f1f5f9; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
-        <div class="form-group">
+        <div class="form-group" style="flex: 1;">
           <label>मुले संख्या *</label>
           <input type="number" id="boysCount" min="0" placeholder="0" oninput="calculateTotalEnrollment()">
         </div>
-        <div class="form-group">
+
+        <div class="form-group" style="flex: 1;">
           <label>मुली संख्या *</label>
           <input type="number" id="girlsCount" min="0" placeholder="0" oninput="calculateTotalEnrollment()">
         </div>
-        <div class="form-group">
-          <label>वर्गातील एकूण पट (मुले + मुली)</label>
+
+        <div class="form-group" style="flex: 1.2;">
+          <label>वर्गातील एकूण पट</label>
           <input type="number" id="totalEnrollment" placeholder="0" readonly style="font-weight: bold; background-color: #e2e8f0 !important;">
         </div>
       </div>
@@ -222,8 +222,8 @@
       <div class="card-title">२. विद्यार्थी क्षमता नोंदणी</div>
       
       <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
-        <label style="margin-bottom:0; white-space: nowrap; color: #0d62ba;">मूल्यमापन गट:</label>
-        <select id="evalGroupSelect" style="font-weight: bold; height: 38px;">
+        <label style="margin-bottom:0; white-space: nowrap; color: #0d62ba;">मूल्यमापन गट निवडा:</label>
+        <select id="evalGroupSelect" style="font-weight: bold; height: 38px;" onchange="changeEvalGroup(this.value)">
           <option value="class2">इयत्ता २ री</option>
           <option value="class3to5">इयत्ता ३ री ते ५ वी</option>
         </select>
@@ -417,9 +417,7 @@
               <th>स्थिती</th>
             </tr>
           </thead>
-          <tbody id="dashTableBody">
-            <!-- Dynamic Data Will Load Here -->
-          </tbody>
+          <tbody id="dashTableBody"></tbody>
         </table>
       </div>
 
@@ -457,6 +455,169 @@
       { code: "SCH13", name: "रमाबाई प्राथमिक शाळा नागापूर", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
       { code: "SCH14", name: "बालाघाट विद्यालय दौनापूर", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 }
     ];
+
+    // ================= संपूर्ण क्षमता डेटाबेस (COMPREHENSIVE ALL COMPETENCIES) =================
+    // इयत्ता २ री क्षमता (A-१ ते C)
+    var readingClass2HTML = '<option value="">-- वाचन क्षमता निवडा --</option>' +
+      '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A - १. वर्णमालेतील सर्व अक्षरे अस्खलित वाचतो.">A - १. वर्णमालेतील सर्व अक्षरे अस्खलित वाचतो.</option>' +
+        '<option value="A - २. काना, मात्रा, वेलांटीचे शब्द स्पष्ट वाचतो.">A - २. काना, मात्रा, वेलांटीचे शब्द स्पष्ट वाचतो.</option>' +
+        '<option value="A - ३. जोडशब्दयुक्त मजकूर समजपूर्वक वाचतो.">A - ३. जोडशब्दयुक्त मजकूर समजपूर्वक वाचतो.</option>' +
+        '<option value="A - ४. लहान गोष्टी व कविता लयबद्ध वाचतो.">A - ४. लहान गोष्टी व कविता लयबद्ध वाचतो.</option>' +
+        '<option value="A - ५. सोपे संवाद व नाटके वाचतो.">A - ५. सोपे संवाद व नाटके वाचतो.</option>' +
+        '<option value="A - ६. दिलेल्या चित्रावरून २-३ वाक्यांचा मजकूर सांगतो/वाचतो.">A - ६. दिलेल्या चित्रावरून २-३ वाक्यांचा मजकूर सांगतो/वाचतो.</option>' +
+        '<option value="A - ७. परिचित मजकुरातील लहान वाक्ये वाचतो.">A - ७. परिचित मजकुरातील लहान वाक्ये वाचतो.</option>' +
+        '<option value="A - ८. अपरिचित सोपी वाक्ये वाचतो.">A - ८. अपरिचित सोपी वाक्ये वाचतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B - १. २ व ३ अक्षरी बिनवेलांटी/काना शब्द वाचतो.">B - १. २ व ३ अक्षरी बिनवेलांटी/काना शब्द वाचतो.</option>' +
+        '<option value="B - २. सोपी विरामचिन्हे ओळखतो.">B - २. सोपी विरामचिन्हे ओळखतो.</option>' +
+        '<option value="B - ३. २-३ शब्दांची वाक्ये वाचतो.">B - ३. २-३ शब्दांची वाक्ये वाचतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C - १. वर्णमालेतील अक्षरे ओळखतो.">C - १. वर्णमालेतील अक्षरे ओळखतो.</option>' +
+        '<option value="C - २. स्वरादी व काना-मात्रा नसलेले सोपे शब्द वाचतो.">C - २. स्वरादी व काना-मात्रा नसलेले सोपे शब्द वाचतो.</option>' +
+        '<option value="C - ३. चित्र पाहून नाव सांगतो व जुळवतो.">C - ३. चित्र पाहून नाव सांगतो व जुळवतो.</option>' +
+      '</optgroup>';
+
+    var writingClass2HTML = '<option value="">-- लेखन क्षमता निवडा --</option>' +
+      '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A - १. सोपे व जोडशब्द बिनचूक लिहितो.">A - १. सोपे व जोडशब्द बिनचूक लिहितो.</option>' +
+        '<option value="A - २. ऐकलेले वाक्य योग्य विरामचिन्हांसह लिहितो.">A - २. ऐकलेले वाक्य योग्य विरामचिन्हांसह लिहितो.</option>' +
+        '<option value="A - ३. स्वाध्यायातील सोपे प्रश्न उत्तर स्वरूपात लिहितो.">A - ३. स्वाध्यायातील सोपे प्रश्न उत्तर स्वरूपात लिहितो.</option>' +
+        '<option value="A - ४. स्वतःच्या मनाने लहान वाक्ये तयार करून लिहितो.">A - ४. स्वतःच्या मनाने लहान वाक्ये तयार करून लिहितो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B - १. २ व ३ अक्षरी शब्द सुवाच्य अक्षरात लिहितो.">B - १. २ व ३ अक्षरी शब्द सुवाच्य अक्षरात लिहितो.</option>' +
+        '<option value="B - २. श्रुतलेखनातील सोपे शब्द अचूक लिहितो.">B - २. श्रुतलेखनातील सोपे शब्द अचूक लिहितो.</option>' +
+        '<option value="B - ३. चित्रांचे नाव पाहून/मनोमन लिहितो.">B - ३. चित्रांचे नाव पाहून/मनोमन लिहितो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C - १. पाहून अक्षरे सुवाच्य काढतो.">C - १. पाहून अक्षरे सुवाच्य काढतो.</option>' +
+        '<option value="C - २. रेषेवर व वळणदार अक्षरे लिहितो.">C - २. रेषेवर व वळणदार अक्षरे लिहितो.</option>' +
+      '</optgroup>';
+
+    var numberClass2HTML = '<option value="">-- संख्याज्ञान क्षमता निवडा --</option>' +
+      '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A - १. १ ते १०० पर्यंतच्या संख्यांचे वाचन व लेखन करतो.">A - १. १ ते १०० पर्यंतच्या संख्यांचे वाचन व लेखन करतो.</option>' +
+        '<option value="A - २. १ ते १०० पर्यंतच्या संख्यांचे स्थानिक मूल्य सांगतो.">A - २. १ ते १०० पर्यंतच्या संख्यांचे स्थानिक मूल्य सांगतो.</option>' +
+        '<option value="A - ३. १०० पर्यंतच्या संख्यांचा चढता व उतरता क्रम लावतो.">A - ३. १०० पर्यंतच्या संख्यांचा चढता व उतरता क्रम लावतो.</option>' +
+        '<option value="A - ४. लहान-मोठी संख्या ओळखतो (१ ते १००).">A - ४. लहान-मोठी संख्या ओळखतो (१ ते १००).</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B - १. १ ते ५० पर्यंतच्या संख्या अंकात व अक्षरात लिहितो.">B - १. १ ते ५० पर्यंतच्या संख्या अंकात व अक्षरात लिहितो.</option>' +
+        '<option value="B - २. दशकाची संकल्पना सांगतो व मोजतो.">B - २. दशकाची संकल्पना सांगतो व मोजतो.</option>' +
+        '<option value="B - ३. मागील व पुढील संख्या सांगतो.">B - ३. मागील व पुढील संख्या सांगतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C - १. १ ते २० वस्तू मोजून संख्या लिहितो.">C - १. १ ते २० वस्तू मोजून संख्या लिहितो.</option>' +
+        '<option value="C - २. १ ते २० अंकांची ओळख व वाचन करतो.">C - २. १ ते २० अंकांची ओळख व वाचन करतो.</option>' +
+      '</optgroup>';
+
+    var mathOpClass2HTML = '<option value="">-- गणितीय क्रिया क्षमता निवडा --</option>' +
+      '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A - १. दोन अंकी संख्यांची बिनहातच्याची बेरीज व वजाबाकी करतो.">A - १. दोन अंकी संख्यांची बिनहातच्याची बेरीज व वजाबाकी करतो.</option>' +
+        '<option value="A - २. दोन अंकी संख्यांची हातच्याची बेरीज करतो.">A - २. दोन अंकी संख्यांची हातच्याची बेरीज करतो.</option>' +
+        '<option value="A - ३. दोन अंकी संख्यांची हातच्याची वजाबाकी करतो.">A - ३. दोन अंकी संख्यांची हातच्याची वजाबाकी करतो.</option>' +
+        '<option value="A - ४. बेरीज व वजाबाकीवर आधारित सोपी शाब्दिक उदाहरणे सोडवतो.">A - ४. बेरीज व वजाबाकीवर आधारित सोपी शाब्दिक उदाहरणे सोडवतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B - १. १ ते ९ अंकांचे गणितीय व्यवहार समजतात.">B - १. १ ते ९ अंकांचे गणितीय व्यवहार समजतात.</option>' +
+        '<option value="B - २. दोन अंकी बिनहातच्याची बेरीज करतो.">B - २. दोन अंकी बिनहातच्याची बेरीज करतो.</option>' +
+        '<option value="B - ३. दोन अंकी बिनहातच्याची वजाबाकी करतो.">B - ३. दोन अंकी बिनहातच्याची वजाबाकी करतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C - १. वस्तूंच्या साह्याने १ ते ९ ची बेरीज करतो.">C - १. वस्तूंच्या साह्याने १ ते ९ ची बेरीज करतो.</option>' +
+        '<option value="C - २. वस्तू वापरून सोपी वजाबाकी करतो.">C - २. वस्तू वापरून सोपी वजाबाकी करतो.</option>' +
+      '</optgroup>';
+
+    // इयत्ता ३ री ते ५ वी क्षमता (A-१ ते C)
+    var readingClass3to5HTML = '<option value="">-- वाचन क्षमता निवडा --</option>' +
+      '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A - १. ३ ते ४ परिच्छेदांचा अपरिचित मजकूर अस्खलितपणे वाचतो.">A - १. ३ ते ४ परिच्छेदांचा अपरिचित मजकूर अस्खलितपणे वाचतो.</option>' +
+        '<option value="A - २. वर्तमानपत्र/माहितीपत्रकातील मजकूर समजपूर्वक वाचतो.">A - २. वर्तमानपत्र/माहितीपत्रकातील मजकूर समजपूर्वक वाचतो.</option>' +
+        '<option value="A - ३. वाचन करून मुख्य मुद्दा व निष्कर्ष सांगतो.">A - ३. वाचन करून मुख्य मुद्दा व निष्कर्ष सांगतो.</option>' +
+        '<option value="A - ४. नाट्यीकरण व संवादात्मक वाचन आत्मविश्वासाने करतो.">A - ४. नाट्यीकरण व संवादात्मक वाचन आत्मविश्वासाने करतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B - १. परिच्छेद अडखळत का होईना वाचतो.">B - १. परिच्छेद अडखळत का होईना वाचतो.</option>' +
+        '<option value="B - २. जोडशब्द असलेले परिच्छेद वाचतो.">B - २. जोडशब्द असलेले परिच्छेद वाचतो.</option>' +
+        '<option value="B - ३. वाचन करून थेट प्रश्नांची उत्तरे शोधतो.">B - ३. वाचन करून थेट प्रश्नांची उत्तरे शोधतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C - १. फक्त सुटे जोडशब्द वाचतो.">C - १. फक्त सुटे जोडशब्द वाचतो.</option>' +
+        '<option value="C - २. केवळ लहान वाक्येच वाचू शकतो.">C - २. केवळ लहान वाक्येच वाचू शकतो.</option>' +
+        '<option value="C - ३. शब्द वाचताना वर्ण उच्चारात त्रुटी राहतात.">C - ३. शब्द वाचताना वर्ण उच्चारात त्रुटी राहतात.</option>' +
+      '</optgroup>';
+
+    var writingClass3to5HTML = '<option value="">-- लेखन क्षमता निवडा --</option>' +
+      '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A - १. दिलेल्या विषयावर ५ ते ६ वाक्यांचा निबंध/परिच्छेद लिहितो.">A - १. दिलेल्या विषयावर ५ ते ६ वाक्यांचा निबंध/परिच्छेद लिहितो.</option>' +
+        '<option value="A - २. अनुभव, कल्पना व विचार स्वतःच्या शब्दात लिहितो.">A - २. अनुभव, कल्पना व विचार स्वतःच्या शब्दात लिहितो.</option>' +
+        '<option value="A - ३. पत्र किंवा अर्ज लेखन अचूक करतो.">A - ३. पत्र किंवा अर्ज लेखन अचूक करतो.</option>' +
+        '<option value="A - ४. कथा/गोष्ट पूर्ण करून सुवाच्य लिहितो.">A - ४. कथा/गोष्ट पूर्ण करून सुवाच्य लिहितो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B - १. श्रुतलेखनात जोडशब्द योग्य रीतीने लिहितो.">B - १. श्रुतलेखनात जोडशब्द योग्य रीतीने लिहितो.</option>' +
+        '<option value="B - २. सोप्या प्रश्नांची उत्तरे २-३ वाक्यात लिहितो.">B - २. सोप्या प्रश्नांची उत्तरे २-३ वाक्यात लिहितो.</option>' +
+        '<option value="B - ३. दिलेल्या मुद्द्यांवरून वाक्य तयार करून लिहितो.">B - ३. दिलेल्या मुद्द्यांवरून वाक्य तयार करून लिहितो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C - १. पाहून बिनचूक लेखन (अनुलेखन) करतो.">C - १. पाहून बिनचूक लेखन (अनुलेखन) करतो.</option>' +
+        '<option value="C - २. सुटसुटीत शब्द लिहितो परंतु वाक्यात अडखळतो.">C - २. सुटसुटीत शब्द लिहितो परंतु वाक्यात अडखळतो.</option>' +
+      '</optgroup>';
+
+    var numberClass3to5HTML = '<option value="">-- संख्याज्ञान क्षमता निवडा --</option>' +
+      '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A - १. ४ व ५ अंकी संख्यांचे वाचन व लेखन अचूक करतो.">A - १. ४ व ५ अंकी संख्यांचे वाचन व लेखन अचूक करतो.</option>' +
+        '<option value="A - २. संख्यांचे विस्तारित रूप व स्थानिक मूल्य सांगतो.">A - २. संख्यांचे विस्तारित रूप व स्थानिक मूल्य सांगतो.</option>' +
+        '<option value="A - ३. सम, विषम व मूळ संख्या ओळखतो.">A - ३. सम, विषम व मूळ संख्या ओळखतो.</option>' +
+        '<option value="A - ४. अपूर्णांक संकल्पना समजून घेतो व ओळखतो.">A - ४. अपूर्णांक संकल्पना समजून घेतो व ओळखतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B - १. ३ अंकी संख्यांचे वाचन व लेखन करतो.">B - १. ३ अंकी संख्यांचे वाचन व लेखन करतो.</option>' +
+        '<option value="B - २. ३ अंकी संख्यांचा लहान-मोठेपणा ठरवतो.">B - २. ३ अंकी संख्यांचा लहान-मोठेपणा ठरवतो.</option>' +
+        '<option value="B - ३. १०० ते ९९९ पर्यंतचा संख्याक्रम सांगतो.">B - ३. १०० ते ९९९ पर्यंतचा संख्याक्रम सांगतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C - १. २ अंकी संख्यांपर्यंतच मर्यादा आहे.">C - १. २ अंकी संख्यांपर्यंतच मर्यादा आहे.</option>' +
+        '<option value="C - २. शतक संकल्पनेत अडचण येते.">C - २. शतक संकल्पनेत अडचण येते.</option>' +
+      '</optgroup>';
+
+    var mathOpClass3to5HTML = '<option value="">-- गणितीय क्रिया क्षमता निवडा --</option>' +
+      '<optgroup label="गट A (प्रगत)">' +
+        '<option value="A - १. ३ व ४ अंकी संख्यांची हातच्याची बेरीज व वजाबाकी करतो.">A - १. ३ व ४ अंकी संख्यांची हातच्याची बेरीज व वजाबाकी करतो.</option>' +
+        '<option value="A - २. २ अंकी संख्येने ३ अंकी संख्येला गुणिले व भागिले करतो.">A - २. २ अंकी संख्येने ३ अंकी संख्येला गुणिले व भागिले करतो.</option>' +
+        '<option value="A - ३. बहुविध शाब्दिक उदाहरणे अचूक सोडवतो.">A - ३. बहुविध शाब्दिक उदाहरणे अचूक सोडवतो.</option>' +
+        '<option value="A - ४. व्यवहारी गणितात नफा, तोटा संकल्पना वापरतो.">A - ४. व्यवहारी गणितात नफा, तोटा संकल्पना वापरतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट B (मध्यम)">' +
+        '<option value="B - १. ३ अंकी बिनहातच्याची बेरीज व वजाबाकी करतो.">B - १. ३ अंकी बिनहातच्याची बेरीज व वजाबाकी करतो.</option>' +
+        '<option value="B - २. १ अंकी संख्येने २ अंकी संख्येला गुणतो व भागतो.">B - २. १ अंकी संख्येने २ अंकी संख्येला गुणतो व भागतो.</option>' +
+        '<option value="B - ३. सोपे २ ते ९ चे पाढे पाठ आहेत व वापरतो.">B - ३. सोपे २ ते ९ चे पाढे पाठ आहेत व वापरतो.</option>' +
+      '</optgroup>' +
+      '<optgroup label="गट C (आरंभिक)">' +
+        '<option value="C - १. केवळ २ अंकी साधी बेरीज व वजाबाकी करतो.">C - १. केवळ २ अंकी साधी बेरीज व वजाबाकी करतो.</option>' +
+        '<option value="C - २. गुणाकार व भागाकार ही संकल्पना स्पष्ट नाही.">C - २. गुणाकार व भागाकार ही संकल्पना स्पष्ट नाही.</option>' +
+      '</optgroup>';
+
+    function fillOptions(r, w, n, o) {
+      document.getElementById('readingCompetency').innerHTML = r;
+      document.getElementById('writingCompetency').innerHTML = w;
+      document.getElementById('mathNumberCompetency').innerHTML = n;
+      document.getElementById('mathOpCompetency').innerHTML = o;
+    }
+
+    function changeEvalGroup(groupVal) {
+      var infoText = document.getElementById('subjectInfoText');
+      if (groupVal === 'class2') {
+        infoText.innerText = "इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया";
+        fillOptions(readingClass2HTML, writingClass2HTML, numberClass2HTML, mathOpClass2HTML);
+      } else {
+        infoText.innerText = "इयत्ता ३ री ते ५ वी | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया";
+        fillOptions(readingClass3to5HTML, writingClass3to5HTML, numberClass3to5HTML, mathOpClass3to5HTML);
+      }
+    }
 
     function calculateTotalEnrollment() {
       var boys = parseInt(document.getElementById('boysCount').value) || 0;
@@ -620,20 +781,6 @@
         "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
       };
 
-      var r2 = '<option value="">-- क्षमता निवडा --</option>' +
-        '<optgroup label="गट A (प्रगत)"><option value="A - ११. परिचित मजकुरातील लहान वाक्ये वाचतो.">A - ११. परिचित मजकुरातील लहान वाक्ये वाचतो.</option><option value="A - १२. अपरिचित सोपी वाक्ये वाचतो.">A - १२. अपरिचित सोपी वाक्ये वाचतो.</option></optgroup>' +
-        '<optgroup label="गट B (मध्यम)"><option value="B - ५. सोपी विरामचिन्हे ओळखतो.">B - ५. सोपी विरामचिन्हे ओळखतो.</option><option value="B - ६. २-३ शब्दांची वाक्ये वाचतो.">B - ६. २-३ शब्दांची वाक्ये वाचतो.</option></optgroup>' +
-        '<optgroup label="गट C (आरंभिक)"><option value="C - १. वर्णमालेतील अक्षरे ओळखतो.">C - १. वर्णमालेतील अक्षरे ओळखतो.</option></optgroup>';
-
-      var w2 = r2, n2 = r2, o2 = r2;
-
-      function fillOptions(r, w, n, o) {
-        document.getElementById('readingCompetency').innerHTML = r;
-        document.getElementById('writingCompetency').innerHTML = w;
-        document.getElementById('mathNumberCompetency').innerHTML = n;
-        document.getElementById('mathOpCompetency').innerHTML = o;
-      }
-
       function getGroupBadge(val, att) {
         if (att === "Absent") return '<span class="badge-absent">गैरहजर</span>';
         if (!val) return "-";
@@ -663,14 +810,14 @@
         document.getElementById('o_A').innerText = counts.o.A; document.getElementById('o_B').innerText = counts.o.B; document.getElementById('o_C').innerText = counts.o.C; document.getElementById('o_Abs').innerText = counts.o.Abs; document.getElementById('o_Total').innerText = studentsList.length;
       }
 
-      /* शाळा बदलल्यावर शिक्षकाचे नाव आणि PDF मधील नाव स्वयंचलितपणे रिसेट करणे (Fix 1) */
+      /* शाळा बदलल्यावर शिक्षकाचे नाव स्वयंचलितपणे रिसेट करणे */
       document.getElementById('schoolName').addEventListener('change', function() {
         var code = this.value;
         var tSelect = document.getElementById('teacherSelect');
         var selectedText = this.options[this.selectedIndex].text;
         
         document.getElementById('p_schoolName').innerText = code ? selectedText : '-';
-        document.getElementById('p_teacherName').innerText = '-'; // Teacher reset in PDF Header
+        document.getElementById('p_teacherName').innerText = '-'; 
 
         if (code && teachersData[code]) {
           var opts = '<option value="">-- वर्गशिक्षक निवडा --</option>';
@@ -687,7 +834,7 @@
       document.getElementById('evalDate').addEventListener('change', function() { document.getElementById('p_evalDate').innerText = this.value || '-'; });
       document.getElementById('classSelect').addEventListener('change', function() { var clsVal = this.value; document.getElementById('p_className').innerText = clsVal ? 'इयत्ता ' + clsVal + ' री' : '-'; });
 
-      /* विद्यार्थी जतन करणे (Fix 3: Lock fields after save) */
+      /* विद्यार्थी जतन करणे */
       document.getElementById('saveStudentBtn').addEventListener('click', function() {
         if (maxStudentsAllowed <= 0) {
           alert("कृपया आधी वर्गाची मुले व मुलींची संख्या भरून पटसंख्या निश्चित करा.");
@@ -726,7 +873,7 @@
 
         updateSummary();
         isCurrentSaved = true;
-        toggleStudentInputFields(true); // Disable inputs after saving
+        toggleStudentInputFields(true);
         alert("विद्यार्थी माहिती यशस्वीरीत्या जतन झाली आहे!");
       });
 
@@ -742,7 +889,7 @@
           return;
         }
 
-        toggleStudentInputFields(false); // Enable inputs for next entry
+        toggleStudentInputFields(false);
 
         document.getElementById('studentName').value = '';
         document.getElementById('attendanceStatus').value = 'Present';
@@ -758,7 +905,8 @@
         document.getElementById('studentName').focus();
       });
 
-      fillOptions(r2, w2, n2, o2);
+      // सुरुवातीला इयत्ता २ री च्या सर्व क्षमता लोड करा
+      fillOptions(readingClass2HTML, writingClass2HTML, numberClass2HTML, mathOpClass2HTML);
       renderDashboardTable();
     });
   </script>
