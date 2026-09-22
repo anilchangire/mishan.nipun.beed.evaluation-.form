@@ -113,24 +113,24 @@
       margin: 10px auto;
     }
 
-    /* PDF / प्रिंट साठी आकर्षक मुख्य हेडर बॉक्स */
+    /* PDF / प्रिंट मुख्य हेडर बॉक्स (आकर्षक व मोठा फॉन्ट) */
     .pdf-header-box {
       border: 2px solid #0d62ba;
       border-radius: 8px;
-      padding: 12px 18px;
+      padding: 14px 20px;
       margin-bottom: 15px;
       background-color: #f8fafc;
       display: none;
     }
-    .pdf-header-title { text-align: center; margin-bottom: 12px; }
-    .pdf-header-title h2 { font-size: 20px; color: #0d62ba; font-weight: bold; }
-    .pdf-header-title h4 { font-size: 14px; color: #334155; margin-top: 3px; font-weight: 600; }
+    .pdf-header-title { text-align: center; margin-bottom: 14px; }
+    .pdf-header-title h2 { font-size: 22px; color: #0d62ba; font-weight: bold; letter-spacing: 0.5px; }
+    .pdf-header-title h4 { font-size: 15px; color: #334155; margin-top: 4px; font-weight: 600; }
     
     .pdf-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px 25px;
-      font-size: 14px;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 10px 30px;
+      font-size: 15px;
       color: #0f172a;
     }
     .pdf-item {
@@ -142,6 +142,7 @@
     .pdf-item strong {
       color: #0d62ba;
       white-space: nowrap;
+      font-size: 15px;
     }
 
     .signature-section { display: none; margin-top: 35px; justify-content: space-between; padding: 0 40px; }
@@ -153,6 +154,7 @@
       .action-btn-row { flex-direction: column; }
     }
 
+    /* प्रिंट व PDF साठी विशेष सेटिंग्ज */
     @media print {
       @page { size: A4 landscape; margin: 8mm; }
       .no-print, .btn-group, .action-btn-row, .warning-banner, .success-banner { display: none !important; }
@@ -162,13 +164,13 @@
         display: block !important;
         border: 2px solid #000 !important;
         margin-bottom: 10px !important;
-        padding: 10px 14px !important;
+        padding: 12px 16px !important;
         background-color: #ffffff !important;
       }
-      .pdf-header-title h2 { font-size: 16pt !important; color: #000 !important; }
-      .pdf-header-title h4 { font-size: 11pt !important; color: #000 !important; }
-      .pdf-grid { font-size: 10.5pt !important; gap: 5px 20px !important; }
-      .pdf-item strong { color: #000 !important; }
+      .pdf-header-title h2 { font-size: 17pt !important; color: #000 !important; }
+      .pdf-header-title h4 { font-size: 11.5pt !important; color: #000 !important; }
+      .pdf-grid { font-size: 11pt !important; gap: 6px 25px !important; }
+      .pdf-item strong { color: #000 !important; font-size: 11pt !important; }
 
       .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin-bottom: 8px !important; }
       .card-title { color: #000 !important; border-bottom: 1px solid #000 !important; font-size: 11pt !important; margin-bottom: 6px !important; padding-bottom: 3px !important; }
@@ -192,7 +194,7 @@
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
   </div>
 
-  <!-- PDF / प्रिंट साठी मुख्य हेडर बॉक्स (सुधारित क्रम व मोठा फॉन्ट) -->
+  <!-- PDF / प्रिंट मुख्य हेडर बॉक्स (सुधारित क्रम, मराठी अंक व मोठा फॉन्ट) -->
   <div class="pdf-header-box" id="pdfHeaderBox">
     <div class="pdf-header-title">
       <h2>मिशन निपुण बीड</h2>
@@ -673,6 +675,7 @@
       }
     }
 
+    /* पटसंख्या पूर्ण झाली असल्यास फॉर्म बंद करणे */
     function checkEnrollmentLimit() {
       var fullBanner = document.getElementById('enrollmentFullBanner');
       var inputArea = document.getElementById('studentInputArea');
@@ -751,6 +754,7 @@
       alert("🎉 माहिती यशस्वीरित्या सादर झाली आहे. धन्यवाद! फॉर्म आता लॉक झाला आहे.");
     }
 
+    /* १. विद्यार्थी जतन करताना पटसंख्येची कडक तपासणी */
     document.getElementById('saveStudentBtn').addEventListener('click', function() {
       var boysVal = document.getElementById('boysCount').value.trim();
       var girlsVal = document.getElementById('girlsCount').value.trim();
@@ -812,6 +816,7 @@
       alert("विद्यार्थी " + currentStudentIndex + " चा डेटा जतन झाला आहे!");
     });
 
+    /* २. पुढील विद्यार्थी जोडण्यावर कडक बंदी */
     document.getElementById('addNewStudentBtn').addEventListener('click', function() {
       if (!isCurrentSaved) {
         alert("कृपया आधी सध्याच्या विद्यार्थ्याचा डेटा 'जतन' करा!");
@@ -897,7 +902,7 @@
       document.getElementById('p_teacherName').innerText = this.value;
     });
 
-    /* कक्षा के अनुसार सही प्रत्यय (ली, री, थी, वी) सेट करना */
+    /* वर्ग निवडीनुसार योग्य प्रत्यय (ली, री, थी, वी) */
     document.getElementById('classSelect').addEventListener('change', function() {
       var classVal = this.value;
       var classNameText = "-";
@@ -925,7 +930,7 @@
       }
     });
 
-    /* दिनांक को DD-MM-YYYY प्रारूप में परिवर्तित करने का फंक्शन */
+    /* दिनांक DD-MM-YYYY स्वरूपात बदलणे */
     function formatToIndianDate(isoDate) {
       if (!isoDate) return "-";
       var parts = isoDate.split('-');
