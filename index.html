@@ -32,17 +32,20 @@
       margin-bottom: 0;
     }
 
+    /* दुरुस्ती: मजकूर कापला जाऊ नये म्हणून min-height आणि line-height मधील बदल */
     .static-info-box {
       background-color: #e0f2fe;
       color: #0369a1;
-      padding: 10px 12px;
+      padding: 8px 12px;
       border-radius: 6px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
       border: 1px solid #bae6fd;
-      height: 42px;
+      min-height: 42px;
       display: flex;
       align-items: center;
+      word-break: break-word;
+      line-height: 1.3;
     }
 
     /* Input & Select Styling */
@@ -168,7 +171,7 @@
       padding: 10px 15px;
       margin-bottom: 15px;
       background-color: #ffffff;
-      display: none; /* Screen वर लपवलेला, फक्त प्रिंटमध्ये दिसेल */
+      display: none;
     }
     .pdf-header-title {
       text-align: center;
@@ -216,7 +219,7 @@
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
   </div>
 
-  <!-- PDF / प्रिंट साठी मुख्य हेडर बॉक्स (फोटोमध्ये दाखवल्याप्रमाणे सर्वात वर दिसेल) -->
+  <!-- PDF / प्रिंट साठी मुख्य हेडर बॉक्स -->
   <div class="pdf-header-box" id="pdfHeaderBox">
     <div class="pdf-header-title">
       <h2>मिशन निपुण बीड</h2>
@@ -259,9 +262,10 @@
         </select>
       </div>
 
-      <div class="form-group" style="flex: 1.5;">
+      <!-- दुरुस्ती: येथे पूर्ण पत्ता दिसेल -->
+      <div class="form-group" style="flex: 2;">
         <label>केंद्र</label>
-        <div class="static-info-box">कन्या नागापूर</div>
+        <div class="static-info-box">कन्या नागापूर ता.परळी वै. जि. बीड</div>
       </div>
 
       <div class="form-group" style="flex: 1;">
