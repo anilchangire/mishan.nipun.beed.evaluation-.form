@@ -8,12 +8,10 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', 'Arial', 'Noto Sans Marathi', sans-serif; }
     body { background-color: #f4f6fa; padding: 15px; color: #1e293b; }
     
-    /* Header Styling */
     .header-container { background: linear-gradient(135deg, #0d62ba, #084382); color: #ffffff; padding: 18px 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
     .main-title { font-size: 22px; font-weight: bold; }
     .sub-title { font-size: 14px; opacity: 0.95; margin-top: 4px; }
 
-    /* Card Styling */
     .card { background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1; padding: 18px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
     .card-title { color: #0d62ba; font-size: 18px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
     
@@ -42,6 +40,27 @@
     .blue-label { color: #0d62ba; font-weight: bold; }
     .error-msg { color: #dc2626; font-size: 12px; margin-top: 4px; display: none; }
 
+    /* पटसंख्या भरेपर्यंत विभाग लॉक ठेवण्यासाठी क्लास */
+    .locked-section {
+      opacity: 0.55;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .warning-banner {
+      background-color: #fef2f2;
+      border: 1px solid #f87171;
+      color: #991b1b;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .btn-group { display: flex; gap: 12px; margin-top: 15px; }
     .btn-save { flex: 1; background: linear-gradient(135deg, #16a34a, #15803d); color: white; font-size: 15px; font-weight: bold; padding: 12px 16px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .btn-save:disabled { background: #94a3b8; cursor: not-allowed; }
@@ -63,6 +82,22 @@
     .badge-c { background-color: #fee2e2; color: #991b1b; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }
     .badge-absent { background-color: #e2e8f0; color: #475569; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }
 
+    /* क्षमतेचा संपूर्ण मजकूर व्यवस्थित दाखवण्यासाठी क्लास */
+    .competency-full-cell {
+      text-align: left !important;
+      font-size: 11.5px;
+      line-height: 1.35;
+      padding: 6px 8px !important;
+    }
+    .badge-pill {
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      margin-right: 4px;
+      display: inline-block;
+    }
+
     .pdf-header-box { border: 1px solid #94a3b8; border-radius: 8px; padding: 10px 15px; margin-bottom: 15px; background-color: #ffffff; display: none; }
     .pdf-header-title { text-align: center; margin-bottom: 10px; }
     .pdf-header-title h2 { font-size: 18px; color: #0d62ba; }
@@ -77,18 +112,18 @@
       .btn-group { flex-direction: column; }
     }
 
-    /* Print / PDF Settings Fixes */
     @media print {
-      @page { size: A4 portrait; margin: 10mm; }
-      .no-print, .btn-group, .btn-print, .btn-submit-all { display: none !important; }
-      body { background-color: white !important; padding: 0 !important; font-size: 11pt; }
+      @page { size: A4 landscape; margin: 8mm; }
+      .no-print, .btn-group, .btn-print, .btn-submit-all, .warning-banner { display: none !important; }
+      body { background-color: white !important; padding: 0 !important; font-size: 9.5pt; }
       .pdf-header-box { display: block !important; border: 1px solid #000; }
-      .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin-bottom: 15px !important; }
+      .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin-bottom: 10px !important; }
       .card-title { color: #000 !important; border-bottom: 1px solid #000 !important; }
-      table { width: 100% !important; border-collapse: collapse !important; }
+      table { width: 100% !important; border-collapse: collapse !important; font-size: 9pt !important; }
       th, td { border: 1px solid #000 !important; color: #000 !important; }
       .header-container { display: none !important; }
       .signature-section { display: flex !important; }
+      .competency-full-cell { font-size: 8.5pt !important; }
     }
   </style>
 </head>
@@ -99,7 +134,6 @@
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
   </div>
 
-  <!-- PDF / प्रिंट साठी मुख्य हेडर बॉक्स -->
   <div class="pdf-header-box" id="pdfHeaderBox">
     <div class="pdf-header-title">
       <h2>मिशन निपुण बीड</h2>
@@ -115,7 +149,6 @@
     </div>
   </div>
 
-  <!-- ================= डेटा एंट्री विभाग ================= -->
   <div id="dataEntryView">
     <div class="card no-print">
       <div class="card-title">१. शाळा व शिक्षकाची माहिती व वर्ग पटसंख्या</div>
@@ -191,9 +224,13 @@
     </div>
 
     <!-- २. विद्यार्थी क्षमता नोंदणी -->
-    <div class="card no-print" id="studentEntryCard">
+    <div class="card no-print locked-section" id="studentEntryCard">
       <div class="card-title">२. विद्यार्थी क्षमता नोंदणी</div>
       
+      <div class="warning-banner" id="enrollmentWarning">
+        ⚠️ विद्यार्थी नोंदणी सुरू करण्यासाठी आधी वरील विभागात 'मुले संख्या' व 'मुली संख्या' नोंदवा (पटसंख्या ० पेक्षा जास्त असणे आवश्यक आहे).
+      </div>
+
       <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
         <label style="margin-bottom:0; white-space: nowrap; color: #0d62ba;">मूल्यमापन गट निवडा:</label>
         <select id="evalGroupSelect" style="font-weight: bold; height: 38px;" onchange="changeEvalGroup(this.value)">
@@ -270,14 +307,14 @@
         <table class="saved-data-table">
           <thead>
             <tr>
-              <th style="width: 6%;">अ.क्र.</th>
-              <th style="width: 24%;">विद्यार्थ्याचे नाव</th>
-              <th style="width: 10%;">इयत्ता</th>
-              <th style="width: 10%;">उपस्थिती</th>
-              <th style="width: 12.5%;">वाचन</th>
-              <th style="width: 12.5%;">लेखन</th>
-              <th style="width: 12.5%;">संख्याज्ञान</th>
-              <th style="width: 12.5%;">गणितीय क्रिया</th>
+              <th style="width: 4%;">अ.क्र.</th>
+              <th style="width: 16%;">विद्यार्थ्याचे नाव</th>
+              <th style="width: 7%;">इयत्ता</th>
+              <th style="width: 7%;">उपस्थिती</th>
+              <th style="width: 16.5%;">वाचन क्षमता</th>
+              <th style="width: 16.5%;">लेखन क्षमता</th>
+              <th style="width: 16.5%;">संख्याज्ञान क्षमता</th>
+              <th style="width: 16.5%;">गणितीय क्रिया क्षमता</th>
             </tr>
           </thead>
           <tbody id="studentTableBody"></tbody>
@@ -354,7 +391,6 @@
     var isCurrentSaved = false;
     var maxStudentsAllowed = 0;
 
-    // ================= शिक्षकांचा डेटा बेस =================
     var schoolTeachersMap = {
       "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
       "SCH02": ["श्री ए बी गायकवाड", "श्रीमती आर बी आडगावकर", "श्रीमती सी एम काजळे", "श्रीमती एस व्ही कराड", "श्री डी एम दराडे", "श्रीमती एस.बी.मात्रे", "श्री बी.डी.पुपुलवाड"],
@@ -396,7 +432,6 @@
       }
     }
 
-    // ================= इयत्ता २ री क्षमता डेटाबेस =================
     var readingClass2HTML = '<option value="">-- क्षमता निवडा --</option>' +
       '<optgroup label="गट A (प्रगत)"><option value="A - ११. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.">A - ११. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option><option value="A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.">A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option><option value="A - १३. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.">A - १३. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option><option value="A - १४. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.">A - १४. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option></optgroup>' +
       '<optgroup label="गट B (मध्यम)"><option value="B - ५. मजकुरातील साध्या विरामचिन्हांची दखल घेतो.">B - ५. मजकुरातील साध्या विरामचिन्हांची दखल घेतो.</option><option value="B - ६. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.">B - ६. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option><option value="B - ७. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.">B - ७. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option><option value="B - ८. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह वाचतो.">B - ८. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह वाचतो.</option><option value="B - ९. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.">B - ९. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option><option value="B - १०. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.">B - १०. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option></optgroup>' +
@@ -417,7 +452,6 @@
       '<optgroup label="गट B (मध्यम)"><option value="B - ५. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरजेची उदाहरणे सोडवितो.">B - ५. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरजेची उदाहरणे सोडवितो.</option><option value="B - ६. ० ते ९ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.">B - ६. ० ते ९ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option><option value="B - ७. ० ते ९ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.">B - ७. ० ते ९ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option><option value="B - ८. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकीची उदाहरणे सोडवितो.">B - ८. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकीची उदाहरणे सोडवितो.</option><option value="B - ९. ० ते ४ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.">B - ९. ० ते ४ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option><option value="B - १०. ० ते ४ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.">B - १०. ० ते ४ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option></optgroup>' +
       '<optgroup label="गट C (आरंभिक)"><option value="C - १. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करता येत नाही.">C - १. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करता येत नाही.</option><option value="C - २. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करतो.">C - २. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करतो.</option><option value="C - ३. ० ते ४ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.">C - ३. ० ते ४ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option><option value="C - ४. ० ते ४ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.">C - ४. ० ते ४ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option></optgroup>';
 
-    // ================= इयत्ता ३ री ते ५ वी क्षमता डेटाबेस =================
     var readingClass3to5HTML = '<option value="">-- क्षमता निवडा --</option>' +
       '<optgroup label="गट A (प्रगत)">' +
       '<option value="A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी व जोडाक्षरासह तयार झालेली लहान वाक्ये वाचतो.">A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी व जोडाक्षरासह तयार झालेली लहान वाक्ये वाचतो.</option>' +
@@ -557,11 +591,26 @@
     }
 
     function calculateTotalEnrollment() {
-      var boys = parseInt(document.getElementById('boysCount').value) || 0;
-      var girls = parseInt(document.getElementById('girlsCount').value) || 0;
+      var boysVal = document.getElementById('boysCount').value.trim();
+      var girlsVal = document.getElementById('girlsCount').value.trim();
+      
+      var boys = parseInt(boysVal) || 0;
+      var girls = parseInt(girlsVal) || 0;
       maxStudentsAllowed = boys + girls;
+      
       document.getElementById('totalEnrollment').value = maxStudentsAllowed;
       document.getElementById('p_totalEnrollment').innerText = maxStudentsAllowed;
+
+      var entryCard = document.getElementById('studentEntryCard');
+      var warningBanner = document.getElementById('enrollmentWarning');
+
+      if (boysVal !== '' && girlsVal !== '' && maxStudentsAllowed > 0) {
+        entryCard.classList.remove('locked-section');
+        warningBanner.style.display = 'none';
+      } else {
+        entryCard.classList.add('locked-section');
+        warningBanner.style.display = 'flex';
+      }
     }
 
     function toggleAttendance(status) {
@@ -593,7 +642,7 @@
     }
 
     function extractGroupBadge(val) {
-      if (!val) return 'C';
+      if (!val || val === 'Abs') return 'Abs';
       if (val.startsWith('A')) return 'A';
       if (val.startsWith('B')) return 'B';
       return 'C';
@@ -623,6 +672,15 @@
     }
 
     document.getElementById('saveStudentBtn').addEventListener('click', function() {
+      var boysVal = document.getElementById('boysCount').value.trim();
+      var girlsVal = document.getElementById('girlsCount').value.trim();
+
+      if (boysVal === '' || girlsVal === '' || maxStudentsAllowed <= 0) {
+        alert("⚠️ कृपया आधी मुले व मुली यांची संख्या भरा (पटसंख्या ० पेक्षा जास्त असणे अनिवार्य आहे).");
+        document.getElementById('boysCount').focus();
+        return;
+      }
+
       var schCode = document.getElementById('schoolName').value;
       var sName = document.getElementById('studentName').value.trim();
       var att = document.getElementById('attendanceStatus').value;
@@ -690,6 +748,25 @@
       isCurrentSaved = false;
     });
 
+    /* पूर्ण क्षमतेचे विधान आणि कोड तक्त्यात दाखवण्यासाठी फंक्शन */
+    function renderCompetencyCell(val) {
+      if (!val) {
+        return '<span style="color:#94a3b8;">- नोंद नाही -</span>';
+      }
+      if (val === 'Abs') {
+        return '<span class="badge-absent">गैरहजर</span>';
+      }
+      var gr = extractGroupBadge(val);
+      var badgeClass = 'badge-c';
+      if (gr === 'A') badgeClass = 'badge-a';
+      if (gr === 'B') badgeClass = 'badge-b';
+
+      return '<div class="competency-full-cell">' +
+             '<span class="badge-pill ' + badgeClass + '">' + gr + '</span> ' +
+             '<span>' + val + '</span>' +
+             '</div>';
+    }
+
     function renderStudentTable() {
       var tbody = document.getElementById('studentTableBody');
       tbody.innerHTML = '';
@@ -699,22 +776,14 @@
           '<td>' + s.idx + '</td>' +
           '<td style="text-align:left;"><b>' + s.name + '</b></td>' +
           '<td>इ. ' + s.classVal + ' ली</td>' +
-          '<td>' + (s.attendance === 'Present' ? 'हजर' : 'गैरहजर') + '</td>' +
-          '<td><span class="' + getBadgeClass(s.reading) + '">' + extractGroupBadge(s.reading) + '</span></td>' +
-          '<td><span class="' + getBadgeClass(s.writing) + '">' + extractGroupBadge(s.writing) + '</span></td>' +
-          '<td><span class="' + getBadgeClass(s.mathNum) + '">' + extractGroupBadge(s.mathNum) + '</span></td>' +
-          '<td><span class="' + getBadgeClass(s.mathOp) + '">' + extractGroupBadge(s.mathOp) + '</span></td>' +
+          '<td>' + (s.attendance === 'Present' ? '<span style="color:#166534; font-weight:bold;">हजर</span>' : '<span style="color:#dc2626; font-weight:bold;">गैरहजर</span>') + '</td>' +
+          '<td>' + renderCompetencyCell(s.reading) + '</td>' +
+          '<td>' + renderCompetencyCell(s.writing) + '</td>' +
+          '<td>' + renderCompetencyCell(s.mathNum) + '</td>' +
+          '<td>' + renderCompetencyCell(s.mathOp) + '</td>' +
           '</tr>';
         tbody.innerHTML += row;
       });
-    }
-
-    function getBadgeClass(val) {
-      var gr = extractGroupBadge(val);
-      if (val === 'Abs') return 'badge-absent';
-      if (gr === 'A') return 'badge-a';
-      if (gr === 'B') return 'badge-b';
-      return 'badge-c';
     }
 
     function calculateSummary() {
@@ -770,6 +839,7 @@
       document.getElementById('evalDate').value = today;
       document.getElementById('p_evalDate').innerText = today;
       changeEvalGroup('class2');
+      calculateTotalEnrollment();
     };
   </script>
 </body>
