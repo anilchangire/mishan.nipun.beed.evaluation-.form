@@ -6,39 +6,39 @@
   <title>मिशन निपुण बीड - विद्यार्थी मूल्यमापन</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', 'Arial', 'Noto Sans Marathi', sans-serif; }
-    body { background-color: #f4f6fa; padding: 15px; color: #1e293b; }
+    body { background-color: #f4f6fa; padding: 15px; color: #1e293b; font-size: 16px; }
     
     .header-container { background: linear-gradient(135deg, #0d62ba, #084382); color: #ffffff; padding: 18px 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-    .main-title { font-size: 22px; font-weight: bold; }
-    .sub-title { font-size: 14px; opacity: 0.95; margin-top: 4px; }
+    .main-title { font-size: 25px; font-weight: bold; }
+    .sub-title { font-size: 16px; opacity: 0.95; margin-top: 4px; }
 
     .card { background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1; padding: 18px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-    .card-title { color: #0d62ba; font-size: 18px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+    .card-title { color: #0d62ba; font-size: 20px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
     
     .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #1e293b; }
+    label { display: block; font-size: 15px; font-weight: bold; margin-bottom: 6px; color: #1e293b; }
     
     .form-row { display: flex; gap: 12px; align-items: flex-end; margin-bottom: 14px; }
     .form-row .form-group { flex: 1; margin-bottom: 0; }
 
-    .static-info-box { background-color: #e0f2fe; color: #0369a1; padding: 8px 12px; border-radius: 6px; font-weight: bold; font-size: 13px; border: 1px solid #bae6fd; min-height: 42px; display: flex; align-items: center; word-break: break-word; line-height: 1.3; }
+    .static-info-box { background-color: #e0f2fe; color: #0369a1; padding: 8px 12px; border-radius: 6px; font-weight: bold; font-size: 14px; border: 1px solid #bae6fd; min-height: 44px; display: flex; align-items: center; word-break: break-word; line-height: 1.3; }
 
-    select, input { width: 100%; padding: 10px 12px; font-size: 14px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; background-color: #ffffff !important; color: #1e293b !important; height: 42px; }
+    select, input { width: 100%; padding: 10px 12px; font-size: 15px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; background-color: #ffffff !important; color: #1e293b !important; height: 44px; }
     select:focus, input:focus { border-color: #0d62ba; box-shadow: 0 0 0 3px rgba(13, 98, 186, 0.15); }
     select:disabled, input:disabled { background-color: #f1f5f9 !important; color: #64748b !important; cursor: not-allowed; }
 
     optgroup { font-weight: bold; color: #0d62ba; background-color: #f1f5f9; }
     optgroup option { font-weight: normal; color: #1e293b; background-color: #ffffff; padding: 6px; }
 
-    .subject-info-text { font-size: 13px; color: #64748b; margin-top: 6px; margin-bottom: 15px; font-weight: 500; }
+    .subject-info-text { font-size: 15px; color: #64748b; margin-top: 6px; margin-bottom: 15px; font-weight: 500; }
 
     .student-box { border: 2px solid #0d62ba; border-radius: 8px; padding: 15px; background-color: #ffffff; margin-top: 10px; }
     .student-no-header { text-align: center; margin-bottom: 15px; background: #eff6ff; padding: 8px; border-radius: 6px; }
-    .student-no-title { font-size: 13px; font-weight: bold; color: #0d62ba; }
-    .student-no-val { font-size: 20px; font-weight: bold; color: #1e293b; margin-top: 2px; }
+    .student-no-title { font-size: 15px; font-weight: bold; color: #0d62ba; }
+    .student-no-val { font-size: 24px; font-weight: bold; color: #1e293b; margin-top: 2px; }
 
-    .blue-label { color: #0d62ba; font-weight: bold; }
-    .error-msg { color: #dc2626; font-size: 12px; margin-top: 4px; display: none; }
+    .blue-label { color: #0d62ba; font-weight: bold; font-size: 15px; }
+    .error-msg { color: #dc2626; font-size: 13px; margin-top: 4px; display: none; }
 
     .locked-section {
       opacity: 0.55;
@@ -50,9 +50,9 @@
       background-color: #fef2f2;
       border: 1px solid #f87171;
       color: #991b1b;
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       margin-bottom: 12px;
       display: flex;
@@ -64,9 +64,9 @@
       background-color: #f0fdf4;
       border: 1px solid #86efac;
       color: #166534;
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       margin-bottom: 12px;
       display: none;
@@ -75,9 +75,9 @@
     }
 
     .btn-group { display: flex; gap: 12px; margin-top: 15px; }
-    .btn-save { flex: 1; background: linear-gradient(135deg, #16a34a, #15803d); color: white; font-size: 15px; font-weight: bold; padding: 12px 16px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-save { flex: 1; background: linear-gradient(135deg, #16a34a, #15803d); color: white; font-size: 16px; font-weight: bold; padding: 12px 16px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .btn-save:disabled { background: #94a3b8; cursor: not-allowed; }
-    .btn-add-new { flex: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; font-size: 15px; font-weight: bold; padding: 12px 16px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-add-new { flex: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; font-size: 16px; font-weight: bold; padding: 12px 16px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .btn-add-new:disabled { background: #94a3b8; cursor: not-allowed; }
     
     .action-btn-row {
@@ -85,68 +85,76 @@
       gap: 15px;
       margin-top: 20px;
     }
-    .btn-submit-all { flex: 1; background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-size: 15px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
+    .btn-submit-all { flex: 1; background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-size: 16px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
     .btn-submit-all:disabled { background: #94a3b8; cursor: not-allowed; }
 
-    .btn-print { flex: 1; background: linear-gradient(135deg, #0d62ba, #084382); color: white; font-size: 15px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
+    .btn-print { flex: 1; background: linear-gradient(135deg, #0d62ba, #084382); color: white; font-size: 16px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
 
     .table-container { overflow-x: auto; margin-top: 10px; }
-    table { width: 100%; border-collapse: collapse; text-align: center; font-size: 13px; }
-    th, td { border: 1px solid #cbd5e1; padding: 7px 6px; }
-    th { background-color: #0d62ba; color: white; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; text-align: center; font-size: 15px; table-layout: fixed; }
+    th, td { border: 1px solid #cbd5e1; padding: 8px 6px; }
+    th { background-color: #0d62ba; color: white; font-weight: 600; font-size: 15px; }
     tr:nth-child(even) { background-color: #f8fafc; }
     
-    .badge-a { background-color: #dcfce7; color: #166534; font-weight: bold; padding: 3px 8px; border-radius: 4px; display: inline-block; }
-    .badge-b { background-color: #fef9c3; color: #854d0e; font-weight: bold; padding: 3px 8px; border-radius: 4px; display: inline-block; }
-    .badge-c { background-color: #fee2e2; color: #991b1b; font-weight: bold; padding: 3px 8px; border-radius: 4px; display: inline-block; }
-    .badge-absent { background-color: #e2e8f0; color: #475569; font-weight: bold; padding: 3px 8px; border-radius: 4px; display: inline-block; }
+    .badge-a { background-color: #dcfce7; color: #166534; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+    .badge-b { background-color: #fef9c3; color: #854d0e; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+    .badge-c { background-color: #fee2e2; color: #991b1b; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+    .badge-absent { background-color: #e2e8f0; color: #475569; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; }
 
     .competency-full-cell {
       text-align: left !important;
-      font-size: 12px;
+      font-size: 13.5px;
       line-height: 1.4;
-      padding: 5px 8px !important;
+      padding: 4px 6px !important;
+      word-wrap: break-word;
+    }
+
+    .student-name-cell {
+      text-align: left !important;
+      padding: 6px 8px !important;
+      word-wrap: break-word;
+      font-size: 14.5px;
     }
 
     .summary-table {
-      max-width: 650px;
+      max-width: 680px;
       margin: 10px auto;
+      table-layout: auto;
     }
 
-    /* PDF / प्रिंट मुख्य हेडर बॉक्स (आकर्षक व मोठा फॉन्ट) */
+    /* PDF / प्रिंट मुख्य हेडर बॉक्स */
     .pdf-header-box {
       border: 2px solid #0d62ba;
       border-radius: 8px;
-      padding: 14px 20px;
+      padding: 16px 22px;
       margin-bottom: 15px;
       background-color: #f8fafc;
       display: none;
     }
     .pdf-header-title { text-align: center; margin-bottom: 14px; }
-    .pdf-header-title h2 { font-size: 22px; color: #0d62ba; font-weight: bold; letter-spacing: 0.5px; }
-    .pdf-header-title h4 { font-size: 15px; color: #334155; margin-top: 4px; font-weight: 600; }
+    .pdf-header-title h2 { font-size: 24px; color: #0d62ba; font-weight: normal; }
+    .pdf-header-title h4 { font-size: 17px; color: #334155; margin-top: 4px; font-weight: normal; }
     
     .pdf-grid {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 10px 30px;
-      font-size: 15px;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 12px 30px;
+      font-size: 16px;
       color: #0f172a;
     }
     .pdf-item {
       display: flex;
       align-items: baseline;
       gap: 6px;
-      line-height: 1.35;
+      line-height: 1.4;
+      font-weight: normal !important;
     }
-    .pdf-item strong {
-      color: #0d62ba;
-      white-space: nowrap;
-      font-size: 15px;
+    .pdf-item span {
+      font-weight: normal !important;
     }
 
-    .signature-section { display: none; margin-top: 35px; justify-content: space-between; padding: 0 40px; }
-    .sig-box { text-align: center; width: 35%; font-weight: bold; font-size: 13px; border-top: 1px dashed #000; padding-top: 6px; }
+    .signature-section { display: none; margin-top: 40px; justify-content: space-between; padding: 0 40px; }
+    .sig-box { text-align: center; width: 35%; font-weight: normal; font-size: 15px; border-top: 1px dashed #000; padding-top: 8px; }
 
     @media (max-width: 768px) {
       .form-row { flex-direction: column; gap: 10px; }
@@ -154,35 +162,43 @@
       .action-btn-row { flex-direction: column; }
     }
 
-    /* प्रिंट व PDF साठी विशेष सेटिंग्ज */
+    /* प्रिंट व PDF सेटिंग्ज */
     @media print {
       @page { size: A4 landscape; margin: 8mm; }
       .no-print, .btn-group, .action-btn-row, .warning-banner, .success-banner { display: none !important; }
-      body { background-color: white !important; padding: 0 !important; font-size: 9pt; }
+      body { background-color: white !important; padding: 0 !important; font-size: 11pt; color: #000 !important; }
       
       .pdf-header-box {
         display: block !important;
         border: 2px solid #000 !important;
-        margin-bottom: 10px !important;
-        padding: 12px 16px !important;
+        margin-bottom: 12px !important;
+        padding: 14px 18px !important;
         background-color: #ffffff !important;
       }
-      .pdf-header-title h2 { font-size: 17pt !important; color: #000 !important; }
-      .pdf-header-title h4 { font-size: 11.5pt !important; color: #000 !important; }
-      .pdf-grid { font-size: 11pt !important; gap: 6px 25px !important; }
-      .pdf-item strong { color: #000 !important; font-size: 11pt !important; }
+      .pdf-header-title h2 { font-size: 19pt !important; color: #000 !important; font-weight: normal !important; }
+      .pdf-header-title h4 { font-size: 13.5pt !important; color: #000 !important; font-weight: normal !important; }
+      .pdf-grid { font-size: 12pt !important; gap: 8px 30px !important; }
+      .pdf-item { font-weight: normal !important; }
+      .pdf-item span { font-weight: normal !important; }
 
-      .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin-bottom: 8px !important; }
-      .card-title { color: #000 !important; border-bottom: 1px solid #000 !important; font-size: 11pt !important; margin-bottom: 6px !important; padding-bottom: 3px !important; }
-      table { width: 100% !important; border-collapse: collapse !important; font-size: 8.5pt !important; }
-      th, td { border: 1px solid #000 !important; color: #000 !important; padding: 4px 6px !important; }
+      .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin-bottom: 10px !important; }
+      .card-title { color: #000 !important; border-bottom: 1px solid #000 !important; font-size: 13pt !important; font-weight: normal !important; margin-bottom: 8px !important; padding-bottom: 4px !important; }
+      
+      table { width: 100% !important; border-collapse: collapse !important; font-size: 10pt !important; table-layout: fixed !important; }
+      th, td { border: 1px solid #000 !important; color: #000 !important; padding: 5px 5px !important; font-weight: normal !important; }
+      th { font-weight: normal !important; font-size: 10.5pt !important; }
+      
       .header-container { display: none !important; }
       .signature-section { display: flex !important; }
-      .competency-full-cell { font-size: 8pt !important; padding: 3px 5px !important; line-height: 1.25 !important; }
+      .sig-box { font-weight: normal !important; font-size: 12pt !important; }
+      
+      .competency-full-cell { font-size: 9pt !important; padding: 4px !important; line-height: 1.3 !important; }
+      .student-name-cell { font-size: 9.5pt !important; padding: 4px !important; }
       
       .summary-table {
-        max-width: 550px !important;
-        margin: 8px auto !important;
+        max-width: 600px !important;
+        margin: 12px auto !important;
+        table-layout: auto !important;
       }
     }
   </style>
@@ -194,19 +210,19 @@
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
   </div>
 
-  <!-- PDF / प्रिंट मुख्य हेडर बॉक्स (सुधारित क्रम, मराठी अंक व मोठा फॉन्ट) -->
+  <!-- PDF / प्रिंट मुख्य हेडर बॉक्स -->
   <div class="pdf-header-box" id="pdfHeaderBox">
     <div class="pdf-header-title">
       <h2>मिशन निपुण बीड</h2>
       <h4>विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</h4>
     </div>
     <div class="pdf-grid">
-      <div class="pdf-item"><strong>१) शाळा:</strong> <span id="p_schoolName">-</span></div>
-      <div class="pdf-item"><strong>२) केंद्र:</strong> <span>कन्या नागापूर ता.परळी वै. जि. बीड</span></div>
-      <div class="pdf-item"><strong>३) वर्ग:</strong> <span id="p_className">-</span></div>
-      <div class="pdf-item"><strong>४) वर्ग / विषय शिक्षक:</strong> <span id="p_teacherName">-</span></div>
-      <div class="pdf-item"><strong>५) वर्गातील पटसंख्या:</strong> <span id="p_totalEnrollment">0</span></div>
-      <div class="pdf-item"><strong>६) दिनांक:</strong> <span id="p_evalDate">-</span></div>
+      <div class="pdf-item">शाळा: <span id="p_schoolName">-</span></div>
+      <div class="pdf-item">केंद्र: <span>कन्या नागापूर ता.परळी वै. जि. बीड</span></div>
+      <div class="pdf-item">वर्ग: <span id="p_className">-</span></div>
+      <div class="pdf-item">वर्ग / विषय शिक्षक: <span id="p_teacherName">-</span></div>
+      <div class="pdf-item">वर्गातील पटसंख्या: <span id="p_totalEnrollment">0</span></div>
+      <div class="pdf-item">दिनांक: <span id="p_evalDate">-</span></div>
     </div>
   </div>
 
@@ -261,7 +277,7 @@
         </div>
 
         <div class="form-group" style="flex: 1.8;">
-          <label>वर्ग विषय शिक्षक *</label>
+          <label>वर्गशिक्षक *</label>
           <select id="teacherSelect">
             <option value="">-- आधी शाळा निवडा --</option>
           </select>
@@ -279,7 +295,7 @@
 
         <div class="form-group" style="flex: 1.2;">
           <label>वर्गातील एकूण पट</label>
-          <input type="number" id="totalEnrollment" placeholder="0" readonly style="font-weight: bold; background-color: #e2e8f0 !important;">
+          <input type="number" id="totalEnrollment" placeholder="0" readonly style="background-color: #e2e8f0 !important;">
         </div>
       </div>
     </div>
@@ -299,7 +315,7 @@
       <div id="studentInputArea">
         <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
           <label style="margin-bottom:0; white-space: nowrap; color: #0d62ba;">मूल्यमापन गट निवडा:</label>
-          <select id="evalGroupSelect" style="font-weight: bold; height: 38px;" onchange="changeEvalGroup(this.value)">
+          <select id="evalGroupSelect" style="height: 38px;" onchange="changeEvalGroup(this.value)">
             <option value="class2">इयत्ता 2 री</option>
             <option value="class3to5">इयत्ता 3 री ते 5 वी</option>
           </select>
@@ -374,12 +390,12 @@
         <table class="saved-data-table">
           <thead>
             <tr>
-              <th style="width: 5%;">अ.क्र.</th>
-              <th style="width: 23%;">विद्यार्थ्याचे नाव</th>
-              <th style="width: 18%;">वाचन क्षमता</th>
-              <th style="width: 18%;">लेखन क्षमता</th>
-              <th style="width: 18%;">संख्याज्ञान क्षमता</th>
-              <th style="width: 18%;">गणितीय क्रिया क्षमता</th>
+              <th style="width: 4%;">अ.क्र.</th>
+              <th style="width: 16%;">विद्यार्थ्याचे नाव</th>
+              <th style="width: 20%;">वाचन क्षमता</th>
+              <th style="width: 20%;">लेखन क्षमता</th>
+              <th style="width: 20%;">संख्याज्ञान क्षमता</th>
+              <th style="width: 20%;">गणितीय क्रिया क्षमता</th>
             </tr>
           </thead>
           <tbody id="studentTableBody"></tbody>
@@ -403,32 +419,32 @@
           </thead>
           <tbody>
             <tr>
-              <td><b>वाचन</b></td>
+              <td>वाचन</td>
               <td><span class="badge-a" id="r_A">0</span></td>
               <td><span class="badge-b" id="r_B">0</span></td>
               <td><span class="badge-c" id="r_C">0</span></td>
-              <td id="r_Total" style="font-weight: bold;">0</td>
+              <td id="r_Total">0</td>
             </tr>
             <tr>
-              <td><b>लेखन</b></td>
+              <td>लेखन</td>
               <td><span class="badge-a" id="w_A">0</span></td>
               <td><span class="badge-b" id="w_B">0</span></td>
               <td><span class="badge-c" id="w_C">0</span></td>
-              <td id="w_Total" style="font-weight: bold;">0</td>
+              <td id="w_Total">0</td>
             </tr>
             <tr>
-              <td><b>संख्याज्ञान</b></td>
+              <td>संख्याज्ञान</td>
               <td><span class="badge-a" id="n_A">0</span></td>
               <td><span class="badge-b" id="n_B">0</span></td>
               <td><span class="badge-c" id="n_C">0</span></td>
-              <td id="n_Total" style="font-weight: bold;">0</td>
+              <td id="n_Total">0</td>
             </tr>
             <tr>
-              <td><b>गणितीय क्रिया</b></td>
+              <td>गणितीय क्रिया</td>
               <td><span class="badge-a" id="o_A">0</span></td>
               <td><span class="badge-b" id="o_B">0</span></td>
               <td><span class="badge-c" id="o_C">0</span></td>
-              <td id="o_Total" style="font-weight: bold;">0</td>
+              <td id="o_Total">0</td>
             </tr>
           </tbody>
         </table>
@@ -675,7 +691,7 @@
       }
     }
 
-    /* पटसंख्या पूर्ण झाली असल्यास फॉर्म बंद करणे */
+    /* पटसंख्या पूर्ण झाल्यावर नवीन नोंदणी बंद करणे */
     function checkEnrollmentLimit() {
       var fullBanner = document.getElementById('enrollmentFullBanner');
       var inputArea = document.getElementById('studentInputArea');
@@ -754,7 +770,7 @@
       alert("🎉 माहिती यशस्वीरित्या सादर झाली आहे. धन्यवाद! फॉर्म आता लॉक झाला आहे.");
     }
 
-    /* १. विद्यार्थी जतन करताना पटसंख्येची कडक तपासणी */
+    /* विद्यार्थी जतन करताना पटसंख्येची पडताळणी */
     document.getElementById('saveStudentBtn').addEventListener('click', function() {
       var boysVal = document.getElementById('boysCount').value.trim();
       var girlsVal = document.getElementById('girlsCount').value.trim();
@@ -816,7 +832,7 @@
       alert("विद्यार्थी " + currentStudentIndex + " चा डेटा जतन झाला आहे!");
     });
 
-    /* २. पुढील विद्यार्थी जोडण्यावर कडक बंदी */
+    /* पुढील विद्यार्थी जोडण्यावर नियंत्रण */
     document.getElementById('addNewStudentBtn').addEventListener('click', function() {
       if (!isCurrentSaved) {
         alert("कृपया आधी सध्याच्या विद्यार्थ्याचा डेटा 'जतन' करा!");
@@ -863,7 +879,7 @@
       studentsList.forEach(function(s) {
         var row = '<tr>' +
           '<td>' + s.idx + '</td>' +
-          '<td style="text-align:left;"><b>' + s.name + '</b>' + (s.attendance === 'Absent' ? ' <span class="badge-absent" style="font-size:11px;">गैरहजर</span>' : '') + '</td>' +
+          '<td class="student-name-cell">' + s.name + (s.attendance === 'Absent' ? '<br><span class="badge-absent" style="font-size:11px; margin-top:2px;">गैरहजर</span>' : '') + '</td>' +
           '<td>' + renderCompetencyCell(s.reading) + '</td>' +
           '<td>' + renderCompetencyCell(s.writing) + '</td>' +
           '<td>' + renderCompetencyCell(s.mathNum) + '</td>' +
@@ -902,7 +918,7 @@
       document.getElementById('p_teacherName').innerText = this.value;
     });
 
-    /* वर्ग निवडीनुसार योग्य प्रत्यय (ली, री, थी, वी) */
+    /* वर्गाचे अचूक प्रत्यय (ली, री, थी, वी) */
     document.getElementById('classSelect').addEventListener('change', function() {
       var classVal = this.value;
       var classNameText = "-";
