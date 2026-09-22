@@ -507,11 +507,18 @@
 
     function changeEvalGroup(groupVal) {
       var infoText = document.getElementById('subjectInfoText');
+      var studentClassSelect = document.getElementById('studentClassSelect');
+
       if (groupVal === 'class2') {
         infoText.innerText = "इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया";
+        studentClassSelect.innerHTML = '<option value="२">इयत्ता २ री</option>';
         fillOptions(readingClass2HTML, writingClass2HTML, numberClass2HTML, mathOpClass2HTML);
       } else {
         infoText.innerText = "इयत्ता ३ री ते ५ वी | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया";
+        studentClassSelect.innerHTML = 
+          '<option value="३">इयत्ता ३ री</option>' +
+          '<option value="४">इयत्ता ४ थी</option>' +
+          '<option value="५">इयत्ता ५ वी</option>';
         fillOptions(readingClass3to5HTML, writingClass3to5HTML, numberClass3to5HTML, mathOpClass3to5HTML);
       }
     }
@@ -729,7 +736,21 @@
 
       document.getElementById('teacherSelect').addEventListener('change', function() { document.getElementById('p_teacherName').innerText = this.value || '-'; });
       document.getElementById('evalDate').addEventListener('change', function() { document.getElementById('p_evalDate').innerText = this.value || '-'; });
-      document.getElementById('classSelect').addEventListener('change', function() { var clsVal = this.value; document.getElementById('p_className').innerText = clsVal ? 'इयत्ता ' + clsVal + ' री' : '-'; });
+      
+      /* वर्ग निवडल्यावर आपोआप मूल्यमापन गट सिंक करणे */
+      document.getElementById('classSelect').addEventListener('change', function() { 
+        var clsVal = this.value; 
+        document.getElementById('p_className').innerText = clsVal ? 'इयत्ता ' + clsVal + ' री' : '-'; 
+        
+        var evalSelect = document.getElementById('evalGroupSelect');
+        if (clsVal === '३' || clsVal === '४' || clsVal === '५') {
+          evalSelect.value = 'class3to5';
+          changeEvalGroup('class3to5');
+        } else if (clsVal === '२' || clsVal === '१') {
+          evalSelect.value = 'class2';
+          changeEvalGroup('class2');
+        }
+      });
 
       /* विद्यार्थी जतन करणे */
       document.getElementById('saveStudentBtn').addEventListener('click', function() {
@@ -763,7 +784,6 @@
         var tbody = document.getElementById('studentTableBody');
         var attBadge = att === 'Present' ? '<span class="badge-a">हजर</span>' : '<span class="badge-absent">गैरहजर</span>';
         
-        /* दुरुस्त केलेली ओळ (getGetGroupBadge ऐवजी getGroupBadge केले आहे): */
         var newRow = '<tr><td>' + currentStudentIndex + '</td><td style="text-align: left; font-weight: 600;">' + name + '</td><td>इ. ' + cls + '</td><td>' + attBadge + '</td><td>' + getGroupBadge(r, att) + '</td><td>' + getGroupBadge(w, att) + '</td><td>' + getGroupBadge(n, att) + '</td><td>' + getGroupBadge(o, att) + '</td></tr>';
         tbody.innerHTML += newRow;
 
@@ -805,7 +825,7 @@
       });
 
       // सुरुवातीला इयत्ता २ री च्या सर्व क्षमता लोड करा
-      fillOptions(readingClass2HTML, writingClass2HTML, numberClass2HTML, mathOpClass2HTML);
+      changeEvalGroup('class2');
       renderDashboardTable();
     });
   </script>
