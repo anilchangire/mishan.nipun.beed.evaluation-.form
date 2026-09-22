@@ -322,13 +322,6 @@
             <td><span class="badge-c" id="o_C">0</span></td>
             <td id="o_Total" style="font-weight: bold;">0</td>
           </tr>
-          <tr style="background-color: #e2e8f0; font-weight: bold;">
-            <td><b>एकूण</b></td>
-            <td><span class="badge-a" id="tot_A">0</span></td>
-            <td><span class="badge-b" id="tot_B">0</span></td>
-            <td><span class="badge-c" id="tot_C">0</span></td>
-            <td id="grand_Total" style="font-weight: bold; color: #0d62ba;">0</td>
-          </tr>
         </tbody>
       </table>
     </div>
@@ -615,16 +608,6 @@
         document.getElementById('o_B').innerText = counts.o.B; 
         document.getElementById('o_C').innerText = counts.o.C; 
         document.getElementById('o_Total').innerText = counts.o.A + counts.o.B + counts.o.C;
-
-        var totA = counts.r.A + counts.w.A + counts.n.A + counts.o.A;
-        var totB = counts.r.B + counts.w.B + counts.n.B + counts.o.B;
-        var totC = counts.r.C + counts.w.C + counts.n.C + counts.o.C;
-        var grandTotal = totA + totB + totC;
-
-        document.getElementById('tot_A').innerText = totA;
-        document.getElementById('tot_B').innerText = totB;
-        document.getElementById('tot_C').innerText = totC;
-        document.getElementById('grand_Total').innerText = grandTotal;
       }
 
       document.getElementById('schoolName').addEventListener('change', function() {
