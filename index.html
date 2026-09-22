@@ -34,7 +34,8 @@
     /* Input & Select Styling */
     select, input { width: 100%; padding: 10px 12px; font-size: 14px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; background-color: #ffffff !important; color: #1e293b !important; height: 42px; }
     select:focus, input:focus { border-color: #0d62ba; box-shadow: 0 0 0 3px rgba(13, 98, 186, 0.15); }
-    
+    select:disabled, input:disabled { background-color: #f1f5f9 !important; color: #64748b !important; cursor: not-allowed; }
+
     optgroup { font-weight: bold; color: #0d62ba; background-color: #f1f5f9; }
     optgroup option { font-weight: normal; color: #1e293b; background-color: #ffffff; padding: 6px; }
 
@@ -52,6 +53,7 @@
     /* Button Group Styling */
     .btn-group { display: flex; gap: 12px; margin-top: 15px; }
     .btn-save { flex: 1; background: linear-gradient(135deg, #16a34a, #15803d); color: white; font-size: 15px; font-weight: bold; padding: 12px 16px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-save:disabled { background: #94a3b8; cursor: not-allowed; }
     .btn-add-new { flex: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; font-size: 15px; font-weight: bold; padding: 12px 16px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     
     /* Submit All Button */
@@ -76,6 +78,7 @@
     .badge-a { background-color: #dcfce7; color: #166534; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }
     .badge-b { background-color: #fef9c3; color: #854d0e; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }
     .badge-c { background-color: #fee2e2; color: #991b1b; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }
+    .badge-absent { background-color: #e2e8f0; color: #475569; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }
 
     /* PDF Header Box Style */
     .pdf-header-box { border: 1px solid #94a3b8; border-radius: 8px; padding: 10px 15px; margin-bottom: 15px; background-color: #ffffff; display: none; }
@@ -104,7 +107,7 @@
       table { width: 100% !important; border-collapse: collapse !important; }
       th, td { border: 1px solid #000 !important; color: #000 !important; }
       .header-container { display: none !important; }
-      .signature-section { display: flex !important; } /* स्वाक्षरी सेक्शन प्रिंटमध्ये दिसेल */
+      .signature-section { display: flex !important; }
     }
   </style>
 </head>
@@ -133,7 +136,7 @@
       <div><strong>दिनांक:</strong> <span id="p_evalDate">-</span></div>
       <div><strong>केंद्र:</strong> कन्या नागापूर ता.परळी वै. जि. बीड</div>
       <div><strong>गट/वर्ग:</strong> <span id="p_className">-</span></div>
-      <div><strong>तालुका / जिल्हा:</strong> परळी / बीड</div>
+      <div><strong>एकूण पटसंख्या:</strong> <span id="p_totalEnrollment">0</span></div>
     </div>
   </div>
 
@@ -141,7 +144,7 @@
   <div id="dataEntryView">
     <!-- १. शाळा व शिक्षकाची माहिती -->
     <div class="card no-print">
-      <div class="card-title">१. शाळा व शिक्षकाची माहिती</div>
+      <div class="card-title">१. शाळा व शिक्षकाची माहिती व वर्ग पटसंख्या</div>
 
       <div class="form-row">
         <div class="form-group" style="flex: 2;">
@@ -196,6 +199,22 @@
           </select>
         </div>
       </div>
+
+      <!-- पटसंख्या कॅल्क्युलेशन -->
+      <div class="form-row" style="background: #f1f5f9; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
+        <div class="form-group">
+          <label>मुले संख्या *</label>
+          <input type="number" id="boysCount" min="0" placeholder="0" oninput="calculateTotalEnrollment()">
+        </div>
+        <div class="form-group">
+          <label>मुली संख्या *</label>
+          <input type="number" id="girlsCount" min="0" placeholder="0" oninput="calculateTotalEnrollment()">
+        </div>
+        <div class="form-group">
+          <label>वर्गातील एकूण पट (मुले + मुली)</label>
+          <input type="number" id="totalEnrollment" placeholder="0" readonly style="font-weight: bold; background-color: #e2e8f0 !important;">
+        </div>
+      </div>
     </div>
 
     <!-- २. विद्यार्थी क्षमता नोंदणी -->
@@ -220,10 +239,19 @@
           <div class="student-no-val" id="studentNoVal">1</div>
         </div>
 
-        <div class="form-group">
-          <label class="blue-label">विद्यार्थ्याचे नाव *</label>
-          <input type="text" id="studentName" placeholder="नाव (फक्त मराठीत प्रविष्ट करा)" autocomplete="off" onkeyup="validateMarathiInput(this)">
-          <div id="marathiError" class="error-msg">कृपया विद्यार्थ्याचे नाव फक्त मराठीतच प्रविष्ट करा.</div>
+        <div class="form-row">
+          <div class="form-group" style="flex:2;">
+            <label class="blue-label">विद्यार्थ्याचे नाव *</label>
+            <input type="text" id="studentName" placeholder="नाव (फक्त मराठीत प्रविष्ट करा)" autocomplete="off" onkeyup="validateMarathiInput(this)">
+            <div id="marathiError" class="error-msg">कृपया विद्यार्थ्याचे नाव फक्त मराठीतच प्रविष्ट करा.</div>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label class="blue-label">उपस्थिती *</label>
+            <select id="attendanceStatus" onchange="toggleAttendance(this.value)">
+              <option value="Present">हजर (Present)</option>
+              <option value="Absent">गैरहजर (Absent)</option>
+            </select>
+          </div>
         </div>
 
         <div class="form-group">
@@ -233,24 +261,26 @@
           </select>
         </div>
 
-        <div class="form-group">
-          <label class="blue-label">वाचन</label>
-          <select id="readingCompetency"><option value="">-- क्षमता निवडा --</option></select>
-        </div>
+        <div id="competencyFields">
+          <div class="form-group">
+            <label class="blue-label">वाचन</label>
+            <select id="readingCompetency"><option value="">-- क्षमता निवडा --</option></select>
+          </div>
 
-        <div class="form-group">
-          <label class="blue-label">लेखन</label>
-          <select id="writingCompetency"><option value="">-- क्षमता निवडा --</option></select>
-        </div>
+          <div class="form-group">
+            <label class="blue-label">लेखन</label>
+            <select id="writingCompetency"><option value="">-- क्षमता निवडा --</option></select>
+          </div>
 
-        <div class="form-group">
-          <label class="blue-label">संख्याज्ञान</label>
-          <select id="mathNumberCompetency"><option value="">-- क्षमता निवडा --</option></select>
-        </div>
+          <div class="form-group">
+            <label class="blue-label">संख्याज्ञान</label>
+            <select id="mathNumberCompetency"><option value="">-- क्षमता निवडा --</option></select>
+          </div>
 
-        <div class="form-group">
-          <label class="blue-label">गणितीय क्रिया</label>
-          <select id="mathOpCompetency"><option value="">-- क्षमता निवडा --</option></select>
+          <div class="form-group">
+            <label class="blue-label">गणितीय क्रिया</label>
+            <select id="mathOpCompetency"><option value="">-- क्षमता निवडा --</option></select>
+          </div>
         </div>
 
         <div class="btn-group">
@@ -270,10 +300,11 @@
               <th style="width: 6%;">अ.क्र.</th>
               <th style="width: 24%;">विद्यार्थ्याचे नाव</th>
               <th style="width: 10%;">इयत्ता</th>
-              <th style="width: 15%;">वाचन</th>
-              <th style="width: 15%;">लेखन</th>
-              <th style="width: 15%;">संख्याज्ञान</th>
-              <th style="width: 15%;">गणितीय क्रिया</th>
+              <th style="width: 10%;">उपस्थिती</th>
+              <th style="width: 12.5%;">वाचन</th>
+              <th style="width: 12.5%;">लेखन</th>
+              <th style="width: 12.5%;">संख्याज्ञान</th>
+              <th style="width: 12.5%;">गणितीय क्रिया</th>
             </tr>
           </thead>
           <tbody id="studentTableBody"></tbody>
@@ -295,7 +326,8 @@
               <th>गट A (प्रगत)</th>
               <th>गट B (मध्यम)</th>
               <th>गट C (आरंभिक)</th>
-              <th>एकूण विद्यार्थी</th>
+              <th>गैरहजर</th>
+              <th>एकूण नोंदणी</th>
             </tr>
           </thead>
           <tbody>
@@ -304,6 +336,7 @@
               <td><span class="badge-a" id="r_A">0</span></td>
               <td><span class="badge-b" id="r_B">0</span></td>
               <td><span class="badge-c" id="r_C">0</span></td>
+              <td><span class="badge-absent" id="r_Abs">0</span></td>
               <td id="r_Total" style="font-weight: bold;">0</td>
             </tr>
             <tr>
@@ -311,6 +344,7 @@
               <td><span class="badge-a" id="w_A">0</span></td>
               <td><span class="badge-b" id="w_B">0</span></td>
               <td><span class="badge-c" id="w_C">0</span></td>
+              <td><span class="badge-absent" id="w_Abs">0</span></td>
               <td id="w_Total" style="font-weight: bold;">0</td>
             </tr>
             <tr>
@@ -318,6 +352,7 @@
               <td><span class="badge-a" id="n_A">0</span></td>
               <td><span class="badge-b" id="n_B">0</span></td>
               <td><span class="badge-c" id="n_C">0</span></td>
+              <td><span class="badge-absent" id="n_Abs">0</span></td>
               <td id="n_Total" style="font-weight: bold;">0</td>
             </tr>
             <tr>
@@ -325,13 +360,14 @@
               <td><span class="badge-a" id="o_A">0</span></td>
               <td><span class="badge-b" id="o_B">0</span></td>
               <td><span class="badge-c" id="o_C">0</span></td>
+              <td><span class="badge-absent" id="o_Abs">0</span></td>
               <td id="o_Total" style="font-weight: bold;">0</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- स्वाक्षरी सेक्शन (फक्त प्रिंट/PDF मध्ये दिसेल) -->
+      <!-- स्वाक्षरी सेक्शन -->
       <div class="signature-section">
         <div class="sig-box">वर्गशिक्षकांची स्वाक्षरी</div>
         <div class="sig-box">मुख्याध्यापकांची स्वाक्षरी व शिक्का</div>
@@ -356,12 +392,20 @@
           <div class="metric-label">एकूण नोंदवलेले विद्यार्थी</div>
         </div>
         <div class="metric-card">
-          <div class="metric-val" style="color: #16a34a;">सक्रिय</div>
-          <div class="metric-label">डेटा एंट्री स्थिती</div>
+          <div class="metric-val" id="dashCompletedCount" style="color: #16a34a;">0 / 14</div>
+          <div class="metric-label">पूर्ण शाळा प्रगती</div>
         </div>
       </div>
 
-      <div class="card-title" style="font-size: 15px; margin-top: 10px;">शाळानिहाय नोंदणी प्रगती</div>
+      <!-- शाळा निवड व रिपोर्ट फिल्टर -->
+      <div class="form-group no-print" style="margin-top: 15px; background: #e0f2fe; padding: 12px; border-radius: 8px;">
+        <label style="color: #0369a1;">🔍 शाळानिहाय व वर्गनिहाय माहिती / रिपोर्ट पाहण्यासाठी शाळा निवडा:</label>
+        <select id="dashSchoolFilter" onchange="filterDashboardBySchool(this.value)">
+          <option value="ALL">-- सर्व १४ शाळांची एकत्रित स्थिती पहा --</option>
+        </select>
+      </div>
+
+      <div class="card-title" style="font-size: 15px; margin-top: 10px;">शाळानिहाय नोंदणी प्रगती व स्थिती</div>
       <div class="table-container">
         <table>
           <thead>
@@ -369,28 +413,23 @@
               <th>अ.क्र.</th>
               <th>शाळेचे नाव</th>
               <th>केंद्राचे नाव</th>
+              <th>एकूण विद्यार्थी</th>
               <th>स्थिती</th>
             </tr>
           </thead>
-          <tbody>
-            <tr><td>१</td><td>जि.प.कें.प्रा.शाळा कन्या नागापूर</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>२</td><td>जि.प.मा.शाळा नागापूर</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>३</td><td>जि.प.प्रा.शाळा डाबी</td><td>कन्या नागापूर</td><td><span class="badge-b">प्रलंबित</span></td></tr>
-            <tr><td>४</td><td>जि.प.प्रा.शाळा डाबी तांडा</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>५</td><td>जि.प.प्रा.शाळा वानटाकळी</td><td>कन्या नागापूर</td><td><span class="badge-b">प्रलंबित</span></td></tr>
-            <tr><td>६</td><td>जि.प.प्रा.शाळा वानटाकळी तांडा</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>७</td><td>जि.प.प्रा.शाळा एकबाली तांडा</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>८</td><td>जि.प.प्रा.शाळा दौनापुर तांडा</td><td>कन्या नागापूर</td><td><span class="badge-b">प्रलंबित</span></td></tr>
-            <tr><td>९</td><td>जि.प.प्रा.शाळा दौनापूर</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>१०</td><td>जि.प.प्रा.शाळा लिंबूटा तांडा</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>११</td><td>जि.प.प्रा.शाळा बहादूरवाडी</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>१२</td><td>संत तुकाराम प्राथमिक विद्यालय नागापूर</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>१३</td><td>रमाबाई प्राथमिक शाळा नागापूर</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
-            <tr><td>१४</td><td>बालाघाट विद्यालय दौनापूर</td><td>कन्या नागापूर</td><td><span class="badge-a">पूर्ण</span></td></tr>
+          <tbody id="dashTableBody">
+            <!-- Dynamic Data Will Load Here -->
           </tbody>
         </table>
       </div>
-      <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ केंद्र अहवाल प्रिंट काढा</button>
+
+      <!-- निवडलेल्या शाळेची विषय व क्षमतानिहाय सविस्तर माहिती -->
+      <div id="schoolDetailReport" style="display: none; margin-top: 20px;">
+        <div class="card-title" id="selectedSchoolTitle">शाळेची माहिती</div>
+        <div id="selectedSchoolContent"></div>
+      </div>
+
+      <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ केंद्र अहवाल प्रिंट / PDF काढा</button>
     </div>
   </div>
 
@@ -399,6 +438,104 @@
     var studentsList = [];
     var isCurrentSaved = false;
     var isDashboardUnlocked = false;
+    var maxStudentsAllowed = 0;
+
+    // १४ शाळांची डेटा लिस्ट
+    var schoolMasterData = [
+      { code: "SCH01", name: "जि.प.कें.प्रा.शाळा कन्या नागापूर", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH02", name: "जि.प.मा.शाळा नागापूर", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH03", name: "जि.प.प्रा.शाळा डाबी", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH04", name: "जि.प.प्रा.शाळा डाबी तांडा", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH05", name: "जि.प.प्रा.शाळा वानटाकळी", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH06", name: "जि.प.प्रा.शाळा वानटाकळी तांडा", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH07", name: "जि.प.प्रा.शाळा एकबाली तांडा", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH08", name: "जि.प.प्रा.शाळा दौनापुर तांडा", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH09", name: "जि.प.प्रा.शाळा दौनापूर", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH10", name: "जि.प.प्रा.शाळा लिंबूटा तांडा", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH11", name: "जि.प.प्रा.शाळा बहादूरवाडी", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH12", name: "संत तुकाराम प्राथमिक विद्यालय नागापूर", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH13", name: "रमाबाई प्राथमिक शाळा नागापूर", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 },
+      { code: "SCH14", name: "बालाघाट विद्यालय दौनापूर", center: "कन्या नागापूर", status: "प्रलंबित", count: 0 }
+    ];
+
+    function calculateTotalEnrollment() {
+      var boys = parseInt(document.getElementById('boysCount').value) || 0;
+      var girls = parseInt(document.getElementById('girlsCount').value) || 0;
+      maxStudentsAllowed = boys + girls;
+      document.getElementById('totalEnrollment').value = maxStudentsAllowed;
+      document.getElementById('p_totalEnrollment').innerText = maxStudentsAllowed;
+    }
+
+    function toggleAttendance(status) {
+      var compFields = document.getElementById('competencyFields');
+      if (status === 'Absent') {
+        compFields.style.opacity = '0.4';
+        compFields.style.pointerEvents = 'none';
+      } else {
+        compFields.style.opacity = '1';
+        compFields.style.pointerEvents = 'auto';
+      }
+    }
+
+    function toggleStudentInputFields(disable) {
+      document.getElementById('studentName').disabled = disable;
+      document.getElementById('attendanceStatus').disabled = disable;
+      document.getElementById('studentClassSelect').disabled = disable;
+      document.getElementById('readingCompetency').disabled = disable;
+      document.getElementById('writingCompetency').disabled = disable;
+      document.getElementById('mathNumberCompetency').disabled = disable;
+      document.getElementById('mathOpCompetency').disabled = disable;
+      document.getElementById('saveStudentBtn').disabled = disable;
+    }
+
+    function renderDashboardTable() {
+      var tbody = document.getElementById('dashTableBody');
+      tbody.innerHTML = '';
+      var completed = 0;
+      var totalStudents = 0;
+
+      var filterSelect = document.getElementById('dashSchoolFilter');
+      var filterOptions = '<option value="ALL">-- सर्व १४ शाळांची एकत्रित स्थिती पहा --</option>';
+
+      schoolMasterData.forEach(function(item, idx) {
+        if (item.status === "पूर्ण") completed++;
+        totalStudents += item.count;
+
+        var badge = item.status === "पूर्ण" ? '<span class="badge-a">पूर्ण</span>' : '<span class="badge-b">प्रलंबित</span>';
+        var row = '<tr><td>' + (idx + 1) + '</td><td style="text-align:left; font-weight:bold; cursor:pointer; color:#0d62ba;" onclick="filterDashboardBySchool(\'' + item.code + '\')">' + item.name + '</td><td>' + item.center + '</td><td>' + item.count + '</td><td>' + badge + '</td></tr>';
+        tbody.innerHTML += row;
+
+        filterOptions += '<option value="' + item.code + '">' + item.name + '</option>';
+      });
+
+      if (filterSelect.options.length <= 1) {
+        filterSelect.innerHTML = filterOptions;
+      }
+
+      document.getElementById('dashTotalStudents').innerText = totalStudents;
+      document.getElementById('dashCompletedCount').innerText = completed + " / 14";
+    }
+
+    function filterDashboardBySchool(schCode) {
+      var reportDiv = document.getElementById('schoolDetailReport');
+      var titleDiv = document.getElementById('selectedSchoolTitle');
+      var contentDiv = document.getElementById('selectedSchoolContent');
+
+      if (schCode === "ALL" || !schCode) {
+        reportDiv.style.display = "none";
+        return;
+      }
+
+      var sch = schoolMasterData.find(s => s.code === schCode);
+      reportDiv.style.display = "block";
+      titleDiv.innerText = "🏫 शाळा अहवाल: " + sch.name;
+
+      if (studentsList.length > 0 && document.getElementById('schoolName').value === schCode) {
+        contentDiv.innerHTML = document.getElementById('summaryCard').innerHTML;
+      } else {
+        contentDiv.innerHTML = '<p style="padding:15px; color:#64748b; text-align:center;">या शाळेचा डेटा अजुन प्रविष्ट झालेला नाही किंवा शाळा निवडलेली नाही.</p>';
+      }
+    }
 
     function switchTab(tab) {
       if (tab === 'dashboard') {
@@ -411,6 +548,7 @@
             return;
           }
         }
+        renderDashboardTable();
         document.getElementById('dataEntryView').style.display = 'none';
         document.getElementById('dashboardView').style.display = 'block';
         document.getElementById('tabDataEntry').classList.remove('active');
@@ -439,11 +577,24 @@
         alert("कृपया आधी किमान एका विद्यार्थ्याची माहिती नोंदवा.");
         return;
       }
+
+      var selectedSchoolCode = document.getElementById('schoolName').value;
+      if (!selectedSchoolCode) {
+        alert("कृपया आधी शाळा निवडा.");
+        return;
+      }
+
       var confirmSubmit = confirm("तुम्ही एकूण " + studentsList.length + " विद्यार्थ्यांची माहिती भरली आहे. तुम्ही हा डेटा सबमिट करू इच्छिता का?");
       if (confirmSubmit) {
-        alert("माहिती यशस्वीरीत्या सबमिट झाली आहे! आता तुम्ही PDF / प्रिंट काढू शकता.");
-        document.getElementById('studentEntryCard').style.display = 'none'; // नोंदणी फॉर्म बंद होईल
-        document.getElementById('submitAllBtn').style.display = 'none'; // सबमिट बटण लपवले जाईल
+        var schoolObj = schoolMasterData.find(s => s.code === selectedSchoolCode);
+        if (schoolObj) {
+          schoolObj.status = "पूर्ण";
+          schoolObj.count = studentsList.length;
+        }
+
+        alert("माहिती यशस्वीरीत्या सबमिट झाली आहे! केंद्रप्रमुख डॅशबोर्डमध्ये स्थिती 'पूर्ण' झाली आहे.");
+        document.getElementById('studentEntryCard').style.display = 'none';
+        document.getElementById('submitAllBtn').style.display = 'none';
       }
     }
 
@@ -483,7 +634,8 @@
         document.getElementById('mathOpCompetency').innerHTML = o;
       }
 
-      function getGroupBadge(val) {
+      function getGroupBadge(val, att) {
+        if (att === "Absent") return '<span class="badge-absent">गैरहजर</span>';
         if (!val) return "-";
         if (val.startsWith("A")) return '<span class="badge-a">' + val + '</span>';
         if (val.startsWith("B")) return '<span class="badge-b">' + val + '</span>';
@@ -492,28 +644,33 @@
       }
 
       function updateSummary() {
-        var counts = { r: {A:0,B:0,C:0}, w: {A:0,B:0,C:0}, n: {A:0,B:0,C:0}, o: {A:0,B:0,C:0} };
+        var counts = { r: {A:0,B:0,C:0,Abs:0}, w: {A:0,B:0,C:0,Abs:0}, n: {A:0,B:0,C:0,Abs:0}, o: {A:0,B:0,C:0,Abs:0} };
 
         studentsList.forEach(function(s) {
-          if (s.r.startsWith("A")) counts.r.A++; else if (s.r.startsWith("B")) counts.r.B++; else if (s.r.startsWith("C")) counts.r.C++;
-          if (s.w.startsWith("A")) counts.w.A++; else if (s.w.startsWith("B")) counts.w.B++; else if (s.w.startsWith("C")) counts.w.C++;
-          if (s.n.startsWith("A")) counts.n.A++; else if (s.n.startsWith("B")) counts.n.B++; else if (s.n.startsWith("C")) counts.n.C++;
-          if (s.o.startsWith("A")) counts.o.A++; else if (s.o.startsWith("B")) counts.o.B++; else if (s.o.startsWith("C")) counts.o.C++;
+          if (s.att === "Absent") {
+            counts.r.Abs++; counts.w.Abs++; counts.n.Abs++; counts.o.Abs++;
+          } else {
+            if (s.r.startsWith("A")) counts.r.A++; else if (s.r.startsWith("B")) counts.r.B++; else if (s.r.startsWith("C")) counts.r.C++;
+            if (s.w.startsWith("A")) counts.w.A++; else if (s.w.startsWith("B")) counts.w.B++; else if (s.w.startsWith("C")) counts.w.C++;
+            if (s.n.startsWith("A")) counts.n.A++; else if (s.n.startsWith("B")) counts.n.B++; else if (s.n.startsWith("C")) counts.n.C++;
+            if (s.o.startsWith("A")) counts.o.A++; else if (s.o.startsWith("B")) counts.o.B++; else if (s.o.startsWith("C")) counts.o.C++;
+          }
         });
 
-        document.getElementById('r_A').innerText = counts.r.A; document.getElementById('r_B').innerText = counts.r.B; document.getElementById('r_C').innerText = counts.r.C; document.getElementById('r_Total').innerText = counts.r.A + counts.r.B + counts.r.C;
-        document.getElementById('w_A').innerText = counts.w.A; document.getElementById('w_B').innerText = counts.w.B; document.getElementById('w_C').innerText = counts.w.C; document.getElementById('w_Total').innerText = counts.w.A + counts.w.B + counts.w.C;
-        document.getElementById('n_A').innerText = counts.n.A; document.getElementById('n_B').innerText = counts.n.B; document.getElementById('n_C').innerText = counts.n.C; document.getElementById('n_Total').innerText = counts.n.A + counts.n.B + counts.n.C;
-        document.getElementById('o_A').innerText = counts.o.A; document.getElementById('o_B').innerText = counts.o.B; document.getElementById('o_C').innerText = counts.o.C; document.getElementById('o_Total').innerText = counts.o.A + counts.o.B + counts.o.C;
-        
-        document.getElementById('dashTotalStudents').innerText = studentsList.length;
+        document.getElementById('r_A').innerText = counts.r.A; document.getElementById('r_B').innerText = counts.r.B; document.getElementById('r_C').innerText = counts.r.C; document.getElementById('r_Abs').innerText = counts.r.Abs; document.getElementById('r_Total').innerText = studentsList.length;
+        document.getElementById('w_A').innerText = counts.w.A; document.getElementById('w_B').innerText = counts.w.B; document.getElementById('w_C').innerText = counts.w.C; document.getElementById('w_Abs').innerText = counts.w.Abs; document.getElementById('w_Total').innerText = studentsList.length;
+        document.getElementById('n_A').innerText = counts.n.A; document.getElementById('n_B').innerText = counts.n.B; document.getElementById('n_C').innerText = counts.n.C; document.getElementById('n_Abs').innerText = counts.n.Abs; document.getElementById('n_Total').innerText = studentsList.length;
+        document.getElementById('o_A').innerText = counts.o.A; document.getElementById('o_B').innerText = counts.o.B; document.getElementById('o_C').innerText = counts.o.C; document.getElementById('o_Abs').innerText = counts.o.Abs; document.getElementById('o_Total').innerText = studentsList.length;
       }
 
+      /* शाळा बदलल्यावर शिक्षकाचे नाव आणि PDF मधील नाव स्वयंचलितपणे रिसेट करणे (Fix 1) */
       document.getElementById('schoolName').addEventListener('change', function() {
         var code = this.value;
         var tSelect = document.getElementById('teacherSelect');
         var selectedText = this.options[this.selectedIndex].text;
+        
         document.getElementById('p_schoolName').innerText = code ? selectedText : '-';
+        document.getElementById('p_teacherName').innerText = '-'; // Teacher reset in PDF Header
 
         if (code && teachersData[code]) {
           var opts = '<option value="">-- वर्गशिक्षक निवडा --</option>';
@@ -530,21 +687,38 @@
       document.getElementById('evalDate').addEventListener('change', function() { document.getElementById('p_evalDate').innerText = this.value || '-'; });
       document.getElementById('classSelect').addEventListener('change', function() { var clsVal = this.value; document.getElementById('p_className').innerText = clsVal ? 'इयत्ता ' + clsVal + ' री' : '-'; });
 
+      /* विद्यार्थी जतन करणे (Fix 3: Lock fields after save) */
       document.getElementById('saveStudentBtn').addEventListener('click', function() {
+        if (maxStudentsAllowed <= 0) {
+          alert("कृपया आधी वर्गाची मुले व मुलींची संख्या भरून पटसंख्या निश्चित करा.");
+          return;
+        }
+
+        if (isCurrentSaved) {
+          alert("या विद्यार्थ्याची माहिती आधीच जतन केली आहे. पुढील विद्यार्थ्याची नोंद करण्यासाठी '➕ पुढील विद्यार्थी जोडा' बटणावर क्लिक करा.");
+          return;
+        }
+
+        if (studentsList.length >= maxStudentsAllowed) {
+          alert("अट: वर्गातील एकूण पटसंख्या (" + maxStudentsAllowed + ") पेक्षा जास्त विद्यार्थ्यांची नोंदणी करता येणार नाही!");
+          return;
+        }
+
         var name = document.getElementById('studentName').value.trim();
+        var att = document.getElementById('attendanceStatus').value;
         var cls = document.getElementById('studentClassSelect').value;
-        var r = document.getElementById('readingCompetency').value;
-        var w = document.getElementById('writingCompetency').value;
-        var n = document.getElementById('mathNumberCompetency').value;
-        var o = document.getElementById('mathOpCompetency').value;
+        var r = att === 'Absent' ? 'गैरहजर' : document.getElementById('readingCompetency').value;
+        var w = att === 'Absent' ? 'गैरहजर' : document.getElementById('writingCompetency').value;
+        var n = att === 'Absent' ? 'गैरहजर' : document.getElementById('mathNumberCompetency').value;
+        var o = att === 'Absent' ? 'गैरहजर' : document.getElementById('mathOpCompetency').value;
 
         if (!name) { alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा."); document.getElementById('studentName').focus(); return; }
-        if (isCurrentSaved) { alert("या विद्यार्थ्याची माहिती आधीच जतन झाली आहे."); return; }
 
-        studentsList.push({ name: name, cls: cls, r: r, w: w, n: n, o: o });
+        studentsList.push({ name: name, att: att, cls: cls, r: r, w: w, n: n, o: o });
 
         var tbody = document.getElementById('studentTableBody');
-        var newRow = '<tr><td>' + currentStudentIndex + '</td><td style="text-align: left; font-weight: 600;">' + name + '</td><td>इ. ' + cls + '</td><td>' + getGroupBadge(r) + '</td><td>' + getGroupBadge(w) + '</td><td>' + getGroupBadge(n) + '</td><td>' + getGroupBadge(o) + '</td></tr>';
+        var attBadge = att === 'Present' ? '<span class="badge-a">हजर</span>' : '<span class="badge-absent">गैरहजर</span>';
+        var newRow = '<tr><td>' + currentStudentIndex + '</td><td style="text-align: left; font-weight: 600;">' + name + '</td><td>इ. ' + cls + '</td><td>' + attBadge + '</td><td>' + getGroupBadge(r, att) + '</td><td>' + getGroupBadge(w, att) + '</td><td>' + getGroupBadge(n, att) + '</td><td>' + getGroupBadge(o, att) + '</td></tr>';
         tbody.innerHTML += newRow;
 
         document.getElementById('summaryCard').style.display = 'block';
@@ -552,23 +726,40 @@
 
         updateSummary();
         isCurrentSaved = true;
-        alert("माहिती यशस्वीरीत्या जतन झाली आहे!");
+        toggleStudentInputFields(true); // Disable inputs after saving
+        alert("विद्यार्थी माहिती यशस्वीरीत्या जतन झाली आहे!");
       });
 
+      /* नवीन विद्यार्थी जोडणे */
       document.getElementById('addNewStudentBtn').addEventListener('click', function() {
+        if (!isCurrentSaved && studentsList.length > 0) {
+          alert("कृपया आधी सध्याच्या विद्यार्थ्याचा डेटा जतन करा.");
+          return;
+        }
+
+        if (studentsList.length >= maxStudentsAllowed) {
+          alert("अट: वर्गातील एकूण पटसंख्या (" + maxStudentsAllowed + ") पूर्ण झाली आहे. अधिक विद्यार्थी जोडता येणार नाहीत.");
+          return;
+        }
+
+        toggleStudentInputFields(false); // Enable inputs for next entry
+
         document.getElementById('studentName').value = '';
+        document.getElementById('attendanceStatus').value = 'Present';
+        toggleAttendance('Present');
         document.getElementById('readingCompetency').selectedIndex = 0;
         document.getElementById('writingCompetency').selectedIndex = 0;
         document.getElementById('mathNumberCompetency').selectedIndex = 0;
         document.getElementById('mathOpCompetency').selectedIndex = 0;
 
-        if (isCurrentSaved) { currentStudentIndex++; }
+        currentStudentIndex++;
         document.getElementById('studentNoVal').innerText = currentStudentIndex;
         isCurrentSaved = false;
         document.getElementById('studentName').focus();
       });
 
       fillOptions(r2, w2, n2, o2);
+      renderDashboardTable();
     });
   </script>
 </body>
