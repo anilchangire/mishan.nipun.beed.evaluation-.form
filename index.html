@@ -20,6 +20,17 @@
     .form-group { margin-bottom: 14px; }
     label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #1e293b; }
     
+    .static-info-box {
+      background-color: #e0f2fe;
+      color: #0369a1;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 15px;
+      border: 1px solid #bae6fd;
+      margin-bottom: 14px;
+    }
+
     /* Input & Select Styling */
     select, input { 
       width: 100%; 
@@ -139,10 +150,17 @@
       .btn-group { flex-direction: column; }
     }
 
+    /* प्रिंट व PDF सुधारणांसाठी CSS */
     @media print {
       .no-print, .btn-group, .btn-print { display: none !important; }
-      body { background-color: white; padding: 0; }
-      .card { border: none; box-shadow: none; padding: 0; }
+      body { background-color: white !important; padding: 0 !important; font-size: 12pt; }
+      .card { border: 1px solid #ddd !important; box-shadow: none !important; padding: 10px !important; margin-bottom: 20px !important; page-break-inside: avoid; }
+      .table-container { overflow: visible !important; }
+      table { width: 100% !important; border-collapse: collapse !important; }
+      th, td { border: 1px solid #000 !important; padding: 6px !important; }
+      th { background-color: #f2f2f2 !important; color: #000 !important; }
+      .header-container { background: none !important; color: #000 !important; border: 1px solid #000; text-align: center; }
+      .badge-a, .badge-b, .badge-c { background: none !important; color: #000 !important; padding: 0 !important; }
     }
   </style>
 </head>
@@ -175,6 +193,31 @@
         <option value="SCH12">संत तुकाराम प्राथमिक विद्यालय नागापूर</option>
         <option value="SCH13">रमाबाई प्राथमिक शाळा नागापूर</option>
         <option value="SCH14">बालाघाट विद्यालय दौनापूर</option>
+      </select>
+    </div>
+
+    <!-- केंद्र नाव कंपल्सरी -->
+    <div class="form-group">
+      <label>केंद्र</label>
+      <div class="static-info-box">केंद्र- कन्या नागापूर ता.परळी वै. जि. बीड</div>
+    </div>
+
+    <!-- दिनांक निवडण्याचा बॉक्स -->
+    <div class="form-group">
+      <label>दिनांक *</label>
+      <input type="date" id="evalDate">
+    </div>
+
+    <!-- वर्ग निवडा टॅब (इयत्ता १ ते ५) -->
+    <div class="form-group">
+      <label>वर्ग निवडा *</label>
+      <select id="classSelect">
+        <option value="">-- वर्ग निवडा --</option>
+        <option value="१">इयत्ता १ ली</option>
+        <option value="२">इयत्ता २ री</option>
+        <option value="३">इयत्ता ३ री</option>
+        <option value="४">इयत्ता ४ थी</option>
+        <option value="५">इयत्ता ५ वी</option>
       </select>
     </div>
 
@@ -345,6 +388,10 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
+      // आजची तारीख डीफॉल्ट सेट करणे
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementById('evalDate').value = today;
+
       var teachersData = {
         "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
         "SCH02": ["श्री ए बी गायकवाड", "श्रीमती आर बी आडगावकर", "श्रीमती सी एम काजळे", "श्रीमती एस व्ही कराड", "श्री डी एम दराडे", "श्रीमती एस.बी.मात्रे", "श्री बी.डी.पुपुलवाड"],
@@ -696,7 +743,6 @@
       document.getElementById('addNewStudentBtn').addEventListener('click', function() {
         var name = document.getElementById('studentName').value.trim();
 
-        // जर फॉर्म भरलेला असेल पण जतन केला नसेल तर इशारा द्या
         if (name && !isCurrentSaved) {
           var confirmDiscard = confirm("आपण भरलेली माहिती जतन केलेली नाही. नवीन विद्यार्थी जोडायचा आहे का?");
           if (!confirmDiscard) return;
