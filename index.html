@@ -9,7 +9,7 @@
     body { background-color: #f4f6fa; padding: 15px; color: #1e293b; }
     
     /* Header Styling */
-    .header-container { background: linear-gradient(135deg, #0d62ba, #084382); color: #ffffff; padding: 18px 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .header-container { background: linear-gradient(135deg, #0d62ba, #084382); color: #ffffff; padding: 18px 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
     .main-title { font-size: 22px; font-weight: bold; }
     .sub-title { font-size: 14px; opacity: 0.95; margin-top: 4px; }
     
@@ -20,22 +20,36 @@
     .form-group { margin-bottom: 14px; }
     label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #1e293b; }
     
+    /* Flex grid for layout lines */
+    .form-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      margin-bottom: 14px;
+    }
+    .form-row .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
     .static-info-box {
       background-color: #e0f2fe;
       color: #0369a1;
       padding: 10px 12px;
       border-radius: 6px;
       font-weight: bold;
-      font-size: 15px;
+      font-size: 14px;
       border: 1px solid #bae6fd;
-      margin-bottom: 14px;
+      height: 42px;
+      display: flex;
+      align-items: center;
     }
 
     /* Input & Select Styling */
     select, input { 
       width: 100%; 
       padding: 10px 12px; 
-      font-size: 15px; 
+      font-size: 14px; 
       border: 1px solid #cbd5e1; 
       border-radius: 6px; 
       outline: none; 
@@ -43,6 +57,7 @@
       color: #1e293b !important; 
       -webkit-text-fill-color: #1e293b !important;
       transition: border-color 0.2s, box-shadow 0.2s;
+      height: 42px;
     }
 
     input:-webkit-autofill,
@@ -137,95 +152,144 @@
 
     /* Table Styling */
     .table-container { overflow-x: auto; margin-top: 10px; }
-    table { width: 100%; border-collapse: collapse; text-align: center; font-size: 14px; }
-    th, td { border: 1px solid #cbd5e1; padding: 10px 8px; }
+    table { width: 100%; border-collapse: collapse; text-align: center; font-size: 13px; }
+    th, td { border: 1px solid #cbd5e1; padding: 8px 6px; }
     th { background-color: #0d62ba; color: white; font-weight: 600; }
     tr:nth-child(even) { background-color: #f8fafc; }
     
-    .badge-a { background-color: #dcfce7; color: #166534; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; text-align: left; }
-    .badge-b { background-color: #fef9c3; color: #854d0e; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; text-align: left; }
-    .badge-c { background-color: #fee2e2; color: #991b1b; font-weight: bold; padding: 4px 8px; border-radius: 4px; display: inline-block; text-align: left; }
+    .badge-a { background-color: #dcfce7; color: #166534; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; text-align: left; }
+    .badge-b { background-color: #fef9c3; color: #854d0e; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; text-align: left; }
+    .badge-c { background-color: #fee2e2; color: #991b1b; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; text-align: left; }
 
-    @media (max-width: 480px) {
+    /* Print Header Box Style */
+    .pdf-header-box {
+      border: 1px solid #94a3b8;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      background-color: #ffffff;
+      display: none; /* Screen वर लपवलेला, फक्त प्रिंटमध्ये दिसेल */
+    }
+    .pdf-header-title {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .pdf-header-title h2 { font-size: 18px; color: #0d62ba; }
+    .pdf-header-title h4 { font-size: 13px; color: #475569; }
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 15px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row { flex-direction: column; gap: 10px; }
       .btn-group { flex-direction: column; }
     }
 
     /* प्रिंट व PDF सुधारणांसाठी CSS */
     @media print {
+      @page { size: A4 portrait; margin: 10mm; }
       .no-print, .btn-group, .btn-print { display: none !important; }
-      body { background-color: white !important; padding: 0 !important; font-size: 12pt; }
-      .card { border: 1px solid #ddd !important; box-shadow: none !important; padding: 10px !important; margin-bottom: 20px !important; page-break-inside: avoid; }
+      body { background-color: white !important; padding: 0 !important; font-size: 11pt; }
+      
+      .pdf-header-box { display: block !important; border: 1px solid #000; }
+      .pdf-header-title h2, .pdf-header-title h4 { color: #000 !important; }
+      
+      .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin-bottom: 15px !important; page-break-inside: avoid; }
+      .card-title { color: #000 !important; border-bottom: 1px solid #000 !important; font-size: 15px; margin-bottom: 8px; }
+      
       .table-container { overflow: visible !important; }
-      table { width: 100% !important; border-collapse: collapse !important; }
-      th, td { border: 1px solid #000 !important; padding: 6px !important; }
+      table { width: 100% !important; border-collapse: collapse !important; font-size: 11px !important; }
+      th, td { border: 1px solid #000 !important; padding: 4px 6px !important; }
       th { background-color: #f2f2f2 !important; color: #000 !important; }
-      .header-container { background: none !important; color: #000 !important; border: 1px solid #000; text-align: center; }
+      .header-container { display: none !important; }
       .badge-a, .badge-b, .badge-c { background: none !important; color: #000 !important; padding: 0 !important; }
     }
   </style>
 </head>
 <body>
 
-  <div class="header-container">
+  <div class="header-container no-print">
     <div class="main-title">मिशन निपुण बीड</div>
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
+  </div>
+
+  <!-- PDF / प्रिंट साठी मुख्य हेडर बॉक्स (फोटोमध्ये दाखवल्याप्रमाणे सर्वात वर दिसेल) -->
+  <div class="pdf-header-box" id="pdfHeaderBox">
+    <div class="pdf-header-title">
+      <h2>मिशन निपुण बीड</h2>
+      <h4>विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</h4>
+    </div>
+    <div class="pdf-grid">
+      <div><strong>शाळा:</strong> <span id="p_schoolName">-</span></div>
+      <div><strong>वर्गशिक्षक:</strong> <span id="p_teacherName">-</span></div>
+      <div><strong>दिनांक:</strong> <span id="p_evalDate">-</span></div>
+      <div><strong>केंद्र:</strong> कन्या नागापूर ता.परळी वै. जि. बीड</div>
+      <div><strong>गट:</strong> <span id="p_className">-</span></div>
+      <div><strong>तालुका / जिल्हा:</strong> परळी / बीड</div>
+    </div>
   </div>
 
   <!-- १. शाळा व शिक्षकाची माहिती -->
   <div class="card no-print">
     <div class="card-title">१. शाळा व शिक्षकाची माहिती</div>
 
-    <div class="form-group" style="margin-top: 12px;">
-      <label>शाळा निवडा *</label>
-      <select id="schoolName">
-        <option value="">-- शाळा निवडा --</option>
-        <option value="SCH01">जि.प.कें.प्रा.शाळा कन्या नागापूर</option>
-        <option value="SCH02">जि.प.मा.शाळा नागापूर</option>
-        <option value="SCH03">जि.प.प्रा.शाळा डाबी</option>
-        <option value="SCH04">जि.प.प्रा.शाळा डाबी तांडा</option>
-        <option value="SCH05">जि.प.प्रा.शाळा वानटाकळी</option>
-        <option value="SCH06">जि.प.प्रा.शाळा वानटाकळी तांडा</option>
-        <option value="SCH07">जि.प.प्रा.शाळा एकबाली तांडा</option>
-        <option value="SCH08">जि.प.प्रा.शाळा दौनापुर तांडा</option>
-        <option value="SCH09">जि.प.प्रा.शाळा दौनापूर</option>
-        <option value="SCH10">जि.प.प्रा.शाळा लिंबूटा तांडा</option>
-        <option value="SCH11">जि.प.प्रा.शाळा बहादूरवाडी</option>
-        <option value="SCH12">संत तुकाराम प्राथमिक विद्यालय नागापूर</option>
-        <option value="SCH13">रमाबाई प्राथमिक शाळा नागापूर</option>
-        <option value="SCH14">बालाघाट विद्यालय दौनापूर</option>
-      </select>
+    <!-- ओळ १: शाळा निवडा, केंद्र आणि दिनांक -->
+    <div class="form-row">
+      <div class="form-group" style="flex: 2;">
+        <label>शाळा निवडा *</label>
+        <select id="schoolName">
+          <option value="">-- शाळा निवडा --</option>
+          <option value="SCH01">जि.प.कें.प्रा.शाळा कन्या नागापूर</option>
+          <option value="SCH02">जि.प.मा.शाळा नागापूर</option>
+          <option value="SCH03">जि.प.प्रा.शाळा डाबी</option>
+          <option value="SCH04">जि.प.प्रा.शाळा डाबी तांडा</option>
+          <option value="SCH05">जि.प.प्रा.शाळा वानटाकळी</option>
+          <option value="SCH06">जि.प.प्रा.शाळा वानटाकळी तांडा</option>
+          <option value="SCH07">जि.प.प्रा.शाळा एकबाली तांडा</option>
+          <option value="SCH08">जि.प.प्रा.शाळा दौनापुर तांडा</option>
+          <option value="SCH09">जि.प.प्रा.शाळा दौनापूर</option>
+          <option value="SCH10">जि.प.प्रा.शाळा लिंबूटा तांडा</option>
+          <option value="SCH11">जि.प.प्रा.शाळा बहादूरवाडी</option>
+          <option value="SCH12">संत तुकाराम प्राथमिक विद्यालय नागापूर</option>
+          <option value="SCH13">रमाबाई प्राथमिक शाळा नागापूर</option>
+          <option value="SCH14">बालाघाट विद्यालय दौनापूर</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="flex: 1.5;">
+        <label>केंद्र</label>
+        <div class="static-info-box">कन्या नागापूर</div>
+      </div>
+
+      <div class="form-group" style="flex: 1;">
+        <label>दिनांक *</label>
+        <input type="date" id="evalDate">
+      </div>
     </div>
 
-    <!-- केंद्र नाव कंपल्सरी -->
-    <div class="form-group">
-      <label>केंद्र</label>
-      <div class="static-info-box">केंद्र- कन्या नागापूर ता.परळी वै. जि. बीड</div>
-    </div>
+    <!-- ओळ २: वर्ग निवडा आणि वर्गशिक्षक -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>वर्ग निवडा *</label>
+        <select id="classSelect">
+          <option value="">-- वर्ग निवडा --</option>
+          <option value="१">इयत्ता १ ली</option>
+          <option value="२">इयत्ता २ री</option>
+          <option value="३">इयत्ता ३ री</option>
+          <option value="४">इयत्ता ४ थी</option>
+          <option value="५">इयत्ता ५ वी</option>
+        </select>
+      </div>
 
-    <!-- दिनांक निवडण्याचा बॉक्स -->
-    <div class="form-group">
-      <label>दिनांक *</label>
-      <input type="date" id="evalDate">
-    </div>
-
-    <!-- वर्ग निवडा टॅब (इयत्ता १ ते ५) -->
-    <div class="form-group">
-      <label>वर्ग निवडा *</label>
-      <select id="classSelect">
-        <option value="">-- वर्ग निवडा --</option>
-        <option value="१">इयत्ता १ ली</option>
-        <option value="२">इयत्ता २ री</option>
-        <option value="३">इयत्ता ३ री</option>
-        <option value="४">इयत्ता ४ थी</option>
-        <option value="५">इयत्ता ५ वी</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>वर्गशिक्षक *</label>
-      <select id="teacherSelect">
-        <option value="">-- आधी शाळा निवडा --</option>
-      </select>
+      <div class="form-group">
+        <label>वर्गशिक्षक *</label>
+        <select id="teacherSelect">
+          <option value="">-- आधी शाळा निवडा --</option>
+        </select>
+      </div>
     </div>
   </div>
 
@@ -235,7 +299,7 @@
     
     <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
       <label style="margin-bottom:0; white-space: nowrap; color: #0d62ba;">मूल्यमापन गट:</label>
-      <select id="evalGroupSelect" style="font-weight: bold;">
+      <select id="evalGroupSelect" style="font-weight: bold; height: 38px;">
         <option value="class2">इयत्ता २ री</option>
         <option value="class3to5">इयत्ता ३ री ते ५ वी</option>
       </select>
@@ -308,13 +372,13 @@
       <table class="saved-data-table">
         <thead>
           <tr>
-            <th>अ.क्र.</th>
-            <th>विद्यार्थ्याचे नाव</th>
-            <th>इयत्ता</th>
-            <th>वाचन</th>
-            <th>लेखन</th>
-            <th>संख्याज्ञान</th>
-            <th>गणितीय क्रिया</th>
+            <th style="width: 6%;">अ.क्र.</th>
+            <th style="width: 20%;">विद्यार्थ्याचे नाव</th>
+            <th style="width: 10%;">इयत्ता</th>
+            <th style="width: 16%;">वाचन</th>
+            <th style="width: 16%;">लेखन</th>
+            <th style="width: 16%;">संख्याज्ञान</th>
+            <th style="width: 16%;">गणितीय क्रिया</th>
           </tr>
         </thead>
         <tbody id="studentTableBody"></tbody>
@@ -391,6 +455,7 @@
       // आजची तारीख डीफॉल्ट सेट करणे
       var today = new Date().toISOString().split('T')[0];
       document.getElementById('evalDate').value = today;
+      document.getElementById('p_evalDate').innerText = today;
 
       var teachersData = {
         "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
@@ -657,9 +722,13 @@
         document.getElementById('o_Total').innerText = counts.o.A + counts.o.B + counts.o.C;
       }
 
+      // शाळा निवड बदलल्यावर वर्गशिक्षक अपडेट आणि PDF Header अपडेट
       document.getElementById('schoolName').addEventListener('change', function() {
         var code = this.value;
         var tSelect = document.getElementById('teacherSelect');
+        var selectedText = this.options[this.selectedIndex].text;
+        document.getElementById('p_schoolName').innerText = code ? selectedText : '-';
+
         if (code && teachersData[code]) {
           var opts = '<option value="">-- वर्गशिक्षक निवडा --</option>';
           for (var i = 0; i < teachersData[code].length; i++) {
@@ -669,6 +738,19 @@
         } else {
           tSelect.innerHTML = '<option value="">-- आधी शाळा निवडा --</option>';
         }
+      });
+
+      document.getElementById('teacherSelect').addEventListener('change', function() {
+        document.getElementById('p_teacherName').innerText = this.value || '-';
+      });
+
+      document.getElementById('evalDate').addEventListener('change', function() {
+        document.getElementById('p_evalDate').innerText = this.value || '-';
+      });
+
+      document.getElementById('classSelect').addEventListener('change', function() {
+        var clsVal = this.value;
+        document.getElementById('p_className').innerText = clsVal ? 'इयत्ता ' + clsVal + ' री' : '-';
       });
 
       document.getElementById('evalGroupSelect').addEventListener('change', function() {
