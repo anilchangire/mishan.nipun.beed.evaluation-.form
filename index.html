@@ -189,8 +189,21 @@
       font-weight: normal !important;
     }
 
-    .signature-section { display: none; margin-top: 40px; justify-content: space-between; padding: 0 40px; }
-    .sig-box { text-align: center; width: 35%; font-weight: normal; font-size: 15px; border-top: 1px dashed #000; padding-top: 8px; }
+    /* स्वाक्षरी विभाग (स्क्रीनवर) */
+    .signature-section { 
+      display: none; 
+      margin-top: 55px; 
+      justify-content: space-between; 
+      padding: 0 50px; 
+    }
+    .sig-box { 
+      text-align: center; 
+      width: 38%; 
+      font-weight: normal; 
+      font-size: 15px; 
+      border-top: 1px dashed #000; 
+      padding-top: 10px; 
+    }
 
     @media (max-width: 768px) {
       .form-row { flex-direction: column; gap: 10px; }
@@ -262,13 +275,13 @@
         border: 2px dashed #000 !important;
         background-color: #ffffff !important;
         color: #000 !important;
-        padding: 10px !important;
-        margin-top: 10px !important;
+        padding: 8px !important;
+        margin-top: 8px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
       }
-      .nipun-congrats-title { color: #000 !important; font-size: 14pt !important; }
-      .nipun-congrats-sub { color: #000 !important; font-size: 10.5pt !important; }
+      .nipun-congrats-title { color: #000 !important; font-size: 13pt !important; }
+      .nipun-congrats-sub { color: #000 !important; font-size: 10pt !important; }
 
       .summary-table {
         max-width: 550px !important;
@@ -278,14 +291,21 @@
         break-inside: avoid !important;
       }
 
+      /* स्वाक्षरी व शिक्क्यासाठी पुरेशी जागा (PDF मध्ये) */
       .signature-section { 
         display: flex !important; 
-        margin-top: 20px !important; 
-        padding: 0 40px !important;
+        margin-top: 50px !important; 
+        padding: 0 50px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
       }
-      .sig-box { font-weight: normal !important; font-size: 10.5pt !important; }
+      .sig-box { 
+        font-weight: normal !important; 
+        font-size: 11pt !important; 
+        width: 38% !important;
+        border-top: 1px dashed #000 !important;
+        padding-top: 8px !important;
+      }
     }
   </style>
 </head>
@@ -560,7 +580,7 @@
     var studentsList = [];
     var isCurrentSaved = false;
     var maxStudentsAllowed = 0;
-    var isPdfDownloaded = false; // अट १: PDF काढली आहे की नाही हे तपासण्यासाठी
+    var isPdfDownloaded = false;
 
     var schoolTeachersMap = {
       "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
@@ -908,7 +928,7 @@
       }
     }
 
-    /* अट १: PDF काढल्याची नोंद ठेवून प्रिंट डायलॉग उघडणे */
+    /* PDF काढल्याची नोंद व प्रिंट */
     function handlePdfPrint() {
       if (studentsList.length === 0) {
         alert("⚠️ प्रिंट काढण्यासाठी आधी किमान एका विद्यार्थ्याचा डेटा नोंदवा.");
@@ -919,7 +939,7 @@
       window.print();
     }
 
-    /* अट १: PDF काढल्याशिवाय रिसेट करता येणार नाही */
+    /* PDF काढल्याशिवाय रिसेट करता येणार नाही */
     function resetAllFormData() {
       if (studentsList.length > 0 && !isPdfDownloaded) {
         alert("⛔ इशारा: आपण भरलेल्या वर्गाची PDF अद्याप डाउनलोड केलेली नाही! \n\nकृपया आधी '🖨️ PDF डाउनलोड / प्रिंट काढा' बटणावर क्लिक करून PDF सेव्ह करा. त्यानंतरच नवीन वर्गाची नोंदणी करता येईल.");
@@ -932,7 +952,7 @@
       }
     }
 
-    /* अट २: विद्यार्थ्याच्या माहितीत दुरुस्ती (Edit) करणे */
+    /* विद्यार्थ्याच्या माहितीत दुरुस्ती (Edit) */
     function editStudent(idx) {
       var student = studentsList.find(s => s.idx === idx);
       if (!student) return;
@@ -1088,16 +1108,14 @@
       });
     }
 
-    /* अट ३: निपुण वर्ग पडताळणी व अभिनंदन शेरा */
+    /* निपुण वर्ग पडताळणी */
     function checkClassNipunStatus() {
       var congratsBox = document.getElementById('nipunCongratsBox');
 
-      // वर्गाची संपूर्ण पटसंख्या नोंदवून झाली असेल तरच तपासणे
       if (maxStudentsAllowed > 0 && studentsList.length === maxStudentsAllowed) {
         var presentStudents = studentsList.filter(s => s.attendance !== 'Absent');
 
         if (presentStudents.length > 0) {
-          // सर्व उपस्थित विद्यार्थी चारही विषयात गट A मध्ये आहेत का?
           var isAllNipun = presentStudents.every(function(s) {
             return extractGroupBadge(s.reading) === 'A' &&
                    extractGroupBadge(s.writing) === 'A' &&
