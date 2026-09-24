@@ -85,11 +85,9 @@
       gap: 15px;
       margin-top: 20px;
     }
-    .btn-submit-all { flex: 1.2; background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-size: 16px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
-    .btn-submit-all:disabled { background: #94a3b8; cursor: not-allowed; }
 
     .btn-print { flex: 1; background: linear-gradient(135deg, #0d62ba, #084382); color: white; font-size: 16px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
-    .btn-reset { flex: 0.8; background: linear-gradient(135deg, #64748b, #475569); color: white; font-size: 15px; font-weight: bold; padding: 13px 15px; border: none; border-radius: 8px; cursor: pointer; }
+    .btn-reset { flex: 1; background: linear-gradient(135deg, #64748b, #475569); color: white; font-size: 16px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
 
     .table-container { overflow-x: auto; margin-top: 10px; }
     table { width: 100%; border-collapse: collapse; text-align: center; font-size: 15px; table-layout: fixed; }
@@ -348,7 +346,7 @@
       </div>
 
       <div class="success-banner" id="enrollmentFullBanner">
-        ✅ वर्गाची एकूण पटसंख्या पूर्ण झाली आहे! आता नवीन विद्यार्थी जोडता येणार नाही. कृपया खाली दिलेला तक्ता तपासून 'संपूर्ण वर्गाचा डेटा सबमिट करा'.
+        ✅ वर्गाची एकूण पटसंख्या पूर्ण झाली आहे! आता नवीन विद्यार्थी जोडता येणार नाही. कृपया खाली दिलेला तक्ता तपासून 'PDF डाउनलोड / प्रिंट काढा'.
       </div>
 
       <div id="studentInputArea">
@@ -495,7 +493,6 @@
       </div>
 
       <div class="action-btn-row no-print">
-        <button type="button" class="btn-submit-all" id="submitAllBtn" onclick="submitAllData()">📤 संपूर्ण वर्गाचा डेटा सबमिट करा</button>
         <button type="button" class="btn-print" onclick="window.print()">🖨️ PDF डाउनलोड / प्रिंट काढा</button>
         <button type="button" class="btn-reset" onclick="resetAllFormData()">🔄 नवीन वर्ग नोंदणी (Reset)</button>
       </div>
@@ -507,7 +504,6 @@
     var studentsList = [];
     var isCurrentSaved = false;
     var maxStudentsAllowed = 0;
-    var isFormSubmitted = false;
 
     var schoolTeachersMap = {
       "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
@@ -766,25 +762,6 @@
       }
     }
 
-    function toggleStudentInputFields(disable) {
-      document.getElementById('schoolName').disabled = disable;
-      document.getElementById('classSelect').disabled = disable;
-      document.getElementById('teacherSelect').disabled = disable;
-      document.getElementById('boysCount').disabled = disable;
-      document.getElementById('girlsCount').disabled = disable;
-      document.getElementById('evalDate').disabled = disable;
-      document.getElementById('evalGroupSelect').disabled = disable;
-      document.getElementById('studentName').disabled = disable;
-      document.getElementById('attendanceStatus').disabled = disable;
-      document.getElementById('studentClassSelect').disabled = disable;
-      document.getElementById('readingCompetency').disabled = disable;
-      document.getElementById('writingCompetency').disabled = disable;
-      document.getElementById('mathNumberCompetency').disabled = disable;
-      document.getElementById('mathOpCompetency').disabled = disable;
-      document.getElementById('saveStudentBtn').disabled = disable;
-      document.getElementById('addNewStudentBtn').disabled = disable;
-    }
-
     function extractGroupBadge(val) {
       if (!val || val === 'Abs') return 'Abs';
       if (val.startsWith('A')) return 'A';
@@ -816,8 +793,7 @@
         evalGroupSelect: document.getElementById('evalGroupSelect').value,
         currentStudentIndex: currentStudentIndex,
         isCurrentSaved: isCurrentSaved,
-        studentsList: studentsList,
-        isFormSubmitted: isFormSubmitted
+        studentsList: studentsList
       };
       localStorage.setItem('mishannipun_beed_data', JSON.stringify(state));
     }
@@ -865,12 +841,6 @@
           }
           checkEnrollmentLimit();
         }
-
-        if (state.isFormSubmitted) {
-          isFormSubmitted = true;
-          toggleStudentInputFields(true);
-          document.getElementById('submitAllBtn').disabled = true;
-        }
       } catch(e) {
         console.error("डेटा लोड करताना एरर आला:", e);
       }
@@ -881,19 +851,6 @@
         localStorage.removeItem('mishannipun_beed_data');
         window.location.reload();
       }
-    }
-
-    function submitAllData() {
-      if (studentsList.length === 0) {
-        alert("सबमिट करण्यासाठी कोणताही विद्यार्थी डेटा नाही.");
-        return;
-      }
-      isFormSubmitted = true;
-      toggleStudentInputFields(true);
-      document.getElementById('submitAllBtn').disabled = true;
-      saveStateToLocalStorage();
-
-      alert("🎉 माहिती यशस्वीरित्या ब्राउझरमध्ये सेव्ह झाली आहे आणि फॉर्म लॉक करण्यात आला आहे.");
     }
 
     /* विद्यार्थी जतन करताना */
@@ -959,7 +916,7 @@
       alert("विद्यार्थी " + currentStudentIndex + " चा डेटा सुरक्षित सेव्ह झाला आहे!");
     });
 
-   /* पुढील विद्यार्थी जोडणे */
+    /* पुढील विद्यार्थी जोडणे */
     document.getElementById('addNewStudentBtn').addEventListener('click', function() {
       if (!isCurrentSaved) {
         alert("कृपया आधी सध्याच्या विद्यार्थ्याचा डेटा 'जतन' करा!");
@@ -1087,4 +1044,4 @@
     };
   </script>
 </body>
-</html> 
+</html>
