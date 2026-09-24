@@ -85,10 +85,11 @@
       gap: 15px;
       margin-top: 20px;
     }
-    .btn-submit-all { flex: 1; background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-size: 16px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
+    .btn-submit-all { flex: 1.2; background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-size: 16px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
     .btn-submit-all:disabled { background: #94a3b8; cursor: not-allowed; }
 
     .btn-print { flex: 1; background: linear-gradient(135deg, #0d62ba, #084382); color: white; font-size: 16px; font-weight: bold; padding: 13px 20px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
+    .btn-reset { flex: 0.8; background: linear-gradient(135deg, #64748b, #475569); color: white; font-size: 15px; font-weight: bold; padding: 13px 15px; border: none; border-radius: 8px; cursor: pointer; }
 
     .table-container { overflow-x: auto; margin-top: 10px; }
     table { width: 100%; border-collapse: collapse; text-align: center; font-size: 15px; table-layout: fixed; }
@@ -181,7 +182,6 @@
       .pdf-item { font-weight: normal !important; }
       .pdf-item span { font-weight: normal !important; }
 
-      /* कार्ड व घटक पानावर तुटू नयेत म्हणून */
       .card { 
         border: none !important; 
         box-shadow: none !important; 
@@ -192,13 +192,11 @@
       }
       .card-title { color: #000 !important; border-bottom: 1px solid #000 !important; font-size: 11pt !important; font-weight: normal !important; margin-bottom: 6px !important; padding-bottom: 2px !important; }
 
-      /* गोषवारा कार्ड व स्वाक्षरी विभाग एकाच पानावर एकत्र ठेवणे */
       #summaryCard {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
       }
 
-      /* तक्त्यातील ओळी (Rows) अर्ध्यावर तुटू नयेत */
       tr {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -225,7 +223,6 @@
       .competency-full-cell { font-size: 8.5pt !important; padding: 3px !important; line-height: 1.25 !important; }
       .student-name-cell { font-size: 9pt !important; padding: 3px !important; }
       
-      /* गोषवारा टेबल व मार्जिन कम्पॅक्ट करणे */
       .summary-table {
         max-width: 550px !important;
         margin: 6px auto !important;
@@ -275,7 +272,7 @@
       <div class="form-row">
         <div class="form-group" style="flex: 2;">
           <label>शाळा निवडा *</label>
-          <select id="schoolName" onchange="updateTeacherList(this.value)">
+          <select id="schoolName" onchange="updateTeacherList(this.value); saveStateToLocalStorage();">
             <option value="">-- शाळा निवडा --</option>
             <option value="SCH01">जि.प.कें.प्रा.शाळा कन्या नागापूर</option>
             <option value="SCH02">जि.प.मा.शाळा नागापूर</option>
@@ -301,14 +298,14 @@
 
         <div class="form-group" style="flex: 1;">
           <label>दिनांक *</label>
-          <input type="date" id="evalDate">
+          <input type="date" id="evalDate" onchange="saveStateToLocalStorage();">
         </div>
       </div>
 
       <div class="form-row" style="background: #f1f5f9; padding: 12px; border-radius: 6px; border: 1px solid #cbd5e1;">
         <div class="form-group" style="flex: 1.2;">
           <label>वर्ग निवडा *</label>
-          <select id="classSelect">
+          <select id="classSelect" onchange="handleClassChange(this.value); saveStateToLocalStorage();">
             <option value="">-- वर्ग निवडा --</option>
             <option value="1">इयत्ता 1 ली</option>
             <option value="2">इयत्ता 2 री</option>
@@ -320,19 +317,19 @@
 
         <div class="form-group" style="flex: 1.8;">
           <label>वर्गशिक्षक *</label>
-          <select id="teacherSelect">
+          <select id="teacherSelect" onchange="document.getElementById('p_teacherName').innerText = this.value; saveStateToLocalStorage();">
             <option value="">-- आधी शाळा निवडा --</option>
           </select>
         </div>
 
         <div class="form-group" style="flex: 1;">
           <label>मुले संख्या *</label>
-          <input type="number" id="boysCount" min="0" placeholder="0" oninput="calculateTotalEnrollment()">
+          <input type="number" id="boysCount" min="0" placeholder="0" oninput="calculateTotalEnrollment(); saveStateToLocalStorage();">
         </div>
 
         <div class="form-group" style="flex: 1;">
           <label>मुली संख्या *</label>
-          <input type="number" id="girlsCount" min="0" placeholder="0" oninput="calculateTotalEnrollment()">
+          <input type="number" id="girlsCount" min="0" placeholder="0" oninput="calculateTotalEnrollment(); saveStateToLocalStorage();">
         </div>
 
         <div class="form-group" style="flex: 1.2;">
@@ -357,7 +354,7 @@
       <div id="studentInputArea">
         <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
           <label style="margin-bottom:0; white-space: nowrap; color: #0d62ba;">मूल्यमापन गट निवडा:</label>
-          <select id="evalGroupSelect" style="height: 38px;" onchange="changeEvalGroup(this.value)">
+          <select id="evalGroupSelect" style="height: 38px;" onchange="changeEvalGroup(this.value); saveStateToLocalStorage();">
             <option value="class2">इयत्ता 2 री</option>
             <option value="class3to5">इयत्ता 3 री ते 5 वी</option>
           </select>
@@ -498,8 +495,9 @@
       </div>
 
       <div class="action-btn-row no-print">
-        <button type="button" class="btn-submit-all" id="submitAllBtn" onclick="submitAllData()">📤 संपूर्ण वर्गाचा डेटा सबमिट करा (Submit All)</button>
+        <button type="button" class="btn-submit-all" id="submitAllBtn" onclick="submitAllData()">📤 संपूर्ण वर्गाचा डेटा सबमिट करा</button>
         <button type="button" class="btn-print" onclick="window.print()">🖨️ PDF डाउनलोड / प्रिंट काढा</button>
+        <button type="button" class="btn-reset" onclick="resetAllFormData()">🔄 नवीन वर्ग नोंदणी (Reset)</button>
       </div>
     </div>
   </div>
@@ -509,6 +507,7 @@
     var studentsList = [];
     var isCurrentSaved = false;
     var maxStudentsAllowed = 0;
+    var isFormSubmitted = false;
 
     var schoolTeachersMap = {
       "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
@@ -527,7 +526,7 @@
       "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
     };
 
-    function updateTeacherList(schCode) {
+    function updateTeacherList(schCode, selectedTeacher) {
       var teacherSelect = document.getElementById('teacherSelect');
       teacherSelect.innerHTML = '<option value="">-- शिक्षक निवडा --</option>';
 
@@ -539,6 +538,9 @@
           opt.innerText = teacher;
           teacherSelect.appendChild(opt);
         });
+        if (selectedTeacher) {
+          teacherSelect.value = selectedTeacher;
+        }
       } else {
         teacherSelect.innerHTML = '<option value="">-- आधी शाळा निवडा --</option>';
       }
@@ -733,7 +735,6 @@
       }
     }
 
-    /* पटसंख्या पूर्ण झाल्यावर नवीन नोंदणी बंद करणे */
     function checkEnrollmentLimit() {
       var fullBanner = document.getElementById('enrollmentFullBanner');
       var inputArea = document.getElementById('studentInputArea');
@@ -771,6 +772,8 @@
       document.getElementById('teacherSelect').disabled = disable;
       document.getElementById('boysCount').disabled = disable;
       document.getElementById('girlsCount').disabled = disable;
+      document.getElementById('evalDate').disabled = disable;
+      document.getElementById('evalGroupSelect').disabled = disable;
       document.getElementById('studentName').disabled = disable;
       document.getElementById('attendanceStatus').disabled = disable;
       document.getElementById('studentClassSelect').disabled = disable;
@@ -801,18 +804,99 @@
       }
     }
 
+    /* ---------------- LOCALSTORAGE सेव्ह व लोड लॉजिक ---------------- */
+    function saveStateToLocalStorage() {
+      var state = {
+        schoolName: document.getElementById('schoolName').value,
+        evalDate: document.getElementById('evalDate').value,
+        classSelect: document.getElementById('classSelect').value,
+        teacherSelect: document.getElementById('teacherSelect').value,
+        boysCount: document.getElementById('boysCount').value,
+        girlsCount: document.getElementById('girlsCount').value,
+        evalGroupSelect: document.getElementById('evalGroupSelect').value,
+        currentStudentIndex: currentStudentIndex,
+        isCurrentSaved: isCurrentSaved,
+        studentsList: studentsList,
+        isFormSubmitted: isFormSubmitted
+      };
+      localStorage.setItem('mishannipun_beed_data', JSON.stringify(state));
+    }
+
+    function loadStateFromLocalStorage() {
+      var saved = localStorage.getItem('mishannipun_beed_data');
+      if (!saved) return;
+
+      try {
+        var state = JSON.parse(saved);
+        if (state.schoolName) {
+          document.getElementById('schoolName').value = state.schoolName;
+          updateTeacherList(state.schoolName, state.teacherSelect);
+        }
+        if (state.evalDate) {
+          document.getElementById('evalDate').value = state.evalDate;
+          document.getElementById('p_evalDate').innerText = formatToIndianDate(state.evalDate);
+        }
+        if (state.classSelect) {
+          document.getElementById('classSelect').value = state.classSelect;
+          handleClassChange(state.classSelect);
+        }
+        if (state.boysCount !== undefined) document.getElementById('boysCount').value = state.boysCount;
+        if (state.girlsCount !== undefined) document.getElementById('girlsCount').value = state.girlsCount;
+        
+        calculateTotalEnrollment();
+
+        if (state.evalGroupSelect) {
+          document.getElementById('evalGroupSelect').value = state.evalGroupSelect;
+          changeEvalGroup(state.evalGroupSelect);
+        }
+
+        if (state.studentsList && Array.isArray(state.studentsList)) {
+          studentsList = state.studentsList;
+          currentStudentIndex = state.currentStudentIndex || (studentsList.length + 1);
+          isCurrentSaved = state.isCurrentSaved !== undefined ? state.isCurrentSaved : false;
+
+          document.getElementById('studentNoVal').innerText = currentStudentIndex;
+
+          if (studentsList.length > 0) {
+            document.getElementById('savedDataCard').style.display = 'block';
+            document.getElementById('summaryCard').style.display = 'block';
+            renderStudentTable();
+            calculateSummary();
+          }
+          checkEnrollmentLimit();
+        }
+
+        if (state.isFormSubmitted) {
+          isFormSubmitted = true;
+          toggleStudentInputFields(true);
+          document.getElementById('submitAllBtn').disabled = true;
+        }
+      } catch(e) {
+        console.error("डेटा लोड करताना एरर आला:", e);
+      }
+    }
+
+    function resetAllFormData() {
+      if (confirm("⚠️ आपण भरलेला सर्व डेटा खरोखर डिलीट करून नवीन नोंदणी सुरू करायची आहे का?")) {
+        localStorage.removeItem('mishannipun_beed_data');
+        window.location.reload();
+      }
+    }
+
     function submitAllData() {
       if (studentsList.length === 0) {
         alert("सबमिट करण्यासाठी कोणताही विद्यार्थी डेटा नाही.");
         return;
       }
+      isFormSubmitted = true;
       toggleStudentInputFields(true);
       document.getElementById('submitAllBtn').disabled = true;
+      saveStateToLocalStorage();
 
-      alert("🎉 माहिती यशस्वीरित्या सादर झाली आहे. धन्यवाद! फॉर्म आता लॉक झाला आहे.");
+      alert("🎉 माहिती यशस्वीरित्या ब्राउझरमध्ये सेव्ह झाली आहे आणि फॉर्म लॉक करण्यात आला आहे.");
     }
 
-    /* विद्यार्थी जतन करताना पटसंख्येची पडताळणी */
+    /* विद्यार्थी जतन करताना */
     document.getElementById('saveStudentBtn').addEventListener('click', function() {
       var boysVal = document.getElementById('boysCount').value.trim();
       var girlsVal = document.getElementById('girlsCount').value.trim();
@@ -870,11 +954,12 @@
       renderStudentTable();
       calculateSummary();
       checkEnrollmentLimit();
+      saveStateToLocalStorage();
 
-      alert("विद्यार्थी " + currentStudentIndex + " चा डेटा जतन झाला आहे!");
+      alert("विद्यार्थी " + currentStudentIndex + " चा डेटा सुरक्षित सेव्ह झाला आहे!");
     });
 
-    /* पुढील विद्यार्थी जोडण्यावर नियंत्रण */
+   /* पुढील विद्यार्थी जोडणे */
     document.getElementById('addNewStudentBtn').addEventListener('click', function() {
       if (!isCurrentSaved) {
         alert("कृपया आधी सध्याच्या विद्यार्थ्याचा डेटा 'जतन' करा!");
@@ -882,12 +967,12 @@
       }
 
       if (studentsList.length >= maxStudentsAllowed && maxStudentsAllowed > 0) {
-        alert("⛔ क्षमस्व! वर्गातील एकूण पटसंख्या (" + maxStudentsAllowed + ") पूर्ण झालेली आहे. तुम्ही यापेक्षा जास्त विद्यार्थी जोडू शकत नाही.");
+        alert("⛔ क्षमस्व! वर्गातील एकूण पटसंख्या (" + maxStudentsAllowed + ") पूर्ण झालेली आहे.");
         checkEnrollmentLimit();
         return;
       }
       
-      currentStudentIndex++;
+      currentStudentIndex = studentsList.length + 1;
       document.getElementById('studentNoVal').innerText = currentStudentIndex;
       document.getElementById('studentName').value = '';
       document.getElementById('attendanceStatus').value = 'Present';
@@ -899,6 +984,7 @@
       document.getElementById('mathOpCompetency').value = '';
       
       isCurrentSaved = false;
+      saveStateToLocalStorage();
     });
 
     function renderCompetencyCell(val) {
@@ -956,26 +1042,14 @@
       });
     }
 
-    document.getElementById('teacherSelect').addEventListener('change', function() {
-      document.getElementById('p_teacherName').innerText = this.value;
-    });
-
-    /* वर्गाचे अचूक प्रत्यय (ली, री, थी, वी) */
-    document.getElementById('classSelect').addEventListener('change', function() {
-      var classVal = this.value;
+    function handleClassChange(classVal) {
       var classNameText = "-";
 
-      if (classVal === "1") {
-        classNameText = "इयत्ता 1 ली";
-      } else if (classVal === "2") {
-        classNameText = "इयत्ता 2 री";
-      } else if (classVal === "3") {
-        classNameText = "इयत्ता 3 री";
-      } else if (classVal === "4") {
-        classNameText = "इयत्ता 4 थी";
-      } else if (classVal === "5") {
-        classNameText = "इयत्ता 5 वी";
-      }
+      if (classVal === "1") classNameText = "इयत्ता 1 ली";
+      else if (classVal === "2") classNameText = "इयत्ता 2 री";
+      else if (classVal === "3") classNameText = "इयत्ता 3 री";
+      else if (classVal === "4") classNameText = "इयत्ता 4 थी";
+      else if (classVal === "5") classNameText = "इयत्ता 5 वी";
 
       document.getElementById('p_className').innerText = classNameText;
 
@@ -986,9 +1060,8 @@
         document.getElementById('evalGroupSelect').value = "class3to5";
         changeEvalGroup("class3to5");
       }
-    });
+    }
 
-    /* दिनांक DD-MM-YYYY स्वरूपात बदलणे */
     function formatToIndianDate(isoDate) {
       if (!isoDate) return "-";
       var parts = isoDate.split('-');
@@ -1008,7 +1081,10 @@
       document.getElementById('p_evalDate').innerText = formatToIndianDate(today);
       changeEvalGroup('class2');
       calculateTotalEnrollment();
+      
+      /* आधी सेव्ह केलेला डेटा आपोआप आणणे */
+      loadStateFromLocalStorage();
     };
   </script>
 </body>
-</html>
+</html> 
