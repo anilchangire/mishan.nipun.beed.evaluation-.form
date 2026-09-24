@@ -8,57 +8,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', 'Arial', 'Noto Sans Marathi', sans-serif; }
     body { background-color: #f4f6fa; padding: 15px; color: #1e293b; font-size: 16px; }
     
-    /* स्क्रीनवरील व प्रिंटमधील नवीन हेडर रचना */
-    .pdf-header-title {
-      text-align: center;
-      margin-bottom: 12px;
-    }
-    .pdf-header-title h2 {
-      font-size: 28px;
-      color: #0d62ba;
-      font-weight: 800;
-      margin: 0;
-      letter-spacing: 0.5px;
-    }
-    .pdf-header-title h4 {
-      font-size: 21px;
-      color: #0d62ba;
-      margin-top: 5px;
-      font-weight: 700;
-    }
-
-    /* छायाचित्राप्रमाणे माहिती बॉक्स */
-    .pdf-header-box {
-      background-color: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 16px 24px;
-      margin-bottom: 18px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
-    .pdf-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      row-gap: 12px;
-      column-gap: 30px;
-      font-size: 16px;
-      color: #1e293b;
-    }
-    .pdf-item {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-      line-height: 1.4;
-    }
-    .pdf-label {
-      font-weight: bold;
-      color: #000000;
-      white-space: nowrap;
-    }
-    .pdf-value {
-      font-weight: normal;
-      color: #1e293b;
-    }
+    .header-container { background: linear-gradient(135deg, #0d62ba, #084382); color: #ffffff; padding: 18px 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+    .main-title { font-size: 25px; font-weight: bold; }
+    .sub-title { font-size: 16px; opacity: 0.95; margin-top: 4px; }
 
     .card { background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1; padding: 18px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
     .card-title { color: #0d62ba; font-size: 20px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
@@ -206,6 +158,37 @@
       table-layout: auto;
     }
 
+    /* PDF / प्रिंट मुख्य हेडर बॉक्स */
+    .pdf-header-box {
+      border: 2px solid #0d62ba;
+      border-radius: 8px;
+      padding: 16px 22px;
+      margin-bottom: 15px;
+      background-color: #f8fafc;
+      display: none;
+    }
+    .pdf-header-title { text-align: center; margin-bottom: 14px; }
+    .pdf-header-title h2 { font-size: 24px; color: #0d62ba; font-weight: normal; }
+    .pdf-header-title h4 { font-size: 17px; color: #334155; margin-top: 4px; font-weight: normal; }
+    
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 12px 30px;
+      font-size: 16px;
+      color: #0f172a;
+    }
+    .pdf-item {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      line-height: 1.4;
+      font-weight: normal !important;
+    }
+    .pdf-item span {
+      font-weight: normal !important;
+    }
+
     /* स्वाक्षरी विभाग */
     .signature-section { 
       display: none; 
@@ -226,77 +209,69 @@
       .form-row { flex-direction: column; gap: 10px; }
       .btn-group { flex-direction: column; }
       .action-btn-row { flex-direction: column; }
-      .pdf-grid { grid-template-columns: 1fr; gap: 8px; }
     }
 
-    /* प्रिंट व PDF सेटिंग्ज */
+    /* ---------------- कंपलसरी लँडस्केप व कॉम्पॅक्ट प्रिंट सेटिंग्ज ---------------- */
     @media print {
       @page { 
-        size: A4 landscape !important; 
-        margin: 6mm 8mm !important; 
+        size: landscape !important; 
+        margin: 4mm 6mm !important; 
       }
       
       html, body {
         width: 100% !important;
+        max-width: 297mm !important;
         background-color: white !important;
         padding: 0 !important;
         margin: 0 !important;
-        font-size: 8.5pt !important;
+        font-size: 8pt !important;
         color: #000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
       .no-print, .btn-group, .action-btn-row, .warning-banner, .success-banner, .btn-edit-student { 
         display: none !important; 
       }
       
-      .pdf-header-title h2 { 
-        font-size: 16pt !important; 
-        color: #0d62ba !important; 
-        font-weight: bold !important; 
-        margin: 0 !important; 
-      }
-      .pdf-header-title h4 { 
-        font-size: 13pt !important; 
-        color: #0d62ba !important; 
-        font-weight: bold !important; 
-        margin-top: 2px !important; 
-      }
-
       .pdf-header-box {
         display: block !important;
-        border: 1px solid #94a3b8 !important;
-        border-radius: 6px !important;
-        margin-bottom: 6px !important;
-        padding: 8px 14px !important;
+        border: 1.5px solid #000 !important;
+        margin-bottom: 4px !important;
+        padding: 4px 8px !important;
         background-color: #ffffff !important;
       }
-      .pdf-grid { 
-        font-size: 9.5pt !important; 
-        row-gap: 4px !important; 
-        column-gap: 20px !important; 
-      }
-      .pdf-label { font-weight: bold !important; color: #000 !important; }
-      .pdf-value { font-weight: normal !important; color: #000 !important; }
+      .pdf-header-title h2 { font-size: 13pt !important; margin: 0 !important; color: #000 !important; font-weight: bold !important; line-height: 1.2 !important; }
+      .pdf-header-title h4 { font-size: 9.5pt !important; margin: 1px 0 0 0 !important; color: #000 !important; font-weight: normal !important; }
+      .pdf-grid { font-size: 8.5pt !important; gap: 2px 15px !important; margin-top: 2px !important; }
+      .pdf-item { font-weight: normal !important; line-height: 1.15 !important; }
+      .pdf-item span { font-weight: normal !important; }
 
       .card { 
         border: none !important; 
         box-shadow: none !important; 
         padding: 0 !important; 
-        margin-bottom: 4px !important; 
+        margin-bottom: 3px !important; 
         page-break-inside: auto !important;
         break-inside: auto !important;
       }
       .card-title { 
         color: #000 !important; 
         border-bottom: 1px solid #000 !important; 
-        font-size: 9.5pt !important; 
+        font-size: 9pt !important; 
         font-weight: bold !important; 
-        margin-bottom: 3px !important; 
-        padding-bottom: 2px !important; 
+        margin-bottom: 2px !important; 
+        padding-bottom: 1px !important; 
       }
 
+      /* गोषवारा कार्ड एकत्र ठेवणे */
       #summaryCard {
         margin-top: 4px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      tr {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
       }
@@ -304,93 +279,77 @@
       table { 
         width: 100% !important; 
         border-collapse: collapse !important; 
-        font-size: 8pt !important; 
+        font-size: 7.5pt !important; 
         table-layout: fixed !important; 
       }
 
       th, td { 
         border: 1px solid #000 !important; 
         color: #000 !important; 
-        padding: 2.5px 3.5px !important; 
+        padding: 2px 3px !important; 
         font-weight: normal !important; 
         line-height: 1.15 !important;
       }
-      th { font-weight: bold !important; font-size: 8.5pt !important; background-color: #f1f5f9 !important; -webkit-print-color-adjust: exact; }
+      th { font-weight: bold !important; font-size: 8pt !important; background-color: #f1f5f9 !important; }
       
-      .competency-full-cell { font-size: 7.5pt !important; padding: 2px !important; line-height: 1.15 !important; }
-      .student-name-cell { font-size: 8pt !important; padding: 2px !important; }
+      .header-container { display: none !important; }
+      
+      .competency-full-cell { font-size: 7pt !important; padding: 1.5px !important; line-height: 1.15 !important; }
+      .student-name-cell { font-size: 7.5pt !important; padding: 1.5px !important; }
       
       .nipun-congrats-card {
         border: 1.5px dashed #000 !important;
         background-color: #ffffff !important;
         color: #000 !important;
-        padding: 4px 6px !important;
-        margin-top: 4px !important;
+        padding: 3px 6px !important;
+        margin-top: 3px !important;
       }
-      .nipun-congrats-title { color: #000 !important; font-size: 11pt !important; }
-      .nipun-congrats-sub { color: #000 !important; font-size: 8pt !important; }
+      .nipun-congrats-title { color: #000 !important; font-size: 10pt !important; }
+      .nipun-congrats-sub { color: #000 !important; font-size: 7.5pt !important; }
 
       .summary-table {
-        max-width: 500px !important;
-        margin: 3px auto !important;
+        max-width: 480px !important;
+        margin: 2px auto !important;
         table-layout: auto !important;
       }
 
-      /* स्वाक्षरी विभाग */
       .signature-section { 
         display: flex !important; 
-        margin-top: 30px !important; 
+        margin-top: 25px !important; 
         padding: 0 40px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
       }
       .sig-box { 
         font-weight: normal !important; 
-        font-size: 9.5pt !important; 
+        font-size: 8.5pt !important; 
         width: 38% !important;
         border-top: 1px dashed #000 !important;
-        padding-top: 4px !important;
+        padding-top: 3px !important;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- छायाचित्राप्रमाणे मुख्य हेडर -->
-  <div class="pdf-header-title">
-    <h2>मिशन निपुण बीड</h2>
-    <h4>विद्यार्थी मूल्यमापन तक्ता</h4>
+  <div class="header-container no-print">
+    <div class="main-title">मिशन निपुण बीड</div>
+    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
   </div>
 
-  <!-- छायाचित्राप्रमाणे माहिती बॉक्स -->
+  <!-- PDF / प्रिंट मुख्य हेडर बॉक्स -->
   <div class="pdf-header-box" id="pdfHeaderBox">
+    <div class="pdf-header-title">
+      <h2>मिशन निपुण बीड</h2>
+      <h4>विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</h4>
+    </div>
     <div class="pdf-grid">
-      <div class="pdf-item">
-        <span class="pdf-label">शाळा:</span>
-        <span class="pdf-value" id="p_schoolName">-</span>
-      </div>
-      <div class="pdf-item">
-        <span class="pdf-label">वर्गशिक्षक:</span>
-        <span class="pdf-value" id="p_teacherName">-</span>
-      </div>
-
-      <div class="pdf-item">
-        <span class="pdf-label">दिनांक:</span>
-        <span class="pdf-value" id="p_evalDate">-</span>
-      </div>
-      <div class="pdf-item">
-        <span class="pdf-label">केंद्र:</span>
-        <span class="pdf-value">कन्या नागापूर</span>
-      </div>
-
-      <div class="pdf-item">
-        <span class="pdf-label">गट:</span>
-        <span class="pdf-value" id="p_className">इयत्ता २ री</span>
-      </div>
-      <div class="pdf-item">
-        <span class="pdf-label">तालुका / जिल्हा:</span>
-        <span class="pdf-value">परळी वै. / बीड</span>
-      </div>
+      <div class="pdf-item">शाळा: <span id="p_schoolName">-</span></div>
+      <div class="pdf-item">केंद्र: <span>कन्या नागापूर ता.परळी वै. जि. बीड</span></div>
+      <div class="pdf-item">वर्ग: <span id="p_className">-</span></div>
+      <div class="pdf-item">वर्ग / विषय शिक्षक: <span id="p_teacherName">-</span></div>
+      <div class="pdf-item">वर्गातील पटसंख्या: <span id="p_totalEnrollment">0</span></div>
+      <div class="pdf-item">दिनांक: <span id="p_evalDate">-</span></div>
     </div>
   </div>
 
@@ -413,7 +372,7 @@
             <option value="SCH08">जि.प.प्रा.शाळा दौनापुर तांडा</option>
             <option value="SCH09">जि.प.प्रा.शाळा दौनापूर</option>
             <option value="SCH10">जि.प.प्रा.शाळा लिंबूटा तांडा</option>
-            <option value="SCH11">जिल्हा परिषद प्राथमिक शाळा बहादुरवाडी</option>
+            <option value="SCH11">जि.प.प्रा.शाळा बहादूरवाडी</option>
             <option value="SCH12">संत तुकाराम प्राथमिक विद्यालय नागापूर</option>
             <option value="SCH13">रमाबाई प्राथमिक शाळा नागापूर</option>
             <option value="SCH14">बालाघाट विद्यालय दौनापूर</option>
@@ -655,7 +614,7 @@
       "SCH08": ["श्रीमती एस.के.लाड"],
       "SCH09": ["श्री.आर.टी.मंत्रे", "श्री एम.डी.कळसकर", "श्री सी.टी.मुंडे", "श्री डी.एम.गाडेकर", "श्री.पी.के.रेवलकर", "श्री एम.ए.आंधळे", "श्रीमती आर.डी.आलझेंडे", "श्रीमती आर.एन.जाधव"],
       "SCH10": ["श्री.एम.बी.बडगिरे", "श्री.पी.व्ही.काळेवाड"],
-      "SCH11": ["श्रीमती चिद्दरवार अश्विनी दिनकरराव", "श्रीमती एम.एस.माले"],
+      "SCH11": ["श्रीमती चिद्दरवार ए.डी", "श्रीमती एम.एस.माले"],
       "SCH12": ["श्री. ए.यु.पांचाळ", "डी.एम.गडदे"],
       "SCH13": ["श्री वाय पी तोंडारे", "श्रीमती एस एस बनसोडे", "श्री के टी भुसे", "श्री एन.जी. कानडे", "श्रीमती एस.एस.बचुटे", "श्री एस.जी.बनसोडे", "टी.ए.कांबळे"],
       "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
@@ -675,14 +634,9 @@
         });
         if (selectedTeacher) {
           teacherSelect.value = selectedTeacher;
-          document.getElementById('p_teacherName').innerText = selectedTeacher;
-        } else if (teachers.length > 0) {
-          teacherSelect.value = teachers[0];
-          document.getElementById('p_teacherName').innerText = teachers[0];
         }
       } else {
         teacherSelect.innerHTML = '<option value="">-- आधी शाळा निवडा --</option>';
-        document.getElementById('p_teacherName').innerText = "-";
       }
 
       var schSelectElement = document.getElementById('schoolName');
@@ -860,6 +814,7 @@
       maxStudentsAllowed = boys + girls;
       
       document.getElementById('totalEnrollment').value = maxStudentsAllowed;
+      document.getElementById('p_totalEnrollment').innerText = maxStudentsAllowed;
 
       var entryCard = document.getElementById('studentEntryCard');
       var warningBanner = document.getElementById('enrollmentWarning');
@@ -994,7 +949,7 @@
       }
     }
 
-    /* PDF प्रिंट करताना शिक्षकांना सूचना देणे */
+    /* PDF प्रिंट करताना थेट प्रिंट डायलॉग उघडणे (अलर्ट सूचना काढून टाकली आहे) */
     function handlePdfPrint() {
       if (studentsList.length === 0) {
         alert("⚠️ प्रिंट काढण्यासाठी आधी किमान एका विद्यार्थ्याचा डेटा नोंदवा.");
@@ -1002,9 +957,6 @@
       }
       isPdfDownloaded = true;
       saveStateToLocalStorage();
-
-      alert("महत्त्वाची टीप: \nसंपूर्ण तक्ता एकाच पानात सुबक येण्यासाठी पुढील स्क्रीनवर 'Landscape (आडवे पान)' आणि 'A4' पर्याय निवडा.");
-
       window.print();
     }
 
@@ -1118,7 +1070,7 @@
       alert("विद्यार्थी " + currentStudentIndex + " चा डेटा सुरक्षित सेव्ह झाला आहे!");
     });
 
-    /* पुढील विद्यार्थी जोडणे */
+   /* पुढील विद्यार्थी जोडणे */
     document.getElementById('addNewStudentBtn').addEventListener('click', function() {
       if (!isCurrentSaved) {
         alert("कृपया आधी सध्याच्या विद्यार्थ्याचा डेटा 'जतन' करा!");
@@ -1166,7 +1118,7 @@
       studentsList.forEach(function(s) {
         var row = '<tr>' +
           '<td>' + s.idx + '</td>' +
-          '<td class="student-name-cell">' + s.name + (s.attendance === 'Absent' ? '<br><span class="badge-absent" style="font-size:11px; margin-top:2px;">गैरहजर</span>' : '') + '</td>' +
+          '<td class="student-name-cell">' + s.name + (s.attendance === 'Absent' ? '<br><span class="badge-absent" style="font-size:10px; margin-top:1px;">गैरहजर</span>' : '') + '</td>' +
           '<td>' + renderCompetencyCell(s.reading) + '</td>' +
           '<td>' + renderCompetencyCell(s.writing) + '</td>' +
           '<td>' + renderCompetencyCell(s.mathNum) + '</td>' +
@@ -1231,11 +1183,11 @@
     function handleClassChange(classVal) {
       var classNameText = "-";
 
-      if (classVal === "1") classNameText = "इयत्ता १ ली";
-      else if (classVal === "2") classNameText = "इयत्ता २ री";
-      else if (classVal === "3") classNameText = "इयत्ता ३ री";
-      else if (classVal === "4") classNameText = "इयत्ता ४ थी";
-      else if (classVal === "5") classNameText = "इयत्ता ५ वी";
+      if (classVal === "1") classNameText = "इयत्ता 1 ली";
+      else if (classVal === "2") classNameText = "इयत्ता 2 री";
+      else if (classVal === "3") classNameText = "इयत्ता 3 री";
+      else if (classVal === "4") classNameText = "इयत्ता 4 थी";
+      else if (classVal === "5") classNameText = "इयत्ता 5 वी";
 
       document.getElementById('p_className').innerText = classNameText;
 
@@ -1252,7 +1204,7 @@
       if (!isoDate) return "-";
       var parts = isoDate.split('-');
       if (parts.length === 3) {
-        return parts[0] + "-" + parts[1] + "-" + parts[2];
+        return parts[2] + "-" + parts[1] + "-" + parts[0];
       }
       return isoDate;
     }
@@ -1268,7 +1220,7 @@
       changeEvalGroup('class2');
       calculateTotalEnrollment();
       
-      /* आधी सेव्ह केलेला डेटा आपोआप लोड करणे */
+      /* आधी सेव्ह केलेला डेटा आपोआप आणणे */
       loadStateFromLocalStorage();
     };
   </script>
