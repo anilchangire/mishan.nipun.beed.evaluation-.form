@@ -115,6 +115,43 @@
       font-size: 14.5px;
     }
 
+    .btn-edit-student {
+      background-color: #0284c7;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    /* अभिनंदन शेरा बॉक्स */
+    .nipun-congrats-card {
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border: 2px solid #16a34a;
+      color: #14532d;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin-top: 15px;
+      text-align: center;
+      display: none;
+      box-shadow: 0 2px 4px rgba(22, 163, 74, 0.15);
+    }
+    .nipun-congrats-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #15803d;
+      letter-spacing: 0.5px;
+    }
+    .nipun-congrats-sub {
+      font-size: 15px;
+      margin-top: 4px;
+      color: #166534;
+      font-weight: 600;
+    }
+
     .summary-table {
       max-width: 680px;
       margin: 10px auto;
@@ -164,7 +201,7 @@
     /* प्रिंट व PDF सेटिंग्ज */
     @media print {
       @page { size: A4 landscape; margin: 6mm 8mm; }
-      .no-print, .btn-group, .action-btn-row, .warning-banner, .success-banner { display: none !important; }
+      .no-print, .btn-group, .action-btn-row, .warning-banner, .success-banner, .btn-edit-student { display: none !important; }
       body { background-color: white !important; padding: 0 !important; font-size: 10pt; color: #000 !important; }
       
       .pdf-header-box {
@@ -221,6 +258,18 @@
       .competency-full-cell { font-size: 8.5pt !important; padding: 3px !important; line-height: 1.25 !important; }
       .student-name-cell { font-size: 9pt !important; padding: 3px !important; }
       
+      .nipun-congrats-card {
+        border: 2px dashed #000 !important;
+        background-color: #ffffff !important;
+        color: #000 !important;
+        padding: 10px !important;
+        margin-top: 10px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .nipun-congrats-title { color: #000 !important; font-size: 14pt !important; }
+      .nipun-congrats-sub { color: #000 !important; font-size: 10.5pt !important; }
+
       .summary-table {
         max-width: 550px !important;
         margin: 6px auto !important;
@@ -346,7 +395,7 @@
       </div>
 
       <div class="success-banner" id="enrollmentFullBanner">
-        ✅ वर्गाची एकूण पटसंख्या पूर्ण झाली आहे! आता नवीन विद्यार्थी जोडता येणार नाही. कृपया खाली दिलेला तक्ता तपासून 'PDF डाउनलोड / प्रिंट काढा'.
+        ✅ वर्गाची एकूण पटसंख्या पूर्ण झाली आहे! सर्व विद्यार्थ्यांची नोंदणी झाली असल्यास खालील तक्ता तपासून 'PDF डाउनलोड / प्रिंट काढा'.
       </div>
 
       <div id="studentInputArea">
@@ -427,16 +476,23 @@
         <table class="saved-data-table">
           <thead>
             <tr>
-              <th style="width: 4%;">अ.क्र.</th>
-              <th style="width: 16%;">विद्यार्थ्याचे नाव</th>
-              <th style="width: 20%;">वाचन क्षमता</th>
-              <th style="width: 20%;">लेखन क्षमता</th>
-              <th style="width: 20%;">संख्याज्ञान क्षमता</th>
-              <th style="width: 20%;">गणितीय क्रिया क्षमता</th>
+              <th style="width: 5%;">अ.क्र.</th>
+              <th style="width: 17%;">विद्यार्थ्याचे नाव</th>
+              <th style="width: 19%;">वाचन क्षमता</th>
+              <th style="width: 19%;">लेखन क्षमता</th>
+              <th style="width: 19%;">संख्याज्ञान क्षमता</th>
+              <th style="width: 19%;">गणितीय क्रिया क्षमता</th>
+              <th class="no-print" style="width: 8%;">बदल</th>
             </tr>
           </thead>
           <tbody id="studentTableBody"></tbody>
         </table>
+      </div>
+
+      <!-- अभिनंदन शेरा बॉक्स -->
+      <div class="nipun-congrats-card" id="nipunCongratsBox">
+        <div class="nipun-congrats-title">🎉 अभिनंदन! आपला संपूर्ण वर्ग निपुण आहे! 🎉</div>
+        <div class="nipun-congrats-sub">वर्गातील सर्व विद्यार्थ्यांनी वाचन, लेखन, संख्याज्ञान व गणितीय क्रियांमध्ये गट A (प्रगत) प्राप्त केला आहे.</div>
       </div>
     </div>
       
@@ -493,7 +549,7 @@
       </div>
 
       <div class="action-btn-row no-print">
-        <button type="button" class="btn-print" onclick="window.print()">🖨️ PDF डाउनलोड / प्रिंट काढा</button>
+        <button type="button" class="btn-print" onclick="handlePdfPrint()">🖨️ PDF डाउनलोड / प्रिंट काढा</button>
         <button type="button" class="btn-reset" onclick="resetAllFormData()">🔄 नवीन वर्ग नोंदणी (Reset)</button>
       </div>
     </div>
@@ -504,6 +560,7 @@
     var studentsList = [];
     var isCurrentSaved = false;
     var maxStudentsAllowed = 0;
+    var isPdfDownloaded = false; // अट १: PDF काढली आहे की नाही हे तपासण्यासाठी
 
     var schoolTeachersMap = {
       "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
@@ -793,7 +850,8 @@
         evalGroupSelect: document.getElementById('evalGroupSelect').value,
         currentStudentIndex: currentStudentIndex,
         isCurrentSaved: isCurrentSaved,
-        studentsList: studentsList
+        studentsList: studentsList,
+        isPdfDownloaded: isPdfDownloaded
       };
       localStorage.setItem('mishannipun_beed_data', JSON.stringify(state));
     }
@@ -826,6 +884,10 @@
           changeEvalGroup(state.evalGroupSelect);
         }
 
+        if (state.isPdfDownloaded !== undefined) {
+          isPdfDownloaded = state.isPdfDownloaded;
+        }
+
         if (state.studentsList && Array.isArray(state.studentsList)) {
           studentsList = state.studentsList;
           currentStudentIndex = state.currentStudentIndex || (studentsList.length + 1);
@@ -846,11 +908,62 @@
       }
     }
 
+    /* अट १: PDF काढल्याची नोंद ठेवून प्रिंट डायलॉग उघडणे */
+    function handlePdfPrint() {
+      if (studentsList.length === 0) {
+        alert("⚠️ प्रिंट काढण्यासाठी आधी किमान एका विद्यार्थ्याचा डेटा नोंदवा.");
+        return;
+      }
+      isPdfDownloaded = true;
+      saveStateToLocalStorage();
+      window.print();
+    }
+
+    /* अट १: PDF काढल्याशिवाय रिसेट करता येणार नाही */
     function resetAllFormData() {
-      if (confirm("⚠️ आपण भरलेला सर्व डेटा खरोखर डिलीट करून नवीन नोंदणी सुरू करायची आहे का?")) {
+      if (studentsList.length > 0 && !isPdfDownloaded) {
+        alert("⛔ इशारा: आपण भरलेल्या वर्गाची PDF अद्याप डाउनलोड केलेली नाही! \n\nकृपया आधी '🖨️ PDF डाउनलोड / प्रिंट काढा' बटणावर क्लिक करून PDF सेव्ह करा. त्यानंतरच नवीन वर्गाची नोंदणी करता येईल.");
+        return;
+      }
+
+      if (confirm("⚠️ आपण भरलेला सर्व डेटा खरोखर डिलीट करून नवीन वर्गाची नोंदणी सुरू करायची आहे का?")) {
         localStorage.removeItem('mishannipun_beed_data');
         window.location.reload();
       }
+    }
+
+    /* अट २: विद्यार्थ्याच्या माहितीत दुरुस्ती (Edit) करणे */
+    function editStudent(idx) {
+      var student = studentsList.find(s => s.idx === idx);
+      if (!student) return;
+
+      currentStudentIndex = student.idx;
+      document.getElementById('studentNoVal').innerText = currentStudentIndex;
+      document.getElementById('studentName').value = student.name;
+      document.getElementById('attendanceStatus').value = student.attendance;
+      toggleAttendance(student.attendance);
+
+      document.getElementById('studentClassSelect').value = student.classVal;
+
+      if (student.attendance === 'Absent') {
+        document.getElementById('readingCompetency').value = '';
+        document.getElementById('writingCompetency').value = '';
+        document.getElementById('mathNumberCompetency').value = '';
+        document.getElementById('mathOpCompetency').value = '';
+      } else {
+        document.getElementById('readingCompetency').value = student.reading || '';
+        document.getElementById('writingCompetency').value = student.writing || '';
+        document.getElementById('mathNumberCompetency').value = student.mathNum || '';
+        document.getElementById('mathOpCompetency').value = student.mathOp || '';
+      }
+
+      var inputArea = document.getElementById('studentInputArea');
+      inputArea.style.opacity = '1';
+      inputArea.style.pointerEvents = 'auto';
+
+      isCurrentSaved = false;
+      document.getElementById('studentEntryCard').scrollIntoView({ behavior: 'smooth' });
+      alert("विद्यार्थी क्र. " + idx + " (" + student.name + ") ची माहिती दुरुस्तीसाठी फॉर्ममध्ये लोड केली आहे. बदल करून 'विद्यार्थी जतन करा' वर क्लिक करा.");
     }
 
     /* विद्यार्थी जतन करताना */
@@ -969,9 +1082,36 @@
           '<td>' + renderCompetencyCell(s.writing) + '</td>' +
           '<td>' + renderCompetencyCell(s.mathNum) + '</td>' +
           '<td>' + renderCompetencyCell(s.mathOp) + '</td>' +
+          '<td class="no-print"><button type="button" class="btn-edit-student" onclick="editStudent(' + s.idx + ')">✏️ बदल</button></td>' +
           '</tr>';
         tbody.innerHTML += row;
       });
+    }
+
+    /* अट ३: निपुण वर्ग पडताळणी व अभिनंदन शेरा */
+    function checkClassNipunStatus() {
+      var congratsBox = document.getElementById('nipunCongratsBox');
+
+      // वर्गाची संपूर्ण पटसंख्या नोंदवून झाली असेल तरच तपासणे
+      if (maxStudentsAllowed > 0 && studentsList.length === maxStudentsAllowed) {
+        var presentStudents = studentsList.filter(s => s.attendance !== 'Absent');
+
+        if (presentStudents.length > 0) {
+          // सर्व उपस्थित विद्यार्थी चारही विषयात गट A मध्ये आहेत का?
+          var isAllNipun = presentStudents.every(function(s) {
+            return extractGroupBadge(s.reading) === 'A' &&
+                   extractGroupBadge(s.writing) === 'A' &&
+                   extractGroupBadge(s.mathNum) === 'A' &&
+                   extractGroupBadge(s.mathOp) === 'A';
+          });
+
+          if (isAllNipun) {
+            congratsBox.style.display = 'block';
+            return;
+          }
+        }
+      }
+      congratsBox.style.display = 'none';
     }
 
     function calculateSummary() {
@@ -997,6 +1137,8 @@
         document.getElementById(k + '_C').innerText = counts[k].C;
         document.getElementById(k + '_Total').innerText = counts[k].A + counts[k].B + counts[k].C;
       });
+
+      checkClassNipunStatus();
     }
 
     function handleClassChange(classVal) {
